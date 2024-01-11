@@ -1,6 +1,6 @@
 @echo off
 title Windows To Go Creation Tool
-echo Please run this batch file as an administrator.1
+echo Please run this batch file as an administrator.
 echo.
 echo Please download the Windows Disk Image then press any key to continue.
 echo Download Windows 10 22H2 disk Image from here. ^-^-^> https://www.microsoft.com/en-us/software-download/windows10a
