@@ -1,4 +1,4 @@
-@echo off
+@echo off1
 title Windows To Go Creation Tool
 echo Please run this batch file as an administrator.
 echo.
