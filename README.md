@@ -21,7 +21,7 @@ Embark on effortless Windows To Go creation with this efficient batch file solut
 
 **Additional Information:**  
 
-**Compatibility:** Windows 10 and 11 Home, Home N, Home Single Language, Education, Education N, Pro and Pro N editions (Windows 11 support available for MBR installations)
+**Compatibility:** Windows 10 Home, Home N, Home Single Language, Education, Education N, Pro and Pro N editions. Windows 11 Home, Home N, Home Single Language, Education, Education N, Pro and Pro N, Pro Education, Pro Education N, Pro for Workstations and Pro for WorkstationsN editions. (Windows 11 support available for MBR installations)
 **Drive Requirements:** External SSD or WTG-certified USB drive with USB 3.0 or higher (strongly recommended)
 
 **Pro Tip:**
