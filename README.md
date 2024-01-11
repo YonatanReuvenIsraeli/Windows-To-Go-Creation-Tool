@@ -1,2 +1,1 @@
-# Windows-to-Go-Creation-Tool
-1st party Windows to Go creation tool.
+This is a Windows to Go Creation Tool. It is a Batch file so there is no 3rd party tools. This is a Batch fild so everything is 1st party from Microsot. Pro Tip: You can make a Windows 11 installtion on MBR with this! Pro Tip: Make sure you have a external SSD ot a WTG certified USB drive useing at least USB 3.0 or this will be super slow! Regualer USB 3.0 USB Drive will be super slow!
