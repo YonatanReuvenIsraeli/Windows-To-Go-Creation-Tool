@@ -66,11 +66,11 @@ if /i "%install%"=="install.esd" goto :DISMESD1
 if /i "%install%"=="install.wim" goto :DISMWIM1
 
 :DISMESD1
-dism /Get-WimInfo /WimFile:"%DriveLetter%\sources\install.esd" || goto :Start
+DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\install.esd" || goto :Start
 goto :Index
 
 :DISMWIM1
-dism /Get-WimInfo /WimFile:"%DriveLetter%\sources\install.wim" || goto :Start
+DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\install.wim" || goto :Start
 goto :Index
 
 :Index
@@ -198,15 +198,15 @@ if /i "%install%"=="install.esd" goto :DISMESD2
 if /i "%install%"=="install.wim" goto :DISMWIM2
 
 :DISMESD2
-dism /Apply-Image /ImageFile:"%DriveLetter%\sources\install.esd" /Index:%Index% /ApplyDir:%WindowsDriveLetter% || goto :IndexESD
+DISM /Apply-Image /ImageFile:"%DriveLetter%\sources\install.esd" /Index:%Index% /ApplyDir:%WindowsDriveLetter% || goto :IndexESD
 goto :Done
 
 :DISMWIM2
-dism /Apply-Image /ImageFile:"%DriveLetter%\sources\install.wim" /Index:%Index% /ApplyDir:%WindowsDriveLetter% || goto :IndexWIM
+DISM/Apply-Image /ImageFile:"%DriveLetter%\sources\install.wim" /Index:%Index% /ApplyDir:%WindowsDriveLetter% || goto :IndexWIM
 goto :Done
 
 :Done
-bcdboot %WindowsDriveLetter%\Windows /s %FAT32% /f ALL
+BCDBOOT %WindowsDriveLetter%\Windows /s %FAT32% /f ALL
 echo.
 echo Your Windows To Go is ready. It is Bootable with Legacy BIOS and UEFI. Press any key to exit Windows To Go Creation Tool.
 endlocal
