@@ -7,7 +7,7 @@ This tool empowers you to create portable Windows To Go workspaces directly from
 **Key Advantages:**  
 
 **Native Performance:** Experience optimal performance by engaging Microsoft's first-party tools for a native experience.  
-**MBR Compatibility:** Unleash the flexibility to create Windows 11 installations on MBR partitions, expanding your deployment options.  
+**Legacy BIOS and UEFI Compatibility:** Unleash the flexibility to create Windows 10 and 11 installations on Legacy BIOS and UEFI BIOSes, expanding your deployment options.  
 **Enhanced Speed and User Experience:** Optimize performance by utilizing external SSDs or WTG-certified USB drives with USB 3.0 or higher. These drives offer significantly faster creation times (approximately 7 minutes) and accelerated boot speeds.  
 
 **Important Considerations:**
@@ -26,5 +26,5 @@ Embark on effortless Windows To Go creation with this efficient batch file solut
 
 **Pro Tip:**
 
-Explore the potential of crafting Windows 11 installations on MBR partitions for enhanced flexibility.
+Explore the potential of crafting Windows 11 installations on Legacy BIOS for enhanced flexibility.
 Engage with this powerful tool today and experience the freedom of portable Windows workspaces, crafted with the assurance of Microsoft's native capabilities.
