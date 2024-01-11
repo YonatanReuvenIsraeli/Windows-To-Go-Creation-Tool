@@ -59,7 +59,7 @@ goto :IndexESD
 
 :IndexESD
 echo.
-set /p Index="Which index do you want? (1-7) "
+set /p Index="Which index do you want? (1-11) "
 if /i "%Index%"=="1" goto :IndexNumberESD
 if /i "%Index%"=="2" goto :IndexNumberESD
 if /i "%Index%"=="3" goto :IndexNumberESD
@@ -219,7 +219,7 @@ goto :IndexWIM
 
 :IndexWIM
 echo.
-set /p Index="Which index do you want? (1-7) "
+set /p Index="Which index do you want? (1-11) "
 if /i "%Index%"=="1" goto :IndexNumberWIM
 if /i "%Index%"=="2" goto :IndexNumberWIM
 if /i "%Index%"=="3" goto :IndexNumberWIM
