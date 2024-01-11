@@ -22,7 +22,7 @@ Embark on effortless Windows To Go creation with this efficient batch file solut
 **Compatibility:**  
 
 **Windows 10:** Home, Home N, Home Single Language, Education, Education N, Pro and Pro N editions.  
-**Windows 11:** Home, Home N, Home Single Language, Education, Education N, Pro and Pro N, Pro Education, Pro Education N, Pro for Workstations and Pro for Workstations N editions.   
+**Windows 11:** Home, Home N, Home Single Language, Education, Education N, Pro, Pro N, Pro Education, Pro Education N, Pro for Workstations and Pro for Workstations N editions.   
 
 **Additional Information:**  
 
