@@ -19,13 +19,14 @@ This tool empowers you to create portable Windows To Go workspaces directly from
 
 Embark on effortless Windows To Go creation with this efficient batch file solution. Embrace the convenience and flexibility of carrying your workspace wherever you go, all while maintaining the exceptional performance and reliability that Microsoft's native tools deliver.  
 
+**Compatibility:**  
+
+**Windows 10:** Home, Home N, Home Single Language, Education, Education N, Pro and Pro N editions.  
+**Windows 11:** Home, Home N, Home Single Language, Education, Education N, Pro and Pro N, Pro Education, Pro Education N, Pro for Workstations and Pro for Workstations N editions.   
+
 **Additional Information:**  
 
-**Compatibility:** Windows 10 Home, Home N, Home Single Language, Education, Education N, Pro and Pro N editions. Windows 11 Home, Home N, Home Single Language, Education, Education N, Pro and Pro N, Pro Education, Pro Education N, Pro for Workstations and Pro for Workstations N editions. (Windows 11 support available for MBR installations)
-**Drive Requirements:** External SSD or WTG-certified USB drive with USB 3.0 or higher (strongly recommended).
-
-**Pro Tip:**
-
-Explore the potential of crafting Windows 11 installations for Legacy BIOS for enhanced flexibility.  
+**Drive Requirements:** External SSD or WTG-certified USB drive with USB 3.0 or higher (strongly recommended).  
+**Dual BIOS Mode** All our installations leverage a dual BIOS installation, ensuring seamless compatibility with both Legacy BIOS and UEFI systems.  
 
 **Engage with this powerful tool today and experience the freedom of portable Windows workspaces, crafted with the assurance of Microsoft's native capabilities.**
