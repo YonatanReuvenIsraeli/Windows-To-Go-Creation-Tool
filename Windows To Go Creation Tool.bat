@@ -24,34 +24,42 @@ goto :Start
 :DriveLetter
 echo.
 set /p DriveLetter="What is your drive letter of you mounted Windows Disk Image? (A:-Z:) "
-if /i "%DriveLetter%"=="A:" goto :ESDWIM1
-if /i "%DriveLetter%"=="B:" goto :ESDWIM1
-if /i "%DriveLetter%"=="C:" goto :ESDWIM1
-if /i "%DriveLetter%"=="D:" goto :ESDWIM1
-if /i "%DriveLetter%"=="E:" goto :ESDWIM1
-if /i "%DriveLetter%"=="F:" goto :ESDWIM1
-if /i "%DriveLetter%"=="G:" goto :ESDWIM1
-if /i "%DriveLetter%"=="H:" goto :ESDWIM1
-if /i "%DriveLetter%"=="I:" goto :ESDWIM1
-if /i "%DriveLetter%"=="J:" goto :ESDWIM1
-if /i "%DriveLetter%"=="K:" goto :ESDWIM1
-if /i "%DriveLetter%"=="L:" goto :ESDWIM1
-if /i "%DriveLetter%"=="M:" goto :ESDWIM1
-if /i "%DriveLetter%"=="N:" goto :ESDWIM1
-if /i "%DriveLetter%"=="O:" goto :ESDWIM1
-if /i "%DriveLetter%"=="P:" goto :ESDWIM1
-if /i "%DriveLetter%"=="Q:" goto :ESDWIM1
-if /i "%DriveLetter%"=="R:" goto :ESDWIM1
-if /i "%DriveLetter%"=="S:" goto :ESDWIM1
-if /i "%DriveLetter%"=="T:" goto :ESDWIM1
-if /i "%DriveLetter%"=="U:" goto :ESDWIM1
-if /i "%DriveLetter%"=="V:" goto :ESDWIM1
-if /i "%DriveLetter%"=="W:" goto :ESDWIM1
-if /i "%DriveLetter%"=="X:" goto :ESDWIM1
-if /i "%DriveLetter%"=="Y:" goto :ESDWIM1
-if /i "%DriveLetter%"=="Z:" goto :ESDWIM1
+if /i "%DriveLetter%"=="A:" goto :SureDriveLetter
+if /i "%DriveLetter%"=="B:" goto :SureDriveLetter
+if /i "%DriveLetter%"=="C:" goto :SureDriveLetter
+if /i "%DriveLetter%"=="D:" goto :SureDriveLetter
+if /i "%DriveLetter%"=="E:" goto :SureDriveLetter
+if /i "%DriveLetter%"=="F:" goto :SureDriveLetter
+if /i "%DriveLetter%"=="G:" goto :SureDriveLetter
+if /i "%DriveLetter%"=="H:" goto :SureDriveLetter
+if /i "%DriveLetter%"=="I:" goto :SureDriveLetter
+if /i "%DriveLetter%"=="J:" goto :SureDriveLetter
+if /i "%DriveLetter%"=="K:" goto :SureDriveLetter
+if /i "%DriveLetter%"=="L:" goto :SureDriveLetter
+if /i "%DriveLetter%"=="M:" goto :SureDriveLetter
+if /i "%DriveLetter%"=="N:" goto :SureDriveLetter
+if /i "%DriveLetter%"=="O:" goto :SureDriveLetter
+if /i "%DriveLetter%"=="P:" goto :SureDriveLetter
+if /i "%DriveLetter%"=="Q:" goto :SureDriveLetter
+if /i "%DriveLetter%"=="R:" goto :SureDriveLetter
+if /i "%DriveLetter%"=="S:" goto :SureDriveLetter
+if /i "%DriveLetter%"=="T:" goto :SureDriveLetter
+if /i "%DriveLetter%"=="U:" goto :SureDriveLetter
+if /i "%DriveLetter%"=="V:" goto :SureDriveLetter
+if /i "%DriveLetter%"=="W:" goto :SureDriveLetter
+if /i "%DriveLetter%"=="X:" goto :SureDriveLetter
+if /i "%DriveLetter%"=="Y:" goto :SureDriveLetter
+if /i "%DriveLetter%"=="Z:" goto :SureDriveLetter
 echo Invalid Syntax!
 goto :DriveLetter
+
+:SureDriveLetter
+echo.
+set /p SureNumber="Are you sure %DriveLetter% is the drive letter of your Windows Disk Image? (Yes/No) "
+if /i "%SureNumber%"=="Yes" goto :ESDWIM1
+if /i "%SureNumber%"=="No" goto :DriveLetter
+echo Invalid Syntax!
+goto :SureDriveLetter
 
 :ESDWIM1
 if /i "%install%"=="install.esd" goto :DISMESD1
@@ -183,7 +191,7 @@ set /p SureNumber="Are you sure %FAT32% is the drive letter you wan to install W
 if /i "%SureNumber%"=="Yes" goto :ESDWIM2
 if /i "%SureNumber%"=="No" goto :BCD
 echo Invalid Syntax!
-goto :SureBCD
+goto :SureBCDESD
 
 :ESDWIM2
 if /i "%install%"=="install.esd" goto :DISMESD2
