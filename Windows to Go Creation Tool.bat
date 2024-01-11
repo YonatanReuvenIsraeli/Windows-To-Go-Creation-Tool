@@ -181,7 +181,7 @@ set /p SureNumber="Are you sure %FAT32% is the drive letter you wan to install W
 if /i "%SureNumber%"=="Yes" goto :ESDWIM2
 if /i "%SureNumber%"=="No" goto :BCD
 echo Invalid Syntax!
-goto :SureBCDESD
+goto :SureBCD
 
 :ESDWIM2
 if /i "%install%"=="install.esd" goto :DISMESD2
