@@ -1,5 +1,5 @@
 @echo off
-title Windows to Go Creation Tool
+title Windows To Go Creation Tool
 echo Please run this batch file as an administrator.
 echo.
 echo Please download the Windows Disk Image then press any key to continue.
@@ -336,6 +336,6 @@ goto :Done
 
 :Done
 echo.
-echo Your Windows to Go is ready. It is Bootable with Legacy BIOS and UEFI. Press any key to exit Windows to Go Creation Tool.
+echo Your Windows To Go is ready. It is Bootable with Legacy BIOS and UEFI. Press any key to exit Windows to Go Creation Tool.
 endlocal
 pause
