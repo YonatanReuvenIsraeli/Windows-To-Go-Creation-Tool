@@ -26,5 +26,6 @@ Embark on effortless Windows To Go creation with this efficient batch file solut
 
 **Pro Tip:**
 
-Explore the potential of crafting Windows 11 installations on Legacy BIOS for enhanced flexibility.
-Engage with this powerful tool today and experience the freedom of portable Windows workspaces, crafted with the assurance of Microsoft's native capabilities.
+Explore the potential of crafting Windows 11 installations on Legacy BIOS for enhanced flexibility.  
+
+**Engage with this powerful tool today and experience the freedom of portable Windows workspaces, crafted with the assurance of Microsoft's native capabilities.**
