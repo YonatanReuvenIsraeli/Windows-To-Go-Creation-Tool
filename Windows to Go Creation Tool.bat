@@ -177,7 +177,6 @@ goto :SureBCDESD
 
 :DISMESD2
 dism /Apply-Image /ImageFile:%DriveLetter%\sources\install.esd /Index:%Index% /ApplyDir:%WindowsDriveLetter% || goto :IndexESD
-pause
 bcdboot %WindowsDriveLetter%\Windows /s %FAT32% /f ALL
 goto :Done
 
