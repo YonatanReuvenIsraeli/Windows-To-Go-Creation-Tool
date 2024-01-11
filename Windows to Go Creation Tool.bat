@@ -93,6 +93,8 @@ goto :SureIndex
 
 :Create
 echo.
+echo Please follow these steps in order.
+echo.
 echo Step 1. Please Use an external SSD or a WTG certified drive. You can use a regular USB drive but it will be very slow.
 echo Step 2. Remove all partions on the disk you want to install Windows on.
 echo Step 3. Convert the disk you want to install Windows on to MBR.
