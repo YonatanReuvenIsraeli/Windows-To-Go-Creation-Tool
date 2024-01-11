@@ -1,5 +1,5 @@
 @echo off
-title Windows To Go Creation Tool
+title Windows To Go Creation Tool1
 echo Please run this batch file as an administrator.
 echo.
 echo Please download the Windows Disk Image then press any key to continue.
