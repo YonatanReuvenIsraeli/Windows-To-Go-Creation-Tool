@@ -54,7 +54,7 @@ echo Invalid Syntax!
 goto :ESD
 
 :DISMESD1
-dism /Get-WimInfo /WimFile:%DriveLetter%\sources\install.esd || goto :ESD
+dism /Get-WimInfo /WimFile:%DriveLetter%\sources\install.esd || goto :Start
 goto :IndexESD
 
 :IndexESD
@@ -214,7 +214,7 @@ echo Invalid Syntax!
 goto :WIM
 
 :DISMWIM1
-dism /Get-WimInfo /WimFile:%DriveLetter%\sources\install.wim  || goto :WIM
+dism /Get-WimInfo /WimFile:%DriveLetter%\sources\install.wim  || goto :Start
 goto :IndexWIM 
 
 :IndexWIM
