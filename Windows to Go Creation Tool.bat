@@ -67,6 +67,10 @@ if /i "%Index%"=="4" goto :IndexNumberESD
 if /i "%Index%"=="5" goto :IndexNumberESD
 if /i "%Index%"=="6" goto :IndexNumberESD
 if /i "%Index%"=="7" goto :IndexNumberESD
+if /i "%Index%"=="8" goto :IndexNumberESD
+if /i "%Index%"=="9" goto :IndexNumberESD
+if /i "%Index%"=="10" goto :IndexNumberESD
+if /i "%Index%"=="11" goto :IndexNumberESD
 echo Invalid Syntax!
 goto :IndexESD
 
@@ -172,7 +176,7 @@ echo Invalid Syntax!
 goto :SureBCDESD
 
 :DISMESD2
-dism /Apply-Image /ImageFile:%DriveLetter%\sources\install.esd /Index:%Index% /ApplyDir:%WindowsDriveLetter% || goto :CreateESD
+dism /Apply-Image /ImageFile:%DriveLetter%\sources\install.esd /Index:%Index% /ApplyDir:%WindowsDriveLetter% || goto :IndexESD
 pause
 bcdboot %WindowsDriveLetter%\Windows /s %FAT32% /f ALL
 goto :Done
@@ -223,6 +227,10 @@ if /i "%Index%"=="4" goto :IndexNumberWIM
 if /i "%Index%"=="5" goto :IndexNumberWIM
 if /i "%Index%"=="6" goto :IndexNumberWIM
 if /i "%Index%"=="7" goto :IndexNumberWIM
+if /i "%Index%"=="8" goto :IndexNumberWIM
+if /i "%Index%"=="9" goto :IndexNumberWIM
+if /i "%Index%"=="10" goto :IndexNumberWIM
+if /i "%Index%"=="11" goto :IndexNumberWIM
 echo Invalid Syntax!
 goto :IndexWIM
 
@@ -330,7 +338,7 @@ echo Invalid Syntax!
 goto :SureBCDESD
 
 :DISMWIM2
-dism /Apply-Image /ImageFile:%DriveLetter%\sources\install.wim /Index:%Index% /ApplyDir:%WindowsDriveLetter% || goto :CreateWIM
+dism /Apply-Image /ImageFile:%DriveLetter%\sources\install.wim /Index:%Index% /ApplyDir:%WindowsDriveLetter% || goto :IndexWIM
 bcdboot %WindowsDriveLetter%\Windows /s %FAT32% /f ALL
 goto :Done
 
