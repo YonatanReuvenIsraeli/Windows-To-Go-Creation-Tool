@@ -16,236 +16,83 @@ pause
 :Start
 echo.
 set /p install="Do you have install.esd or install.wim? (install.esd/install.wim) "
-if /i "%install%"=="install.esd" goto :ESD
-if /i "%install%"=="install.wim" goto :WIM
+if /i "%install%"=="install.esd" goto :DriveLetter
+if /i "%install%"=="install.wim" goto :DriveLetter
 echo Invalid Syntax!
 goto :Start
 
-:ESD
+:DriveLetter
 echo.
 set /p DriveLetter="What is your drive letter of you mounted Windows Disk Image? (A:-Z:) "
-if /i "%DriveLetter%"=="A:" goto :DISMESD1
-if /i "%DriveLetter%"=="B:" goto :DISMESD1
-if /i "%DriveLetter%"=="C:" goto :DISMESD1
-if /i "%DriveLetter%"=="D:" goto :DISMESD1
-if /i "%DriveLetter%"=="E:" goto :DISMESD1
-if /i "%DriveLetter%"=="F:" goto :DISMESD1
-if /i "%DriveLetter%"=="G:" goto :DISMESD1
-if /i "%DriveLetter%"=="H:" goto :DISMESD1
-if /i "%DriveLetter%"=="I:" goto :DISMESD1
-if /i "%DriveLetter%"=="J:" goto :DISMESD1
-if /i "%DriveLetter%"=="K:" goto :DISMESD1
-if /i "%DriveLetter%"=="L:" goto :DISMESD1
-if /i "%DriveLetter%"=="M:" goto :DISMESD1
-if /i "%DriveLetter%"=="N:" goto :DISMESD1
-if /i "%DriveLetter%"=="O:" goto :DISMESD1
-if /i "%DriveLetter%"=="P:" goto :DISMESD1
-if /i "%DriveLetter%"=="Q:" goto :DISMESD1
-if /i "%DriveLetter%"=="R:" goto :DISMESD1
-if /i "%DriveLetter%"=="S:" goto :DISMESD1
-if /i "%DriveLetter%"=="T:" goto :DISMESD1
-if /i "%DriveLetter%"=="U:" goto :DISMESD1
-if /i "%DriveLetter%"=="V:" goto :DISMESD1
-if /i "%DriveLetter%"=="W:" goto :DISMESD1
-if /i "%DriveLetter%"=="X:" goto :DISMESD1
-if /i "%DriveLetter%"=="Y:" goto :DISMESD1
-if /i "%DriveLetter%"=="Z:" goto :DISMESD1
+if /i "%DriveLetter%"=="A:" goto :ESDWIM1
+if /i "%DriveLetter%"=="B:" goto :ESDWIM1
+if /i "%DriveLetter%"=="C:" goto :ESDWIM1
+if /i "%DriveLetter%"=="D:" goto :ESDWIM1
+if /i "%DriveLetter%"=="E:" goto :ESDWIM1
+if /i "%DriveLetter%"=="F:" goto :ESDWIM1
+if /i "%DriveLetter%"=="G:" goto :ESDWIM1
+if /i "%DriveLetter%"=="H:" goto :ESDWIM1
+if /i "%DriveLetter%"=="I:" goto :ESDWIM1
+if /i "%DriveLetter%"=="J:" goto :ESDWIM1
+if /i "%DriveLetter%"=="K:" goto :ESDWIM1
+if /i "%DriveLetter%"=="L:" goto :ESDWIM1
+if /i "%DriveLetter%"=="M:" goto :ESDWIM1
+if /i "%DriveLetter%"=="N:" goto :ESDWIM1
+if /i "%DriveLetter%"=="O:" goto :ESDWIM1
+if /i "%DriveLetter%"=="P:" goto :ESDWIM1
+if /i "%DriveLetter%"=="Q:" goto :ESDWIM1
+if /i "%DriveLetter%"=="R:" goto :ESDWIM1
+if /i "%DriveLetter%"=="S:" goto :ESDWIM1
+if /i "%DriveLetter%"=="T:" goto :ESDWIM1
+if /i "%DriveLetter%"=="U:" goto :ESDWIM1
+if /i "%DriveLetter%"=="V:" goto :ESDWIM1
+if /i "%DriveLetter%"=="W:" goto :ESDWIM1
+if /i "%DriveLetter%"=="X:" goto :ESDWIM1
+if /i "%DriveLetter%"=="Y:" goto :ESDWIM1
+if /i "%DriveLetter%"=="Z:" goto :ESDWIM1
 echo Invalid Syntax!
-goto :ESD
+goto :DriveLetter
+
+:ESDWIM1
+if /i "%install%"=="install.esd" goto :DISMESD1
+if /i "%install%"=="install.wim" goto :DISMWIM1
 
 :DISMESD1
-dism /Get-WimInfo /WimFile:%DriveLetter%\sources\install.esd || goto :Start
-goto :IndexESD
-
-:IndexESD
-echo.
-set /p Index="Which index do you want? (1-7/11) "
-if /i "%Index%"=="1" goto :IndexNumberESD
-if /i "%Index%"=="2" goto :IndexNumberESD
-if /i "%Index%"=="3" goto :IndexNumberESD
-if /i "%Index%"=="4" goto :IndexNumberESD
-if /i "%Index%"=="5" goto :IndexNumberESD
-if /i "%Index%"=="6" goto :IndexNumberESD
-if /i "%Index%"=="7" goto :IndexNumberESD
-if /i "%Index%"=="8" goto :IndexNumberESD
-if /i "%Index%"=="9" goto :IndexNumberESD
-if /i "%Index%"=="10" goto :IndexNumberESD
-if /i "%Index%"=="11" goto :IndexNumberESD
-echo Invalid Syntax!
-goto :IndexESD
-
-
-:IndexNumberESD
-echo.
-set /p IndexNumber="Are you sure you want Index %Index%? (Yes/No) "
-if /i "%IndexNumber%"=="Yes" goto :CreateESD
-if /i "%IndexNumber%"=="No" goto :IndexESD
-echo Invalid Syntax!
-goto :IndexNumberESD
-
-:CreateESD
-echo.
-echo Step 1. Please Use an external SSD or a WTG certified drive. You can use a regular USB drive but it will be very slow.
-echo Step 2. Remove all partions on the disk you want to install Windows on.
-echo Step 3. Convert the disk you want to install Windows on to MBR.
-echo Step 4. Create on disk you want to install Windows on one FAT32 partition that is 350MB, name it System-Reserved and assign it an unused drive letter.
-echo Step 5. Create on disk you want to install Windows on one NTFS partition that is >64GB, name it Windows and assign it an unused drive letter.
-echo Step 6. Make the FAT32 partition on the drive Windows is installed on active.
-echo Step 7. Press any key to continue.
-pause
-goto :WindowsDriveLetterESD
-
-:WindowsDriveLetterESD
-echo.
-set /p WindowsDriveLetter="What is your drive letter of the NTFS partition you want to install windows on? (A:-Z:) "
-if /i "%WindowsDriveLetter%"=="A:" goto :SureESD
-if /i "%WindowsDriveLetter%"=="B:" goto :SureESD
-if /i "%WindowsDriveLetter%"=="C:" goto :SureESD
-if /i "%WindowsDriveLetter%"=="D:" goto :SureESD
-if /i "%WindowsDriveLetter%"=="E:" goto :SureESD
-if /i "%WindowsDriveLetter%"=="F:" goto :SureESD
-if /i "%WindowsDriveLetter%"=="G:" goto :SureESD
-if /i "%WindowsDriveLetter%"=="H:" goto :SureESD
-if /i "%WindowsDriveLetter%"=="I:" goto :SureESD
-if /i "%WindowsDriveLetter%"=="J:" goto :SureESD
-if /i "%WindowsDriveLetter%"=="K:" goto :SureESD
-if /i "%WindowsDriveLetter%"=="L:" goto :SureESD
-if /i "%WindowsDriveLetter%"=="M:" goto :SureESD
-if /i "%WindowsDriveLetter%"=="N:" goto :SureESD
-if /i "%WindowsDriveLetter%"=="O:" goto :SureESD
-if /i "%WindowsDriveLetter%"=="P:" goto :SureESD
-if /i "%WindowsDriveLetter%"=="Q:" goto :SureESD
-if /i "%WindowsDriveLetter%"=="R:" goto :SureESD
-if /i "%WindowsDriveLetter%"=="S:" goto :SureESD
-if /i "%WindowsDriveLetter%"=="T:" goto :SureESD
-if /i "%WindowsDriveLetter%"=="U:" goto :SureESD
-if /i "%WindowsDriveLetter%"=="V:" goto :SureESD
-if /i "%WindowsDriveLetter%"=="W:" goto :SureESD
-if /i "%WindowsDriveLetter%"=="X:" goto :SureESD
-if /i "%WindowsDriveLetter%"=="Y:" goto :SureESD
-if /i "%WindowsDriveLetter%"=="Z:" goto :SureESD
-echo Invalid Syntax!
-goto :WindowsDriveLetterESD
-
-:SureESD
-echo.
-set /p SureNumber="Are you sure %WindowsDriveLetter% is the drive letter you want to install Windows on? (Yes/No) "
-if /i "%SureNumber%"=="Yes" goto :BCDESD
-if /i "%SureNumber%"=="No" goto :WindowsDriveLetterESD
-echo Invalid Syntax!
-goto :SureESD
-
-:BCDESD
-echo.
-set /p FAT32="What is your drive letter of the FAT32 partition on the drive you want to install windows on? (A:-Z:) "
-if /i "%FAT32%"=="A:" goto :SureBCDESD
-if /i "%FAT32%"=="B:" goto :SureBCDESD
-if /i "%FAT32%"=="C:" goto :SureBCDESD
-if /i "%FAT32%"=="D:" goto :SureBCDESD
-if /i "%FAT32%"=="E:" goto :SureBCDESD
-if /i "%FAT32%"=="F:" goto :SureBCDESD
-if /i "%FAT32%"=="G:" goto :SureBCDESD
-if /i "%FAT32%"=="H:" goto :SureBCDESD
-if /i "%FAT32%"=="I:" goto :SureBCDESD
-if /i "%FAT32%"=="J:" goto :SureBCDESD
-if /i "%FAT32%"=="K:" goto :SureBCDESD
-if /i "%FAT32%"=="L:" goto :SureBCDESD
-if /i "%FAT32%"=="M:" goto :SureBCDESD
-if /i "%FAT32%"=="N:" goto :SureBCDESD
-if /i "%FAT32%"=="O:" goto :SureBCDESD
-if /i "%FAT32%"=="P:" goto :SureBCDESD
-if /i "%FAT32%"=="Q:" goto :SureBCDESD
-if /i "%FAT32%"=="R:" goto :SureBCDESD
-if /i "%FAT32%"=="S:" goto :SureBCDESD
-if /i "%FAT32%"=="T:" goto :SureBCDESD
-if /i "%FAT32%"=="U:" goto :SureBCDESD
-if /i "%FAT32%"=="V:" goto :SureBCDESD
-if /i "%FAT32%"=="W:" goto :SureBCDESD
-if /i "%FAT32%"=="X:" goto :SureBCDESD
-if /i "%FAT32%"=="Y:" goto :SureBCDESD
-if /i "%FAT32%"=="Z:" goto :SureBCDESD
-echo Invalid Syntax!
-goto :BCDESD
-
-:SureBCDESD
-echo.
-set /p SureNumber="Are you sure %FAT32% is the drive letter you wan to install Windows on? (Yes/No) "
-if /i "%SureNumber%"=="Yes" goto :DISMESD2
-if /i "%SureNumber%"=="No" goto :SureBCDESD
-echo Invalid Syntax!
-goto :SureBCDESD
-
-:DISMESD2
-dism /Apply-Image /ImageFile:%DriveLetter%\sources\install.esd /Index:%Index% /ApplyDir:%WindowsDriveLetter% || goto :IndexESD
-bcdboot %WindowsDriveLetter%\Windows /s %FAT32% /f ALL
-goto :Done
-
-:WIM
-echo.
-set /p DriveLetter="What is your drive letter of you mounted Windows Disk Image? (A:-Z:) "
-if /i "%DriveLetter%"=="A:" goto :DISMWIM1
-if /i "%DriveLetter%"=="B:" goto :DISMWIM1
-if /i "%DriveLetter%"=="C:" goto :DISMWIM1
-if /i "%DriveLetter%"=="D:" goto :DISMWIM1
-if /i "%DriveLetter%"=="E:" goto :DISMWIM1
-if /i "%DriveLetter%"=="F:" goto :DISMWIM1
-if /i "%DriveLetter%"=="G:" goto :DISMWIM1
-if /i "%DriveLetter%"=="H:" goto :DISMWIM1
-if /i "%DriveLetter%"=="I:" goto :DISMWIM1
-if /i "%DriveLetter%"=="J:" goto :DISMWIM1
-if /i "%DriveLetter%"=="K:" goto :DISMWIM1
-if /i "%DriveLetter%"=="L:" goto :DISMWIM1
-if /i "%DriveLetter%"=="M:" goto :DISMWIM1
-if /i "%DriveLetter%"=="N:" goto :DISMWIM1
-if /i "%DriveLetter%"=="O:" goto :DISMWIM1
-if /i "%DriveLetter%"=="P:" goto :DISMWIM1
-if /i "%DriveLetter%"=="Q:" goto :DISMWIM1
-if /i "%DriveLetter%"=="R:" goto :DISMWIM1
-if /i "%DriveLetter%"=="S:" goto :DISMWIM1
-if /i "%DriveLetter%"=="T:" goto :DISMWIM1
-if /i "%DriveLetter%"=="U:" goto :DISMWIM1
-if /i "%DriveLetter%"=="V:" goto :DISMWIM1
-if /i "%DriveLetter%"=="W:" goto :DISMWIM1
-if /i "%DriveLetter%"=="X:" goto :DISMWIM1
-if /i "%DriveLetter%"=="Y:" goto :DISMWIM1
-if /i "%DriveLetter%"=="Z:" goto :DISMWIM1
-echo Invalid Syntax!
-goto :WIM
+dism /Get-WimInfo /WimFile:"%DriveLetter%\sources\install.esd" || goto :Start
+goto :Index
 
 :DISMWIM1
-dism /Get-WimInfo /WimFile:%DriveLetter%\sources\install.wim  || goto :Start
-goto :IndexWIM 
+dism /Get-WimInfo /WimFile:"%DriveLetter%\sources\install.wim" || goto :Start
+goto :Index
 
-:IndexWIM
+:Index
 echo.
 set /p Index="Which index do you want? (1-7/11) "
-if /i "%Index%"=="1" goto :IndexNumberWIM
-if /i "%Index%"=="2" goto :IndexNumberWIM
-if /i "%Index%"=="3" goto :IndexNumberWIM
-if /i "%Index%"=="4" goto :IndexNumberWIM
-if /i "%Index%"=="5" goto :IndexNumberWIM
-if /i "%Index%"=="6" goto :IndexNumberWIM
-if /i "%Index%"=="7" goto :IndexNumberWIM
-if /i "%Index%"=="8" goto :IndexNumberWIM
-if /i "%Index%"=="9" goto :IndexNumberWIM
-if /i "%Index%"=="10" goto :IndexNumberWIM
-if /i "%Index%"=="11" goto :IndexNumberWIM
+if /i "%Index%"=="1" goto :SureIndex
+if /i "%Index%"=="2" goto :SureIndex
+if /i "%Index%"=="3" goto :SureIndex
+if /i "%Index%"=="4" goto :SureIndex
+if /i "%Index%"=="5" goto :SureIndex
+if /i "%Index%"=="6" goto :SureIndex
+if /i "%Index%"=="7" goto :SureIndex
+if /i "%Index%"=="8" goto :SureIndex
+if /i "%Index%"=="9" goto :SureIndex
+if /i "%Index%"=="10" goto :SureIndex
+if /i "%Index%"=="11" goto :SureIndex
 echo Invalid Syntax!
-goto :IndexWIM
+goto :Index
 
 
-:IndexNumberWIM
+:SureIndex
 echo.
 set /p IndexNumber="Are you sure you want Index %Index%? (Yes/No) "
-if /i "%IndexNumber%"=="Yes" goto :CreateWIM
-if /i "%IndexNumber%"=="No" goto :IndexWIM
+if /i "%IndexNumber%"=="Yes" goto :Create
+if /i "%IndexNumber%"=="No" goto :Index
 echo Invalid Syntax!
-goto :IndexNumberWIM
+goto :SureIndex
 
-:CreateWIM
+:Create
 echo.
-echo Please follow these steps.
-echo. 
 echo Step 1. Please Use an external SSD or a WTG certified drive. You can use a regular USB drive but it will be very slow.
 echo Step 2. Remove all partions on the disk you want to install Windows on.
 echo Step 3. Convert the disk you want to install Windows on to MBR.
@@ -254,94 +101,102 @@ echo Step 5. Create on disk you want to install Windows on one NTFS partition th
 echo Step 6. Make the FAT32 partition on the drive Windows is installed on active.
 echo Step 7. Press any key to continue.
 pause
-goto :WindowsDriveLetterWIM
+goto :WindowsDriveLetter
 
-:WindowsDriveLetterWIM
+:WindowsDriveLetter
 echo.
 set /p WindowsDriveLetter="What is your drive letter of the NTFS partition you want to install windows on? (A:-Z:) "
-if /i "%WindowsDriveLetter%"=="A:" goto :SureWIM
-if /i "%WindowsDriveLetter%"=="B:" goto :SureWIM
-if /i "%WindowsDriveLetter%"=="C:" goto :SureWIM
-if /i "%WindowsDriveLetter%"=="D:" goto :SureWIM
-if /i "%WindowsDriveLetter%"=="E:" goto :SureWIM
-if /i "%WindowsDriveLetter%"=="F:" goto :SureWIM
-if /i "%WindowsDriveLetter%"=="G:" goto :SureWIM
-if /i "%WindowsDriveLetter%"=="H:" goto :SureWIM
-if /i "%WindowsDriveLetter%"=="I:" goto :SureWIM
-if /i "%WindowsDriveLetter%"=="J:" goto :SureWIM
-if /i "%WindowsDriveLetter%"=="K:" goto :SureWIM
-if /i "%WindowsDriveLetter%"=="L:" goto :SureWIM
-if /i "%WindowsDriveLetter%"=="M:" goto :SureWIM
-if /i "%WindowsDriveLetter%"=="N:" goto :SureWIM
-if /i "%WindowsDriveLetter%"=="O:" goto :SureWIM
-if /i "%WindowsDriveLetter%"=="P:" goto :SureWIM
-if /i "%WindowsDriveLetter%"=="Q:" goto :SureWIM
-if /i "%WindowsDriveLetter%"=="R:" goto :SureWIM
-if /i "%WindowsDriveLetter%"=="S:" goto :SureWIM
-if /i "%WindowsDriveLetter%"=="T:" goto :SureWIM
-if /i "%WindowsDriveLetter%"=="U:" goto :SureWIM
-if /i "%WindowsDriveLetter%"=="V:" goto :SureWIM
-if /i "%WindowsDriveLetter%"=="W:" goto :SureWIM
-if /i "%WindowsDriveLetter%"=="X:" goto :SureWIM
-if /i "%WindowsDriveLetter%"=="Y:" goto :SureWIM
-if /i "%WindowsDriveLetter%"=="Z:" goto :SureWIM
+if /i "%WindowsDriveLetter%"=="A:" goto :SureNTFS
+if /i "%WindowsDriveLetter%"=="B:" goto :SureNTFS
+if /i "%WindowsDriveLetter%"=="C:" goto :SureNTFS
+if /i "%WindowsDriveLetter%"=="D:" goto :SureNTFS
+if /i "%WindowsDriveLetter%"=="E:" goto :SureNTFS
+if /i "%WindowsDriveLetter%"=="F:" goto :SureNTFS
+if /i "%WindowsDriveLetter%"=="G:" goto :SureNTFS
+if /i "%WindowsDriveLetter%"=="H:" goto :SureNTFS
+if /i "%WindowsDriveLetter%"=="I:" goto :SureNTFS
+if /i "%WindowsDriveLetter%"=="J:" goto :SureNTFS
+if /i "%WindowsDriveLetter%"=="K:" goto :SureNTFS
+if /i "%WindowsDriveLetter%"=="L:" goto :SureNTFS
+if /i "%WindowsDriveLetter%"=="M:" goto :SureNTFS
+if /i "%WindowsDriveLetter%"=="N:" goto :SureNTFS
+if /i "%WindowsDriveLetter%"=="O:" goto :SureNTFS
+if /i "%WindowsDriveLetter%"=="P:" goto :SureNTFS
+if /i "%WindowsDriveLetter%"=="Q:" goto :SureNTFS
+if /i "%WindowsDriveLetter%"=="R:" goto :SureNTFS
+if /i "%WindowsDriveLetter%"=="S:" goto :SureNTFS
+if /i "%WindowsDriveLetter%"=="T:" goto :SureNTFS
+if /i "%WindowsDriveLetter%"=="U:" goto :SureNTFS
+if /i "%WindowsDriveLetter%"=="V:" goto :SureNTFS
+if /i "%WindowsDriveLetter%"=="W:" goto :SureNTFS
+if /i "%WindowsDriveLetter%"=="X:" goto :SureNTFS
+if /i "%WindowsDriveLetter%"=="Y:" goto :SureNTFS
+if /i "%WindowsDriveLetter%"=="Z:" goto :SureNTFS
 echo Invalid Syntax!
-goto :WindowsDriveLetterWIM
+goto :WindowsDriveLetter
 
-:SureWIM
+:SureNTFS
 echo.
-set /p SureNumber="Are you sure %WindowsDriveLetter% is the drive letter you wan to install Windows on? (Yes/No) "
-if /i "%SureNumber%"=="Yes" goto :BCDWIM
-if /i "%SureNumber%"=="No" goto :WindowsDriveLetterWIM
+set /p SureNumber="Are you sure %WindowsDriveLetter% is the drive letter you want to install Windows on? (Yes/No) "
+if /i "%SureNumber%"=="Yes" goto :BCD
+if /i "%SureNumber%"=="No" goto :WindowsDriveLetter
 echo Invalid Syntax!
-goto :SureESD
+goto :SureNTFS
 
-:BCDWIM
+:BCD
 echo.
 set /p FAT32="What is your drive letter of the FAT32 partition on the drive you want to install windows on? (A:-Z:) "
-if /i "%FAT32%"=="A:" goto :SureBCDWIM
-if /i "%FAT32%"=="B:" goto :SureBCDWIM
-if /i "%FAT32%"=="C:" goto :SureBCDWIM
-if /i "%FAT32%"=="D:" goto :SureBCDWIM
-if /i "%FAT32%"=="E:" goto :SureBCDWIM
-if /i "%FAT32%"=="F:" goto :SureBCDWIM
-if /i "%FAT32%"=="G:" goto :SureBCDWIM
-if /i "%FAT32%"=="H:" goto :SureBCDWIM
-if /i "%FAT32%"=="I:" goto :SureBCDWIM
-if /i "%FAT32%"=="J:" goto :SureBCDWIM
-if /i "%FAT32%"=="K:" goto :SureBCDWIM
-if /i "%FAT32%"=="L:" goto :SureBCDWIM
-if /i "%FAT32%"=="M:" goto :SureBCDWIM
-if /i "%FAT32%"=="N:" goto :SureBCDWIM
-if /i "%FAT32%"=="O:" goto :SureBCDWIM
-if /i "%FAT32%"=="P:" goto :SureBCDWIM
-if /i "%FAT32%"=="Q:" goto :SureBCDWIM
-if /i "%FAT32%"=="R:" goto :SureBCDWIM
-if /i "%FAT32%"=="S:" goto :SureBCDWIM
-if /i "%FAT32%"=="T:" goto :SureBCDWIM
-if /i "%FAT32%"=="U:" goto :SureBCDWIM
-if /i "%FAT32%"=="V:" goto :SureBCDWIM
-if /i "%FAT32%"=="W:" goto :SureBCDWIM
-if /i "%FAT32%"=="X:" goto :SureBCDWIM
-if /i "%FAT32%"=="Y:" goto :SureBCDWIM
-if /i "%FAT32%"=="Z:" goto :SureBCDWIM
+if /i "%FAT32%"=="A:" goto :SureFAT32
+if /i "%FAT32%"=="B:" goto :SureFAT32
+if /i "%FAT32%"=="C:" goto :SureFAT32
+if /i "%FAT32%"=="D:" goto :SureFAT32
+if /i "%FAT32%"=="E:" goto :SureFAT32
+if /i "%FAT32%"=="F:" goto :SureFAT32
+if /i "%FAT32%"=="G:" goto :SureFAT32
+if /i "%FAT32%"=="H:" goto :SureFAT32
+if /i "%FAT32%"=="I:" goto :SureFAT32
+if /i "%FAT32%"=="J:" goto :SureFAT32
+if /i "%FAT32%"=="K:" goto :SureFAT32
+if /i "%FAT32%"=="L:" goto :SureFAT32
+if /i "%FAT32%"=="M:" goto :SureFAT32
+if /i "%FAT32%"=="N:" goto :SureFAT32
+if /i "%FAT32%"=="O:" goto :SureFAT32
+if /i "%FAT32%"=="P:" goto :SureFAT32
+if /i "%FAT32%"=="Q:" goto :SureFAT32
+if /i "%FAT32%"=="R:" goto :SureFAT32
+if /i "%FAT32%"=="S:" goto :SureFAT32
+if /i "%FAT32%"=="T:" goto :SureFAT32
+if /i "%FAT32%"=="U:" goto :SureFAT32
+if /i "%FAT32%"=="V:" goto :SureFAT32
+if /i "%FAT32%"=="W:" goto :SureFAT32
+if /i "%FAT32%"=="X:" goto :SureFAT32
+if /i "%FAT32%"=="Y:" goto :SureFAT32
+if /i "%FAT32%"=="Z:" goto :SureFAT32
 echo Invalid Syntax!
-goto :BCDWIM
+goto :BCD
 
-:SureBCDWIM
+:SureFAT32
 echo.
 set /p SureNumber="Are you sure %FAT32% is the drive letter you wan to install Windows on? (Yes/No) "
-if /i "%SureNumber%"=="Yes" goto :DISMWIM2
-if /i "%SureNumber%"=="No" goto :BCDWIM
+if /i "%SureNumber%"=="Yes" goto :ESDWIM2
+if /i "%SureNumber%"=="No" goto :BCD
 echo Invalid Syntax!
 goto :SureBCDESD
 
+:ESDWIM2
+if /i "%install%"=="install.esd" goto :DISMESD2
+if /i "%install%"=="install.wim" goto :DISMWIM2
+
+:DISMESD2
+dism /Apply-Image /ImageFile:"%DriveLetter%\sources\install.esd" /Index:%Index% /ApplyDir:%WindowsDriveLetter% || goto :IndexESD
+goto :Done
+
 :DISMWIM2
-dism /Apply-Image /ImageFile:%DriveLetter%\sources\install.wim /Index:%Index% /ApplyDir:%WindowsDriveLetter% || goto :IndexWIM
-bcdboot %WindowsDriveLetter%\Windows /s %FAT32% /f ALL
+dism /Apply-Image /ImageFile:"%DriveLetter%\sources\install.wim" /Index:%Index% /ApplyDir:%WindowsDriveLetter% || goto :IndexWIM
 goto :Done
 
 :Done
+bcdboot %WindowsDriveLetter%\Windows /s %FAT32% /f ALL
 echo.
 echo Your Windows To Go is ready. It is Bootable with Legacy BIOS and UEFI. Press any key to exit Windows to Go Creation Tool.
 endlocal
