@@ -8,7 +8,7 @@ This tool empowers you to create portable Windows To Go workspaces directly from
 ## Key Advantages:
 **Native Performance:** Experience optimal performance by engaging Microsoft's first-party tools for a native experience.  
 **Legacy BIOS and UEFI Compatibility:** Unleash the flexibility to create Windows 10 and 11 installations for Legacy BIOS and UEFI BIOSes, expanding your deployment options.  
-**Enhanced Speed and User Experience:** Optimize performance by utilizing external SSDs or WTG-certified USB drives with USB 3.0 or higher. These drives offer significantly faster creation times (approximately 7 minutes) and accelerated boot speeds.  
+**Enhanced Speed and User Experience:** Optimize performance by utilizing external SSDs or WTG-certified USB drives with USB 3.0 or higher. These drives offer significantly faster creation times (approximately 5 minutes) and accelerated boot speeds.  
 
 ## Important Considerations:
 **Drive Selection:** Exercise caution when choosing your drive. Regular USB 3.0 drives can result in noticeably slower creation times (potentially up to 2 hours) and prolonged boot sequences.   
