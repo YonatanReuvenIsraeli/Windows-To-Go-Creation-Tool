@@ -16,15 +16,15 @@ pause
 
 :Start
 echo.
-set /p "install"="Do you have install.esd or install.wim? (install.esd/install.wim) "
-if /i "%install%"=="install.esd" goto :DriveLetter
-if /i "%install%"=="install.wim" goto :DriveLetter
+set /p install="Do you have install.esd or install.wim? (install.esd/install.wim) "
+if "%install%"=="install.esd" goto :DriveLetter
+if "%install%"=="install.wim" goto :DriveLetter
 echo Invalid Syntax!
 goto :Start
 
 :DriveLetter
 echo.
-set /p "DriveLetter"="What is your drive letter of you mounted Windows Disk Image? (A:-Z:) "
+set /p DriveLetter="What is your drive letter of you mounted Windows Disk Image? (A:-Z:) "
 if /i "%DriveLetter%"=="A:" goto :SureDriveLetter
 if /i "%DriveLetter%"=="B:" goto :SureDriveLetter
 if /i "%DriveLetter%"=="C:" goto :SureDriveLetter
@@ -56,7 +56,7 @@ goto :DriveLetter
 
 :SureDriveLetter
 echo.
-set /p "SureNumber"="Are you sure %DriveLetter% is the drive letter of your Windows Disk Image? (Yes/No) "
+set /p SureNumber="Are you sure %DriveLetter% is the drive letter of your Windows Disk Image? (Yes/No) "
 if /i "%SureNumber%"=="Yes" goto :ESDWIM1
 if /i "%SureNumber%"=="No" goto :DriveLetter
 echo Invalid Syntax!
