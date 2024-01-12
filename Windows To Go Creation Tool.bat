@@ -212,3 +212,4 @@ echo.
 echo Your Windows To Go is ready. It is Bootable with Legacy BIOS and UEFI. Press any key to exit Windows To Go Creation Tool.
 endlocal
 pause
+exit
