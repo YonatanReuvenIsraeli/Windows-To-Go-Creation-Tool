@@ -56,7 +56,7 @@ goto :DriveLetter
 
 :SureDriveLetter
 echo.
-set /p SureNumber="Are you sure "%DriveLetter%" is the drive letter of your Windows Disk Image? (Yes/No) "
+set /p SureNumber="Are you sure %DriveLetter% is the drive letter of your Windows Disk Image? (Yes/No) "
 if /i "%SureNumber%"=="Yes" goto :ESDWIM1
 if /i "%SureNumber%"=="No" goto :DriveLetter
 echo Invalid Syntax!
