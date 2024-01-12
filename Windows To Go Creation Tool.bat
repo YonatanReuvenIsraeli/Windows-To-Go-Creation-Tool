@@ -56,7 +56,7 @@ goto :DriveLetter
 
 :SureDriveLetter
 echo.
-set /p SureNumber="Are you sure %DriveLetter% is the drive letter of your Windows Disk Image? (Yes/No) "
+set /p SureNumber="Are you sure "%DriveLetter%" is the drive letter of your Windows Disk Image? (Yes/No) "
 if /i "%SureNumber%"=="Yes" goto :ESDWIM1
 if /i "%SureNumber%"=="No" goto :DriveLetter
 echo Invalid Syntax!
@@ -76,7 +76,7 @@ goto :Index
 
 :Index
 echo.
-set /p "Index"="Which index do you want? (1-7/11) "
+set /p Index="Which index do you want? (1-7/11) "
 if /i "%Index%"=="1" goto :SureIndex
 if /i "%Index%"=="2" goto :SureIndex
 if /i "%Index%"=="3" goto :SureIndex
@@ -94,7 +94,7 @@ goto :Index
 
 :SureIndex
 echo.
-set /p "IndexNumber"="Are you sure you want Index %Index%? (Yes/No) "
+set /p IndexNumber="Are you sure you want Index %Index%? (Yes/No) "
 if /i "%IndexNumber%"=="Yes" goto :Create
 if /i "%IndexNumber%"=="No" goto :Index
 echo Invalid Syntax!
@@ -116,7 +116,7 @@ goto :NTFS
 
 :NTFS
 echo.
-set /p "NTFS"="What is your drive letter of the NTFS partition you want to install windows on? (A:-Z:) "
+set /p NTFS="What is your drive letter of the NTFS partition you want to install windows on? (A:-Z:) "
 if /i "%NTFS%"=="A:" goto :SureNTFS
 if /i "%NTFS%"=="B:" goto :SureNTFS
 if /i "%NTFS%"=="C:" goto :SureNTFS
@@ -148,7 +148,7 @@ goto :NTFS
 
 :SureNTFS
 echo.
-set /p "SureNumber"="Are you sure %NTFS% is the drive letter you want to install Windows on? (Yes/No) "
+set /p SureNumber="Are you sure %NTFS% is the drive letter you want to install Windows on? (Yes/No) "
 if /i "%SureNumber%"=="Yes" goto :BCD
 if /i "%SureNumber%"=="No" goto :NTFS
 echo Invalid Syntax!
@@ -156,7 +156,7 @@ goto :SureNTFS
 
 :BCD
 echo.
-set /p "FAT32"="What is your drive letter of the FAT32 partition on the drive you want to install windows on? (A:-Z:) "
+set /p FAT32="What is your drive letter of the FAT32 partition on the drive you want to install windows on? (A:-Z:) "
 if /i "%FAT32%"=="A:" goto :SureFAT32
 if /i "%FAT32%"=="B:" goto :SureFAT32
 if /i "%FAT32%"=="C:" goto :SureFAT32
@@ -188,7 +188,7 @@ goto :BCD
 
 :SureFAT32
 echo.
-set /p "SureNumber"="Are you sure %FAT32% is the drive letter you wan to install Windows on? (Yes/No) "
+set /p SureNumber="Are you sure %FAT32% is the drive letter you wan to install Windows on? (Yes/No) "
 if /i "%SureNumber%"=="Yes" goto :ESDWIM2
 if /i "%SureNumber%"=="No" goto :BCD
 echo Invalid Syntax!
