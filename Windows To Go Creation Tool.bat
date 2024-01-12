@@ -199,11 +199,11 @@ if /i "%install%"=="install.esd" goto :DISMESD2
 if /i "%install%"=="install.wim" goto :DISMWIM2
 
 :DISMESD2
-DISM /Apply-Image /ImageFile:"%DriveLetter%\sources\install.esd" /Index:%Index% /ApplyDir:%NTFS% || goto :IndexESD
+DISM /Apply-Image /ImageFile:"%DriveLetter%\sources\install.esd" /Index:%Index% /ApplyDir:%NTFS% || goto :Index
 goto :Done
 
 :DISMWIM2
-DISM/Apply-Image /ImageFile:"%DriveLetter%\sources\install.wim" /Index:%Index% /ApplyDir:%NTFS% || goto :IndexWIM
+DISM/Apply-Image /ImageFile:"%DriveLetter%\sources\install.wim" /Index:%Index% /ApplyDir:%NTFS% || goto :Index
 goto :Done
 
 :Done
