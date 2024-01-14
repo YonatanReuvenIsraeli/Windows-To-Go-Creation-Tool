@@ -107,7 +107,7 @@ echo.
 echo Step 1. Please Use an external SSD or a WTG certified drive. You can use a regular USB drive but it will be very slow.
 echo Step 2. Remove all partions on the disk you want to install Windows on.
 echo Step 3. Convert the disk you want to install Windows on to MBR.
-echo Step 4. Create on disk you want to install Windows on one FAT32 partition that is 350MB, name it System-Reserved and assign it an unused drive letter.
+echo Step 4. Create on disk you want to install Windows on one FAT32 partition that is 350MB, name it SYSTEM and assign it an unused drive letter.
 echo Step 5. Create on disk you want to install Windows on one NTFS partition that is >64GB, name it Windows and assign it an unused drive letter.
 echo Step 6. Make the FAT32 partition on the drive Windows is installed on active.
 echo Step 7. Press any key to continue.
