@@ -148,9 +148,9 @@ goto :NTFS
 
 :SureNTFS
 echo.
-set /p SureNumber="Are you sure %NTFS% is the drive letter you want to install Windows on? (Yes/No) "
-if /i "%SureNumber%"=="Yes" goto :FAT32
-if /i "%SureNumber%"=="No" goto :NTFS
+set /p SureNTFS="Are you sure %NTFS% is the drive letter you want to install Windows on? (Yes/No) "
+if /i "%SureNTFS%"=="Yes" goto :FAT32
+if /i "%SureNTFS%"=="No" goto :NTFS
 echo Invalid Syntax!
 goto :SureNTFS
 
@@ -188,9 +188,9 @@ goto :FAT32
 
 :SureFAT32
 echo.
-set /p SureNumber="Are you sure %FAT32% is the drive letter you wan to install Windows on? (Yes/No) "
-if /i "%SureNumber%"=="Yes" goto :ESDWIM2
-if /i "%SureNumber%"=="No" goto :FAT32
+set /p SureFAT32="Are you sure %FAT32% is the drive letter you wan to install Windows on? (Yes/No) "
+if /i "%SureFAT32%"=="Yes" goto :ESDWIM2
+if /i "%SureFAT32%"=="No" goto :FAT32
 echo Invalid Syntax!
 goto :SureFAT32
 
