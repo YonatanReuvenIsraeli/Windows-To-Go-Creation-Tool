@@ -1,6 +1,6 @@
 @echo off
-setlocal
 title Windows To Go Creation Tool
+setlocal
 echo Please run this batch file as an administrator.
 echo.
 echo Please download the Windows Disk Image then press any key to continue.
