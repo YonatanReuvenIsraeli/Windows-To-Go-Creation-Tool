@@ -67,11 +67,13 @@ if /i "%install%"=="install.esd" goto :DISMESD1
 if /i "%install%"=="install.wim" goto :DISMWIM1
 
 :DISMESD1
-DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\install.esd" || goto :Start
+DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\install.esd"
+if errorlevel 1 goto :Start
 goto :Index
 
 :DISMWIM1
-DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\install.wim" || goto :Start
+DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\install.wim"
+if errorlevel 1 goto :Start
 goto :Index
 
 :Index
@@ -199,11 +201,13 @@ if /i "%install%"=="install.esd" goto :DISMESD2
 if /i "%install%"=="install.wim" goto :DISMWIM2
 
 :DISMESD2
-DISM /Apply-Image /ImageFile:"%DriveLetter%\sources\install.esd" /Index:%Index% /ApplyDir:%NTFS% || goto :Index
+DISM /Apply-Image /ImageFile:"%DriveLetter%\sources\install.esd" /Index:%Index% /ApplyDir:%NTFS%
+if errorlevel 1 goto :Index
 goto :Done
 
 :DISMWIM2
-DISM/Apply-Image /ImageFile:"%DriveLetter%\sources\install.wim" /Index:%Index% /ApplyDir:%NTFS% || goto :Index
+DISM/Apply-Image /ImageFile:"%DriveLetter%\sources\install.wim" /Index:%Index% /ApplyDir:%NTFS%
+if errorlevel 1 goto :Index
 goto :Done
 
 :Done
