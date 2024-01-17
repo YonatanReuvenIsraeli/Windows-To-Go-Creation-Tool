@@ -2,7 +2,6 @@
 Introducing the Windows To Go Creation Tool: Leveraging Microsoft's Built-in Capabilities for Enhanced Portability.
 
 ## Streamline Windows Deployment with a Simple Batch File
-
 This tool empowers you to create portable Windows To Go workspaces directly from a batch file, eliminating the need for third-party software. By exclusively utilizing native Microsoft tools, it ensures seamless compatibility and reliability.  
 
 ## Key Advantages:
