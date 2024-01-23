@@ -25,3 +25,5 @@ Embark on effortless Windows To Go creation with this efficient batch file solut
 **Dual BIOS Mode** All our installations leverage a dual BIOS installation, ensuring seamless compatibility with both Legacy BIOS and UEFI systems.  
 
 Engage with this powerful tool today and experience the freedom of portable Windows workspaces, crafted with the assurance of Microsoft's native capabilities.
+## Note:
+Environment variables cannot be entered into the input in the batch file because the batch file takes the text in the input literally.
