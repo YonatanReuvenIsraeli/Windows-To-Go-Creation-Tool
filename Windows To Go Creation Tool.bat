@@ -13,6 +13,7 @@ pause
 echo. 
 echo Go to X:\sources, where X: is the drive letter of you monted disk image and look for install.esd or install.wim and then press any key to continue.
 pause
+goto :Start
 
 :Start
 echo.
