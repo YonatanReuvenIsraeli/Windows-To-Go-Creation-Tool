@@ -25,7 +25,7 @@ goto :Start
 
 :DriveLetter
 echo.
-set /p DriveLetter="What is your drive letter of you mounted Windows Disk Image? (A:-Z:) "
+set /p DriveLetter="What is the drive letter of your mounted Windows Disk Image? (A:-Z:) "
 if /i "%DriveLetter%"=="A:" goto :SureDriveLetter
 if /i "%DriveLetter%"=="B:" goto :SureDriveLetter
 if /i "%DriveLetter%"=="C:" goto :SureDriveLetter
