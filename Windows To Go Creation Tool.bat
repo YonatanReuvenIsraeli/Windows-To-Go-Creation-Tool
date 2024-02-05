@@ -100,7 +100,6 @@ echo.
 set /p IndexNumber="Are you sure you want Index %Index%? (Yes/No) "
 if /i "%IndexNumber%"=="Yes" goto :Create
 if /i "%IndexNumber%"=="No" goto :Index
-e
 goto :SureIndex
 
 :Create
