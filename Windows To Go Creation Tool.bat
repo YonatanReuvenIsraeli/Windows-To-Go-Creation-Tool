@@ -17,8 +17,9 @@ goto :Start
 
 :Start
 echo.
-set /p install="Do you have install.esd or install.wim? (install.esd/install.wim) "
+set /p install="Do you have install.esd or install.wim? (install.esd/install.swm/install.wim) "
 if "%install%"=="install.esd" goto :DriveLetter
+if "%install%"=="install.swm" goto :DriveLetter
 if "%install%"=="install.wim" goto :DriveLetter
 echo Invalid Syntax!
 goto :Start
@@ -58,17 +59,23 @@ goto :DriveLetter
 :SureDriveLetter
 echo.
 set /p SureDriveLetter="Are you sure %DriveLetter% is the drive letter of your Windows Disk Image? (Yes/No) "
-if /i "%SureDriveLetter%"=="Yes" goto :ESDWIM1
+if /i "%SureDriveLetter%"=="Yes" goto :ESDSWMWIM1
 if /i "%SureDriveLetter%"=="No" goto :DriveLetter
 echo Invalid Syntax!
 goto :SureDriveLetter
 
-:ESDWIM1
+:ESDSWMWIM1
 if /i "%install%"=="install.esd" goto :DISMESD1
+if /i "%install%"=="install.swm" goto :DISMSWM1
 if /i "%install%"=="install.wim" goto :DISMWIM1
 
 :DISMESD1
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\install.esd"
+if errorlevel 1 goto :Start
+goto :Index
+
+:DISMSWM1
+DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\install.swm"
 if errorlevel 1 goto :Start
 goto :Index
 
@@ -198,10 +205,16 @@ goto :SureFAT32
 
 :ESDWIM2
 if /i "%install%"=="install.esd" goto :DISMESD2
+if /i "%install%"=="install.swm" goto :DISMSWM2
 if /i "%install%"=="install.wim" goto :DISMWIM2
 
 :DISMESD2
 DISM /Apply-Image /ImageFile:"%DriveLetter%\sources\install.esd" /Index:%Index% /ApplyDir:%NTFS%
+if errorlevel 1 goto :Index
+goto :Done
+
+:DISMSWM2
+DISM /Apply-Image /ImageFile:"%DriveLetter%\sources\install.swm" /Index:%Index% /ApplyDir:%NTFS%
 if errorlevel 1 goto :Index
 goto :Done
 
