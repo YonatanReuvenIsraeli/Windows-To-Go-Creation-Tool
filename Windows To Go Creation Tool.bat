@@ -17,7 +17,7 @@ goto :Start
 
 :Start
 echo.
-set /p install="Do you have install.esd or install.wim? (install.esd/install.swm/install.wim) "
+set /p install="Do you have install.esd or install.swm or install.wim? (install.esd/install.swm/install.wim) "
 if "%install%"=="install.esd" goto :DriveLetter
 if "%install%"=="install.swm" goto :DriveLetter
 if "%install%"=="install.wim" goto :DriveLetter
