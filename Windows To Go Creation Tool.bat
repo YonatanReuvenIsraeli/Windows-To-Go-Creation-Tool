@@ -54,6 +54,14 @@ if /i "%DriveLetter%"=="X:" goto :SureDriveLetter
 if /i "%DriveLetter%"=="Y:" goto :SureDriveLetter
 if /i "%DriveLetter%"=="Z:" goto :SureDriveLetter
 echo Invalid Syntax!
+goto :CheckExist
+
+:CheckExist
+if not exist "%DriveLetter%" goto :NotExist
+goto :SureDriveLetter
+
+:NotExist
+echo %DriveLetter% does not exist. Please try again.
 goto :DriveLetter
 
 :SureDriveLetter
@@ -153,7 +161,15 @@ if /i "%NTFS%"=="X:" goto :SureNTFS
 if /i "%NTFS%"=="Y:" goto :SureNTFS
 if /i "%NTFS%"=="Z:" goto :SureNTFS
 echo Invalid Syntax!
-goto :NTFS
+goto :CheckExistNTFS
+
+:CheckExistNTFS
+if not exist "%NTFS%" goto :NotExistNTFS
+goto :SureNTFS
+
+:NotExistNTFS
+echo %DriveLetter% does not exist. Please try again.
+goto :DriveLetter
 
 :SureNTFS
 echo.
@@ -193,7 +209,15 @@ if /i "%FAT32%"=="X:" goto :SureFAT32
 if /i "%FAT32%"=="Y:" goto :SureFAT32
 if /i "%FAT32%"=="Z:" goto :SureFAT32
 echo Invalid Syntax!
-goto :FAT32
+goto :CheckExistFAT32
+
+:CheckExistFat32
+if not exist "FAT32%" goto :NotExistFAT32
+goto :SureFAT32
+
+:NotExistFAT32
+echo %DriveLetter% does not exist. Please try again.
+goto :DriveLetter
 
 :SureFAT32
 echo.
