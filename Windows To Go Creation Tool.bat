@@ -18,9 +18,9 @@ goto :Start
 :Start
 echo.
 set /p install="Do you have install.esd or install.swm or install.wim? (install.esd/install.swm/install.wim) "
-if "%install%"=="install.esd" goto :DriveLetter
-if "%install%"=="install.swm" goto :DriveLetter
-if "%install%"=="install.wim" goto :DriveLetter
+if /i "%install%"=="install.esd" goto :DriveLetter
+if /i "%install%"=="install.swm" goto :DriveLetter
+if /i "%install%"=="install.wim" goto :DriveLetter
 echo Invalid Syntax!
 goto :Start
 
@@ -134,6 +134,7 @@ goto :NTFS
 :NTFS
 echo.
 set /p NTFS="What is your drive letter of the NTFS partition you want to install windows on? (A:-Z:) "
+if /i %NTFS% EQU %DriveLetter% goto :SameDriveLetterNTFS
 if /i "%NTFS%"=="A:" goto :SureNTFS
 if /i "%NTFS%"=="B:" goto :SureNTFS
 if /i "%NTFS%"=="C:" goto :SureNTFS
@@ -163,6 +164,10 @@ if /i "%NTFS%"=="Z:" goto :SureNTFS
 echo Invalid Syntax!
 goto :CheckExistNTFS
 
+:SameDriveLetterNTFS
+echo NTFS partition drive letter same as mounted Windows Disk Image drive letter. Please try again.
+goto :NTFS
+
 :CheckExistNTFS
 if not exist "%NTFS%" goto :NotExistNTFS
 goto :SureNTFS
@@ -182,6 +187,8 @@ goto :SureNTFS
 :FAT32
 echo.
 set /p FAT32="What is your drive letter of the FAT32 partition on the drive you want to install windows on? (A:-Z:) "
+if /i %FAT32% EQU %DriveLetter% goto :SameDriveLetterFAT32
+if /i %FAT32% EQU %NTFS% goto :SameDriveLetterFAT32NTFS
 if /i "%FAT32%"=="A:" goto :SureFAT32
 if /i "%FAT32%"=="B:" goto :SureFAT32
 if /i "%FAT32%"=="C:" goto :SureFAT32
@@ -210,6 +217,14 @@ if /i "%FAT32%"=="Y:" goto :SureFAT32
 if /i "%FAT32%"=="Z:" goto :SureFAT32
 echo Invalid Syntax!
 goto :CheckExistFAT32
+
+:SameDriveLetterFAT32
+echo FAT32 partition drive letter same as mounted Windows Disk Image drive letter. Please try again.
+goto :NTFS
+
+:SameDriveLetterFAT32NTFS
+echo FAT32 partition drive letter same as mounted NTFS partition drive letter. Please try again.
+goto :NTFS
 
 :CheckExistFat32
 if not exist "FAT32%" goto :NotExistFAT32
