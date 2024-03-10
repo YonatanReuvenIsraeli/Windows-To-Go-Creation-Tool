@@ -268,6 +268,6 @@ goto :Done
 BCDBoot %NTFS%\Windows /s %FAT32% /f ALL
 endlocal
 echo.
-echo Your Windows To Go is ready. It is Bootable with Legacy BIOS and UEFI. Press any key to exit Windows To Go Creation Tool.
-pause
+echo Your Windows To Go is ready. It is Bootable with Legacy BIOS and UEFI. Press any key to close this batch file.
+pause >nul
 exit
