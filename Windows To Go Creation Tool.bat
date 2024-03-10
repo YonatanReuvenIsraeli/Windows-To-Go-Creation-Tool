@@ -14,7 +14,7 @@ echo Please mount your Windows Disk Image then press any key to continue.
 pause
 echo. 
 echo Go to X:\sources, where X: is the drive letter of you monted disk image and look for install.esd or install.swm or install.wim and then press any key to continue.
-pause
+pause >nul
 goto :Start
 
 :Start
