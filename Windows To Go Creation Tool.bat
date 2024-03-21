@@ -19,6 +19,7 @@ goto Start
 
 :Start
 echo.
+set install=
 set /p install="Do you have install.esd or install.swm or install.wim? (install.esd/install.swm/install.wim) "
 if /i "%install%"=="install.esd" goto DriveLetter
 if /i "%install%"=="install.swm" goto DriveLetter
@@ -28,6 +29,7 @@ goto Start
 
 :DriveLetter
 echo.
+set DriveLetter=
 set /p DriveLetter="What is the drive letter of your mounted Windows Disk Image? (A:-Z:) "
 if /i "%DriveLetter%"=="A:" goto SureDriveLetter
 if /i "%DriveLetter%"=="B:" goto SureDriveLetter
@@ -68,6 +70,7 @@ goto DriveLetter
 
 :SureDriveLetter
 echo.
+set SureDriveLetter=
 set /p SureDriveLetter="Are you sure %DriveLetter% is the drive letter of your Windows Disk Image? (Yes/No) "
 if /i "%SureDriveLetter%"=="Yes" goto ESDSWMWIM1
 if /i "%SureDriveLetter%"=="No" goto DriveLetter
@@ -96,6 +99,7 @@ goto Index
 
 :Index
 echo.
+set Index=
 set /p Index="Which index do you want? (1-7/11) "
 if /i "%Index%"=="1" goto SureIndex
 if /i "%Index%"=="2" goto SureIndex
@@ -114,6 +118,7 @@ goto Index
 
 :SureIndex
 echo.
+set IndexNumber=
 set /p IndexNumber="Are you sure you want Index %Index%? (Yes/No) "
 if /i "%IndexNumber%"=="Yes" goto Create
 if /i "%IndexNumber%"=="No" goto Index
@@ -135,6 +140,7 @@ goto NTFS
 
 :NTFS
 echo.
+set NTFS=
 set /p NTFS="What is your drive letter of the NTFS partition you want to install windows on? (A:-Z:) "
 if /i %NTFS% EQU %DriveLetter% goto SameDriveLetterNTFS
 if /i "%NTFS%"=="A:" goto SureNTFS
@@ -180,6 +186,7 @@ goto DriveLetter
 
 :SureNTFS
 echo.
+set SureNTFS=
 set /p SureNTFS="Are you sure %NTFS% is the drive letter you want to install Windows on? (Yes/No) "
 if /i "%SureNTFS%"=="Yes" goto FAT32
 if /i "%SureNTFS%"=="No" goto NTFS
@@ -188,6 +195,7 @@ goto SureNTFS
 
 :FAT32
 echo.
+set FAT32=
 set /p FAT32="What is your drive letter of the FAT32 partition on the drive you want to install windows on? (A:-Z:) "
 if /i %FAT32% EQU %DriveLetter% goto SameDriveLetterFAT32
 if /i %FAT32% EQU %NTFS% goto SameDriveLetterFAT32NTFS
@@ -238,6 +246,7 @@ goto DriveLetter
 
 :SureFAT32
 echo.
+set SureFAT32=
 set /p SureFAT32="Are you sure %FAT32% is the drive letter you wan to install Windows on? (Yes/No) "
 if /i "%SureFAT32%"=="Yes" goto ESDWIM2
 if /i "%SureFAT32%"=="No" goto FAT32
