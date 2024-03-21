@@ -1,6 +1,6 @@
 @echo off
-title Windows To Go Creation Tool
 setlocal
+title Windows To Go Creation Tool
 echo Please run this batch file as an administrator.
 echo.
 echo This batch file does not work with a Windows Disk Image that has both 32-bit and 64-bit versions.
