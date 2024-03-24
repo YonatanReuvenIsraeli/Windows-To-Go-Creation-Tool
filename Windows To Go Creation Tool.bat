@@ -64,7 +64,7 @@ if /i "%SureDriveLetter%"=="No" goto DriveLetter
 echo Invalid Syntax!
 goto SureDriveLetter
 
-:ESDSWMWIM
+:ESDSWMWIM1
 if exist "%DriveLetter%\sources\install.esd" goto DISMESD1
 if exist "%DriveLetter%\sources\install.swm" goto DISMSWM1
 if exist "%DriveLetter%\sources\install.wim" goto DISMWIM1
