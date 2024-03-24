@@ -11,21 +11,8 @@ echo Download Windows 11 23H2 Disk Image from here. ^-^-^> https://www.microsoft
 pause
 echo.
 echo Please mount your Windows Disk Image then press any key to continue.
-pause
-echo. 
-echo Go to X:\sources, where X: is the drive letter of you monted disk image and look for install.esd or install.swm or install.wim and then press any key to continue.
 pause >nul
-goto Start
-
-:Start
-echo.
-set install=
-set /p install="Do you have install.esd or install.swm or install.wim? (install.esd/install.swm/install.wim) "
-if /i "%install%"=="install.esd" goto DriveLetter
-if /i "%install%"=="install.swm" goto DriveLetter
-if /i "%install%"=="install.wim" goto DriveLetter
-echo Invalid Syntax!
-goto Start
+goto DriveLetter
 
 :DriveLetter
 echo.
@@ -77,22 +64,25 @@ if /i "%SureDriveLetter%"=="No" goto DriveLetter
 echo Invalid Syntax!
 goto SureDriveLetter
 
-:ESDSWMWIM1
-if /i "%install%"=="install.esd" goto DISMESD1
-if /i "%install%"=="install.swm" goto DISMSWM1
-if /i "%install%"=="install.wim" goto DISMWIM1
+:ESDSWMWIM
+if exist "%DriveLetter%\sources\install.esd" goto DISMESD1
+if exist "%DriveLetter%\sources\install.swm" goto DISMSWM1
+if exist "%DriveLetter%\sources\install.wim" goto DISMWIM1
 
 :DISMESD1
+set install="install.esd"
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\install.esd"
 if errorlevel 1 goto Start
 goto Index
 
 :DISMSWM1
+set install="install.swm"
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\install.swm"
 if errorlevel 1 goto Start
 goto Index
 
 :DISMWIM1
+set install="install.wim"
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\install.wim"
 if errorlevel 1 goto Start
 goto Index
@@ -248,12 +238,12 @@ goto DriveLetter
 echo.
 set SureFAT32=
 set /p SureFAT32="Are you sure %FAT32% is the drive letter you wan to install Windows on? (Yes/No) "
-if /i "%SureFAT32%"=="Yes" goto ESDWIM2
+if /i "%SureFAT32%"=="Yes" goto ESDSWMWIM2
 if /i "%SureFAT32%"=="No" goto FAT32
 echo Invalid Syntax!
 goto SureFAT32
 
-:ESDWIM2
+:ESDSWMWIM2
 if /i "%install%"=="install.esd" goto DISMESD2
 if /i "%install%"=="install.swm" goto DISMSWM2
 if /i "%install%"=="install.wim" goto DISMWIM2
