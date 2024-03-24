@@ -70,19 +70,19 @@ if exist "%DriveLetter%\sources\install.swm" goto DISMSWM1
 if exist "%DriveLetter%\sources\install.wim" goto DISMWIM1
 
 :DISMESD1
-set install="install.esd"
+set install=install.esd
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\install.esd"
 if errorlevel 1 goto Start
 goto Index
 
 :DISMSWM1
-set install="install.swm"
+set install=install.swm
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\install.swm"
 if errorlevel 1 goto Start
 goto Index
 
 :DISMWIM1
-set install="install.wim"
+set install=install.wim
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\install.wim"
 if errorlevel 1 goto Start
 goto Index
