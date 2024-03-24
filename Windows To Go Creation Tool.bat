@@ -68,6 +68,8 @@ goto SureDriveLetter
 if exist "%DriveLetter%\sources\install.esd" goto DISMESD1
 if exist "%DriveLetter%\sources\install.swm" goto DISMSWM1
 if exist "%DriveLetter%\sources\install.wim" goto DISMWIM1
+echo Invalid Drive Letter!
+goto DriveLetter
 
 :DISMESD1
 set install=install.esd
