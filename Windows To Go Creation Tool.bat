@@ -103,7 +103,7 @@ if /i "%Index%"=="7" goto SureIndex
 if /i "%Index%"=="8" goto SureIndex
 if /i "%Index%"=="9" goto SureIndex
 if /i "%Index%"=="10" goto SureIndex
-if /i "%Index%"=="11" gotoSureIndex
+if /i "%Index%"=="11" goto SureIndex
 echo Invalid Syntax!
 goto Index
 
