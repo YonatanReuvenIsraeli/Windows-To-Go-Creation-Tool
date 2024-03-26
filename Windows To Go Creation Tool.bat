@@ -15,7 +15,7 @@ goto Start
 
 :10
 echo.
-echo Download Windows 10 22H2 Disk Image from here. ^-^-^> https://www.microsoft.com/en-us/software-download/windows10
+echo Download Windows 10 22H2 Disk Image from here. ^-^-^> https://www.microsoft.com/software-download/windows10
 echo Press any key to open the Website.
 pause >nul
 start https://www.microsoft.com/en-us/software-download/windows10a
