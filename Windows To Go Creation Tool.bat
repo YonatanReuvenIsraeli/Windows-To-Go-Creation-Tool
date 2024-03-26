@@ -63,8 +63,8 @@ echo %DriveLetter% does not exist. Please try again.
 goto DriveLetter
 
 :BitDetection
-if exist %DriveLetter%\x64 goto Bit1
-goto ESDSWMWIM1
+if exist %DriveLetter%\sources goto ESDSWMWIM1
+goto Bit1
 
 :Bit1
 echo.
