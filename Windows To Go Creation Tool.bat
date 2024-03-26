@@ -1,9 +1,7 @@
 @echo off
 setlocal
 title Windows To Go Creation Tool
-echo Please run this batch file as an administrator.
-echo.
-echo This batch file does not work with a Windows Disk Image that has both 32-bit and 64-bit versions.
+echo Please run this batch file as an administrator.
 echo.
 echo Please download the Windows Disk Image then press any key to continue.
 echo Download Windows 10 22H2 disk Image from here. ^-^-^> https://www.microsoft.com/en-us/software-download/windows10a
