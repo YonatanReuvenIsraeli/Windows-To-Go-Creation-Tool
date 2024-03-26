@@ -1,12 +1,36 @@
 @echo off
 setlocal
 title Windows To Go Creation Tool
-echo Please run this batch file as an administrator.
+echo Please run this batch file as an administrator.
 echo.
 echo Please download the Windows Disk Image then press any key to continue.
+goto Start
+
+:Start
+set Windows=
+set /p Windows="Do you want Windows 10 22H2 or Windows 11 23H2? (10/11) "
+if /i "%Windows%"=="10" goto 10
+if /i "%Windows%"=="11" goto 11
+echo Invalid Syntax!
+goto Start
+
+:10
+echo.
 echo Download Windows 10 22H2 disk Image from here. ^-^-^> https://www.microsoft.com/en-us/software-download/windows10a
+echo Press any key to open the Website.
+pause >nul
+start https://www.microsoft.com/en-us/software-download/windows10a
+goto Mount
+
+:11
+echo.
 echo Download Windows 11 23H2 Disk Image from here. ^-^-^> https://www.microsoft.com/software-download/windows11
-pause
+echo Press any key to open the Website.
+pause >nul
+start https://www.microsoft.com/software-download/windows11
+goto Mount
+
+:Mount
 echo.
 echo Please mount your Windows Disk Image then press any key to continue.
 pause >nul
