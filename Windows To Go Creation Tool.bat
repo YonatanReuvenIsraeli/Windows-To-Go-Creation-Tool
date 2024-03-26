@@ -2,11 +2,10 @@
 setlocal
 title Windows To Go Creation Tool
 echo Please run this batch file as an administrator.
-echo.
-echo Please download the Windows Disk Image then press any key to continue.
 goto Start
 
 :Start
+echo.
 set Windows=
 set /p Windows="Do you want Windows 10 22H2 or Windows 11 23H2? (10/11) "
 if /i "%Windows%"=="10" goto 10
