@@ -1,7 +1,7 @@
 @echo off
 setlocal
 title Windows To Go Creation Tool
-echo Windows To Go Creation Tool v1.0
+echo Windows To Go Creation Tool v1.0.0
 echo.
 echo Please run this batch file as an administrator.
 goto Start
