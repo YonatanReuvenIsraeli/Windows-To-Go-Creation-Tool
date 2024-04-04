@@ -1,7 +1,7 @@
 @echo off
 setlocal
 title Windows To Go Creation Tool
-echo Windows To Go Creation Tool v1.0.0
+echo Windows To Go Creation Tool v1.1.0
 echo.
 echo Please run this batch file as an administrator.
 goto Start
@@ -73,7 +73,7 @@ goto DriveLetter
 :SureDriveLetter
 echo.
 set SureDriveLetter=
-set /p SureDriveLetter="Are you sure %DriveLetter% is the drive letter of your Windows Disk Image? (Yes/No) "
+set /p SureDriveLetter="Are you sure "%DriveLetter%" is the drive letter of your Windows Disk Image? (Yes/No) "
 if /i "%SureDriveLetter%"=="Yes" goto CheckExist
 if /i "%SureDriveLetter%"=="No" goto DriveLetter
 echo Invalid Syntax!
@@ -84,11 +84,11 @@ if not exist "%DriveLetter%" goto NotExist
 goto BitDetection
 
 :NotExist
-echo %DriveLetter% does not exist. Please try again.
+echo "%DriveLetter%" does not exist. Please try again.
 goto DriveLetter
 
 :BitDetection
-if exist %DriveLetter%\sources goto ESDSWMWIM1
+if exist "%DriveLetter%\sources" goto ESDSWMWIM1
 goto Bit1
 
 :Bit1
@@ -266,7 +266,7 @@ goto CheckExistNTFS
 :SureNTFS
 echo.
 set SureNTFS=
-set /p SureNTFS="Are you sure %NTFS% is the drive letter you want to install Windows on? (Yes/No) "
+set /p SureNTFS="Are you sure "%NTFS%": is the drive letter you want to install Windows on? (Yes/No) "
 if /i "%SureNTFS%"=="Yes" goto CheckExistNTFS
 if /i "%SureNTFS%"=="No" goto NTFS
 echo Invalid Syntax!
@@ -274,7 +274,7 @@ goto SureNTFS
 
 :SameDriveLetterNTFS
 pause
-echo NTFS partition drive letter same as mounted Windows Disk Image drive letter. Please try again.
+echo NTFS partition drive letter ("%NTFS%") same as mounted Windows Disk Image drive letter ("%DriveLetter%"). Please try again.
 goto NTFS
 
 :CheckExistNTFS
@@ -323,18 +323,18 @@ goto CheckExistFAT32
 :SureFAT32
 echo.
 set SureFAT32=
-set /p SureFAT32="Are you sure %FAT32% is the drive letter you wan to install Windows on? (Yes/No) "
+set /p SureFAT32="Are you sure "%FAT32%" is the drive letter you wan to install Windows on? (Yes/No) "
 if /i "%SureFAT32%"=="Yes" goto CheckExistFat32
 if /i "%SureFAT32%"=="No" goto FAT32
 echo Invalid Syntax!
 goto SureFAT32
 
 :SameDriveLetterFAT32
-echo FAT32 partition drive letter same as mounted Windows Disk Image drive letter. Please try again.
+echo FAT32 partition drive letter ("%FAT32%") same as mounted Windows Disk Image drive letter ("%DriveLetter%"). Please try again.
 goto NTFS
 
 :SameDriveLetterFAT32NTFS
-echo FAT32 partition drive letter same as mounted NTFS partition drive letter. Please try again.
+echo FAT32 partition drive letter ("%FAT32%") same as mounted NTFS partition drive letter ("%NTFS%"). Please try again.
 goto NTFS
 
 :CheckExistFat32
@@ -342,7 +342,7 @@ if not exist "%FAT32%" goto NotExistFAT32
 goto Bit3
 
 :NotExistFAT32
-echo %FAT32% does not exist. Please try again.
+echo "%FAT32%" does not exist. Please try again.
 goto DriveLetter
 
 :Bit3
@@ -411,7 +411,7 @@ if errorlevel 1 goto Index
 goto Done
 
 :Done
-BCDBoot %NTFS%\Windows /s %FAT32% /f ALL
+BCDBoot "%NTFS%\Windows" /s "%FAT32%" /f ALL
 endlocal
 echo.
 echo Your Windows To Go is ready. It is Bootable with Legacy BIOS and UEFI. Press any key to close this batch file.
