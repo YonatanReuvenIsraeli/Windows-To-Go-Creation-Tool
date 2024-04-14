@@ -1,7 +1,7 @@
 @echo off
 setlocal
 title Windows To Go Creation Tool
-echo Windows To Go Creation Tool v1.1.4
+echo Windows To Go Creation Tool v1.2.0
 echo.
 echo Please run this batch file as an administrator.
 goto Start
@@ -222,8 +222,8 @@ echo.
 echo Step 1. Please Use an external SSD or a WTG certified drive. You can use a regular USB drive but it will be very slow.
 echo Step 2. Remove all partions on the disk you want to install Windows on.
 echo Step 3. Convert the disk you want to install Windows on to MBR.
-echo Step 4. Create on disk you want to install Windows on one FAT32 partition that is 350 MB, name it SYSTEM and assign it an unused drive letter.
-echo Step 5. Create on disk you want to install Windows on one NTFS partition that is greater than or is equal to 64 GB, name it Windows and assign it an unused drive letter.
+echo Step 4. Create on the disk you want to install Windows on one FAT32 partition that is 350 MB, name it SYSTEM and assign it an unused drive letter.
+echo Step 5. Create on the disk you want to install Windows on one NTFS partition that is greater than or is equal to 64 GB, name it Windows and assign it an unused drive letter.
 echo Step 6. Make the FAT32 partition on the drive Windows is installed on active.
 echo Step 7. Remove the drive letter assigned to the FAT32 partition.
 echo Step 8. Press any key to continue.
@@ -289,7 +289,7 @@ goto NTFS
 :FAT32
 echo.
 set FAT32=
-set /p FAT32="What is your drive letter of the FAT32 partition on the drive you want to install windows on? (A:-Z:) "
+set /p FAT32="What is your drive letter of the FAT32 partition on the drive you want to install Windows on? (A:-Z:) "
 if /i "%FAT32%" EQU "%DriveLetter%" goto SameDriveLetterFAT32
 if /i "%FAT32%" EQU "%NTFS%" goto SameDriveLetterFAT32NTFS
 if /i "%FAT32%"=="A:" goto SureFAT32
@@ -367,54 +367,84 @@ if /i "%install%"=="install.swm" goto 64DISMSWM2
 if /i "%install%"=="install.wim" goto 64DISMWIM2
 
 :DISMESD2
+echo.
+echo Installing Windows.
 DISM /Apply-Image /ImageFile:"%DriveLetter%\sources\install.esd" /Index:%Index% /ApplyDir:%NTFS%
 if errorlevel 1 goto Index
+echo Windows installed.
 goto Done
 
 :DISMSWM2
+echo.
+echo Installing Windows.
 DISM /Apply-Image /ImageFile:"%DriveLetter%\sources\install.swm" /Index:%Index% /ApplyDir:%NTFS%
 if errorlevel 1 goto Index
+echo Windows installed.
 goto Done
 
 :DISMWIM2
+echo.
+echo Installing Windows.
 DISM/Apply-Image /ImageFile:"%DriveLetter%\sources\install.wim" /Index:%Index% /ApplyDir:%NTFS%
 if errorlevel 1 goto Index
+echo Windows installed.
 goto Done
 
 :32DISMESD2
+echo.
+echo Installing Windows.
 DISM /Apply-Image /ImageFile:"%DriveLetter%\x86\sources\install.esd" /Index:%Index% /ApplyDir:%NTFS%
 if errorlevel 1 goto Index
+echo Windows installed.
 goto Done
 
 :32DISMSWM2
+echo.
+echo Installing Windows.
 DISM /Apply-Image /ImageFile:"%DriveLetter%\x86\sources\install.swm" /Index:%Index% /ApplyDir:%NTFS%
 if errorlevel 1 goto Index
+echo Windows installed.
 goto Done
 
 :32DISMWIM2
+echo.
+echo Installing Windows.
 DISM/Apply-Image /ImageFile:"%DriveLetter%\x86\sources\install.wim" /Index:%Index% /ApplyDir:%NTFS%
 if errorlevel 1 goto Index
+echo Windows installed.
 goto Done
 
 :64DISMESD2
+echo.
+echo Installing Windows.
 DISM /Apply-Image /ImageFile:"%DriveLetter%\x64\sources\install.esd" /Index:%Index% /ApplyDir:%NTFS%
 if errorlevel 1 goto Index
+echo Windows installed.
 goto Done
 
 :64DISMSWM2
+echo.
+echo Installing Windows.
 DISM /Apply-Image /ImageFile:"%DriveLetter%\x64\sources\install.swm" /Index:%Index% /ApplyDir:%NTFS%
 if errorlevel 1 goto Index
+echo Windows installed.
 goto Done
 
 :64DISMWIM2
+echo.
+echo Installing Windows.
 DISM/Apply-Image /ImageFile:"%DriveLetter%\x64\sources\install.wim" /Index:%Index% /ApplyDir:%NTFS%
 if errorlevel 1 goto Index
+echo Windows installed.
 goto Done
 
 :Done
+echo.
+echo Creating bootlaoder.
 BCDBoot "%NTFS%\Windows" /s "%FAT32%" /f ALL
+echo Bootloader created.
 endlocal
 echo.
-echo Your Windows To Go is ready. It is Bootable with Legacy BIOS and UEFI. Press any key to close this batch file.
+echo Your Windows To Go is ready! It is Bootable with Legacy BIOS and UEFI. Press any key to close this batch file.
 pause >nul
 exit
