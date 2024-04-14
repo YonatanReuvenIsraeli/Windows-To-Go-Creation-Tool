@@ -1,7 +1,7 @@
 @echo off
 setlocal
 title Windows To Go Creation Tool
-echo Windows To Go Creation Tool v2.0.3
+echo Windows To Go Creation Tool v2.0.4
 echo.
 echo Please run this batch file as an administrator.
 goto Start
@@ -134,55 +134,55 @@ if exist "%DriveLetter%\x64\sources\install.wim" goto 64DISMWIM1
 :DISMESD1
 set install=install.esd
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\install.esd"
-if not errorlevel 0 goto DriveLetter
+if not "%errorlevel%"=="0" goto DriveLetter
 goto Index
 
 :DISMSWM1
 set install=install.swm
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\install.swm"
-if not errorlevel 0 goto DriveLetter
+if not "%errorlevel%"=="0" goto DriveLetter
 goto Index
 
 :DISMWIM1
 set install=install.wim
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\install.wim"
-if not errorlevel 0 goto DriveLetter
+if not "%errorlevel%"=="0" goto DriveLetter
 goto Index
 
 :32DISMESD1
 set install=install.esd
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\x86\sources\install.esd"
-if not errorlevel 0 goto DriveLetter
+if not "%errorlevel%"=="0" goto DriveLetter
 goto Index
 
 :32DISMSWM1
 set install=install.swm
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\x86\sources\install.swm"
-if not errorlevel 0 goto DriveLetter
+if not "%errorlevel%"=="0" goto DriveLetter
 goto Index
 
 :32DISMWIM1
 set install=install.wim
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\x86\sources\install.wim"
-if not errorlevel 0 goto DriveLetter
+if not "%errorlevel%"=="0" goto DriveLetter
 goto Index
 
 :64DISMESD1
 set install=install.esd
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\x64\sources\install.esd"
-if not errorlevel 0 goto DriveLetter
+if not "%errorlevel%"=="0" goto DriveLetter
 goto Index
 
 :64DISMSWM1
 set install=install.swm
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\x64\sources\install.swm"
-if not errorlevel 0 goto DriveLetter
+if not "%errorlevel%"=="0" goto DriveLetter
 goto Index
 
 :64DISMWIM1
 set install=install.wim
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\x64\sources\install.wim"
-if not errorlevel 0 goto DriveLetter
+if not "%errorlevel%"=="0" goto DriveLetter
 goto Index
 
 :Index
@@ -325,7 +325,7 @@ echo format fs=NTFS label="Windows" quick >> DiskPart.txt
 echo assign letter=%NTFS% >> DiskPart.txt
 echo exit >> DiskPart.txt
 diskpart /s DiskPart.txt > nul
-if not errorlevel 0 goto DiskPartError
+if not "%errorlevel%"=="0" goto DiskPartError
 del DiskPart.txt
 echo Disk %Disk% Partitioned and formated.
 goto Bit3
@@ -359,7 +359,7 @@ if /i "%install%"=="install.wim" goto 64DISMWIM2
 echo.
 echo Installing Windows.
 DISM /Apply-Image /ImageFile:"%DriveLetter%\sources\install.esd" /Index:%Index% /ApplyDir:%NTFS%
-if not errorlevel 0 goto Index
+if not "%errorlevel%"=="0" goto Index
 echo Windows installed.
 goto Done
 
@@ -367,7 +367,7 @@ goto Done
 echo.
 echo Installing Windows.
 DISM /Apply-Image /ImageFile:"%DriveLetter%\sources\install.swm" /Index:%Index% /ApplyDir:%NTFS%
-if not errorlevel 0 goto Index
+if not "%errorlevel%"=="0" goto Index
 echo Windows installed.
 goto Done
 
@@ -375,7 +375,7 @@ goto Done
 echo.
 echo Installing Windows.
 DISM/Apply-Image /ImageFile:"%DriveLetter%\sources\install.wim" /Index:%Index% /ApplyDir:%NTFS%
-if not errorlevel 0 goto Index
+if not "%errorlevel%"=="0" goto Index
 echo Windows installed.
 goto Done
 
@@ -383,7 +383,7 @@ goto Done
 echo.
 echo Installing Windows.
 DISM /Apply-Image /ImageFile:"%DriveLetter%\x86\sources\install.esd" /Index:%Index% /ApplyDir:%NTFS%
-if not errorlevel 0 goto Index
+if not "%errorlevel%"=="0" goto Index
 echo Windows installed.
 goto Done
 
@@ -391,7 +391,7 @@ goto Done
 echo.
 echo Installing Windows.
 DISM /Apply-Image /ImageFile:"%DriveLetter%\x86\sources\install.swm" /Index:%Index% /ApplyDir:%NTFS%
-if not errorlevel 0 goto Index
+if not "%errorlevel%"=="0" goto Index
 echo Windows installed.
 goto Done
 
@@ -399,7 +399,7 @@ goto Done
 echo.
 echo Installing Windows.
 DISM/Apply-Image /ImageFile:"%DriveLetter%\x86\sources\install.wim" /Index:%Index% /ApplyDir:%NTFS%
-if not errorlevel 0 goto Index
+if not "%errorlevel%"=="0" goto Index
 echo Windows installed.
 goto Done
 
@@ -407,7 +407,7 @@ goto Done
 echo.
 echo Installing Windows.
 DISM /Apply-Image /ImageFile:"%DriveLetter%\x64\sources\install.esd" /Index:%Index% /ApplyDir:%NTFS%
-if not errorlevel o goto Index
+if not "%errorlevel%"=="0" goto Index
 echo Windows installed.
 goto Done
 
@@ -415,7 +415,7 @@ goto Done
 echo.
 echo Installing Windows.
 DISM /Apply-Image /ImageFile:"%DriveLetter%\x64\sources\install.swm" /Index:%Index% /ApplyDir:%NTFS%
-if not errorlevel 0 goto Index
+if not "%errorlevel%"=="0" goto Index
 echo Windows installed.
 goto Done
 
@@ -423,7 +423,7 @@ goto Done
 echo.
 echo Installing Windows.
 DISM/Apply-Image /ImageFile:"%DriveLetter%\x64\sources\install.wim" /Index:%Index% /ApplyDir:%NTFS%
-if not errorlevel 0 goto Index
+if not "%errorlevel%"=="0" goto Index
 echo Windows installed.
 goto Done
 
