@@ -1,7 +1,7 @@
 @echo off
 setlocal
 title Windows To Go Creation Tool
-echo Windows To Go Creation Tool v1.2.3
+echo Windows To Go Creation Tool v1.2.4
 echo.
 echo Please run this batch file as an administrator.
 goto Start
@@ -266,7 +266,7 @@ goto CheckExistNTFS
 :SureNTFS
 echo.
 set SureNTFS=
-set /p SureNTFS="Are you sure "%NTFS%": is the drive letter you want to install Windows on? (Yes/No) "
+set /p SureNTFS="Are you sure "%NTFS%" is the drive letter you want to install Windows on? (Yes/No) "
 if /i "%SureNTFS%"=="Yes" goto CheckExistNTFS
 if /i "%SureNTFS%"=="No" goto NTFS
 echo Invalid Syntax!
