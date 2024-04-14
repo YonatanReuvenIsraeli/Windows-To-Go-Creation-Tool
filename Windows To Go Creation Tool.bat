@@ -1,7 +1,7 @@
 @echo off
 setlocal
 title Windows To Go Creation Tool
-echo Windows To Go Creation Tool v1.1.2
+echo Windows To Go Creation Tool v1.1.3
 echo.
 echo Please run this batch file as an administrator.
 goto Start
@@ -103,7 +103,7 @@ goto Bit1
 :SureBit
 echo.
 set SureBit=
-set /p SureBit="Are you sure you want a %Bit%-bit version of Windows? "
+set /p SureBit="Are you sure you want a %Bit%-bit version of Windows? (Yes/No) "
 if /i "%SureBit%"=="Yes" goto Bit2
 if /i "%SureBit%"=="No" goto Bit1
 echo Invalid Syntax!
