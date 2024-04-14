@@ -1,7 +1,7 @@
 @echo off
 setlocal
 title Windows To Go Creation Tool
-echo Windows To Go Creation Tool v2.0.1
+echo Windows To Go Creation Tool v2.0.2
 echo.
 echo Please run this batch file as an administrator.
 goto Start
@@ -431,7 +431,7 @@ goto Done
 :Done
 echo.
 echo Creating bootlaoder.
-BCDBoot "%NTFS%\Windows" /s "%FAT32%" /f ALL >nul
+BCDBoot "%NTFS%\Windows" /s "%FAT32%" /f ALL > nul
 echo sel vol %FAT32% > DiskPart.txt
 echo remove letter=%FAT32% >> DiskPart.txt
 echo exit >> DiskPart.txt
