@@ -1,7 +1,7 @@
 @echo off
 setlocal
 title Windows To Go Creation Tool
-echo Windows To Go Creation Tool v1.2.2
+echo Windows To Go Creation Tool v1.2.3
 echo.
 echo Please run this batch file as an administrator.
 goto Start
@@ -225,8 +225,7 @@ echo Step 3. Convert the disk you want to install Windows on to MBR.
 echo Step 4. Create on the disk you want to install Windows on one FAT32 partition that is 350 MB, name it SYSTEM and assign it an unused drive letter.
 echo Step 5. Create on the disk you want to install Windows on one NTFS partition that is greater than or is equal to 64 GB, name it Windows and assign it an unused drive letter.
 echo Step 6. Make the FAT32 partition on the drive Windows is installed on active.
-echo Step 7. Remove the drive letter assigned to the FAT32 partition.
-echo Step 8. Press any key to continue.
+echo Step 7. Press any key to continue.
 pause >nul
 goto NTFS
 
@@ -443,6 +442,9 @@ echo.
 echo Creating bootlaoder.
 BCDBoot "%NTFS%\Windows" /s "%FAT32%" /f ALL
 echo Bootloader created.
+echo.
+echo Please remove drive letter "%FAT32%" then press any key to continue.
+pause >nul
 endlocal
 echo.
 echo Your Windows To Go is ready! It is Bootable with Legacy BIOS and UEFI. Press any key to close this batch file.
