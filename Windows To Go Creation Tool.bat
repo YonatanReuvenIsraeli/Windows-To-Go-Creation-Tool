@@ -1,7 +1,7 @@
 @echo off
 setlocal
 title Windows To Go Creation Tool
-echo Windows To Go Creation Tool v2.0.5
+echo Windows To Go Creation Tool v2.0.6
 echo.
 echo Please run this batch file as an administrator.
 goto Start
@@ -324,7 +324,7 @@ echo create partition Primary >> DiskPart.txt
 echo format fs=NTFS label="Windows" quick >> DiskPart.txt
 echo assign letter=%NTFS% >> DiskPart.txt
 echo exit >> DiskPart.txt
-diskpart /s DiskPart.txt > nul
+DiskPart /s DiskPart.txt > nul
 if not "%errorlevel%"=="0" goto DiskPartError
 del DiskPart.txt
 echo Disk %Disk% Partitioned and formated.
