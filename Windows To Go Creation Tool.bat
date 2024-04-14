@@ -1,7 +1,7 @@
 @echo off
 setlocal
 title Windows To Go Creation Tool
-echo Windows To Go Creation Tool v1.2.4
+echo Windows To Go Creation Tool v1.2.5
 echo.
 echo Please run this batch file as an administrator.
 goto Start
@@ -89,7 +89,10 @@ goto DriveLetter
 
 :BitDetection
 if exist "%DriveLetter%\sources" goto ESDSWMWIM1
-goto Bit1
+if exist "%DriveLetter%\x86\sources" goto Bit1
+if exist "%DriveLetter%\x64\sources" goto Bit1
+echo Invalid Drive Letter!
+goto DriveLetter
 
 :Bit1
 echo.
@@ -117,22 +120,16 @@ if /i "%Bit%"=="64" goto 64ESDSWMWIM1
 if exist "%DriveLetter%\sources\install.esd" goto DISMESD1
 if exist "%DriveLetter%\sources\install.swm" goto DISMSWM1
 if exist "%DriveLetter%\sources\install.wim" goto DISMWIM1
-echo Invalid Drive Letter!
-goto DriveLetter
 
 :32ESDSWMWIM1
 if exist "%DriveLetter%\x86\sources\install.esd" goto 32DISMESD1
 if exist "%DriveLetter%\x86\sources\install.swm" goto 32DISMSWM1
 if exist "%DriveLetter%\x86\sources\install.wim" goto 32DISMWIM1
-echo Invalid Drive Letter!
-goto DriveLetter
 
 :64ESDSWMWIM1
 if exist "%DriveLetter%\x64\sources\install.esd" goto 64DISMESD1
 if exist "%DriveLetter%\x64\sources\install.swm" goto 64DISMSWM1
 if exist "%DriveLetter%\x64\sources\install.wim" goto 64DISMWIM1
-echo Invalid Drive Letter!
-goto DriveLetter
 
 :DISMESD1
 set install=install.esd
