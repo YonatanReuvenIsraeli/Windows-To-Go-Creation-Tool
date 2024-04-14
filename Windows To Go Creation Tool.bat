@@ -1,7 +1,7 @@
 @echo off
 setlocal
 title Windows To Go Creation Tool
-echo Windows To Go Creation Tool v1.1.3
+echo Windows To Go Creation Tool v1.1.4
 echo.
 echo Please run this batch file as an administrator.
 goto Start
@@ -227,7 +227,7 @@ echo Step 5. Create on disk you want to install Windows on one NTFS partition th
 echo Step 6. Make the FAT32 partition on the drive Windows is installed on active.
 echo Step 7. Remove the drive letter assigned to the FAT32 partition.
 echo Step 8. Press any key to continue.
-pause
+pause >nul
 goto NTFS
 
 :NTFS
