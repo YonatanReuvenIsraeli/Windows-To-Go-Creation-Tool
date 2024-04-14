@@ -1,7 +1,7 @@
 @echo off
 setlocal
 title Windows To Go Creation Tool
-echo Windows To Go Creation Tool v2.0.4
+echo Windows To Go Creation Tool v2.0.5
 echo.
 echo Please run this batch file as an administrator.
 goto Start
@@ -316,11 +316,11 @@ echo Partitioning and formating disk %Disk%.
 echo sel disk %Disk% > DiskPart.txt
 echo clean >> DiskPart.txt
 echo convert mbr >> DiskPart.txt
-echo create  partition Primary size=350 >> DiskPart.txt
+echo create partition Primary size=350 >> DiskPart.txt
 echo format fs=FAT32 label="SYSTEM" quick >> DiskPart.txt
 echo assign letter=%FAT32% >> DiskPart.txt
 echo active >> DiskPart.txt
-echo create  partition Primary >> DiskPart.txt
+echo create partition Primary >> DiskPart.txt
 echo format fs=NTFS label="Windows" quick >> DiskPart.txt
 echo assign letter=%NTFS% >> DiskPart.txt
 echo exit >> DiskPart.txt
