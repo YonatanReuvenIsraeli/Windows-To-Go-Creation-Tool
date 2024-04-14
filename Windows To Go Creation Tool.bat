@@ -1,7 +1,7 @@
 @echo off
 setlocal
 title Windows To Go Creation Tool
-echo Windows To Go Creation Tool v2.0.6
+echo Windows To Go Creation Tool v2.0.7
 echo.
 echo Please run this batch file as an administrator.
 goto Start
@@ -289,7 +289,7 @@ echo First unused drive letter ("%NTFS%") same as second unused drive letter ("%
 goto NTFS
 
 :ExistNTFS
-echo %NTFS% exists! Please try again.
+echo "%NTFS%" exists! Please try again.
 goto NTFS
 
 :Disk
@@ -313,20 +313,20 @@ goto SureDisk
 :DiskPart
 echo.
 echo Partitioning and formating disk %Disk%.
-echo sel disk %Disk% > DiskPart.txt
-echo clean >> DiskPart.txt
-echo convert mbr >> DiskPart.txt
-echo create partition Primary size=350 >> DiskPart.txt
-echo format fs=FAT32 label="SYSTEM" quick >> DiskPart.txt
-echo assign letter=%FAT32% >> DiskPart.txt
-echo active >> DiskPart.txt
-echo create partition Primary >> DiskPart.txt
-echo format fs=NTFS label="Windows" quick >> DiskPart.txt
-echo assign letter=%NTFS% >> DiskPart.txt
-echo exit >> DiskPart.txt
-DiskPart /s DiskPart.txt > nul
+echo sel disk %Disk% > ".\DiskPart.txt"
+echo clean >> ".\DiskPart.txt"
+echo convert mbr >> ".\DiskPart.txt"
+echo create partition Primary size=350 >> ".\DiskPart.txt"
+echo format fs=FAT32 label="SYSTEM" quick >> ".\DiskPart.txt"
+echo assign letter=%FAT32% >> ".\DiskPart.txt"
+echo active >> ".\DiskPart.txt"
+echo create partition Primary >> ".\DiskPart.txt"
+echo format fs=NTFS label="Windows" quick >> ".\DiskPart.txt"
+echo assign letter=%NTFS% >> ".\DiskPart.txt"
+echo exit >> ".\DiskPart.txt"
+DiskPart /s ".\DiskPart.txt" > nul
 if not "%errorlevel%"=="0" goto DiskPartError
-del DiskPart.txt
+del ".\DiskPart.txt"
 echo Disk %Disk% Partitioned and formated.
 goto Bit3
 
@@ -429,13 +429,13 @@ goto Done
 
 :Done
 echo.
-echo Creating bootlaoder.
+echo Creating bootloader.
 BCDBoot "%NTFS%\Windows" /s "%FAT32%" /f ALL > nul
-echo sel vol %FAT32% > DiskPart.txt
-echo remove letter=%FAT32% >> DiskPart.txt
-echo exit >> DiskPart.txt
-DiskPart /s DiskPart.txt > nul
-del DiskPart.txt
+echo sel vol %FAT32% > ".\DiskPart.txt"
+echo remove letter=%FAT32% >> ".\DiskPart.txt"
+echo exit >> ".\DiskPart.txt"
+DiskPart /s ".\DiskPart.txt" > nul
+del ".\DiskPart.txt"
 echo Bootloader created.
 endlocal
 echo.
