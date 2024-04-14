@@ -1,7 +1,7 @@
 @echo off
 setlocal
 title Windows To Go Creation Tool
-echo Windows To Go Creation Tool v2.0.2
+echo Windows To Go Creation Tool v2.0.3
 echo.
 echo Please run this batch file as an administrator.
 goto Start
@@ -202,7 +202,6 @@ if /i "%Index%"=="10" goto SureIndex
 if /i "%Index%"=="11" goto SureIndex
 echo Invalid Syntax!
 goto Index
-
 
 :SureIndex
 echo.
