@@ -1,7 +1,7 @@
 @echo off
 setlocal
 title Windows To Go Creation Tool
-echo Windows To Go Creation Tool v2.0.7
+echo Windows To Go Creation Tool v2.0.8
 echo.
 echo Please run this batch file as an administrator.
 goto Start
@@ -304,7 +304,7 @@ goto SureDisk
 :SureDisk
 echo.
 set SureDisk=
-set /p SureDisk="All data on disk %Disk% will be deleted! Are you sure this is the correct disk number? "
+set /p SureDisk="All data on disk %Disk% will be deleted! Are you sure disk %Disk% is the correct disk number? "
 if /i "%SureDisk%"=="Yes" goto DiskPart
 if /i "%SureDisk%"=="No" goto Disk
 echo Invalid Syntax!
