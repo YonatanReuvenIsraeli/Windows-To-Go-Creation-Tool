@@ -1,7 +1,12 @@
 @echo off
 setlocal
 title Windows To Go Creation Tool
-echo Windows To Go Creation Tool v2.2.0
+echo Program Name: Windows To Go Creation Tool
+echo Version: 2.3.0
+echo Developer: @YonatanReuvenIsraeli
+echo Website: https://www.yonatanreuvenisraeli.dev
+echo License: GNU General Public License v3.0
+echo.
 echo.
 echo Please run this batch file as an administrator.
 goto Start
