@@ -1,7 +1,7 @@
 @echo off
 setlocal
 title Windows To Go Creation Tool
-echo Windows To Go Creation Tool v2.1.0
+echo Windows To Go Creation Tool v2.1.1
 echo.
 echo Please run this batch file as an administrator.
 goto Start
@@ -328,7 +328,7 @@ echo exit >> "%cd%\DiskPart.txt"
 DiskPart /s "%cd%\DiskPart.txt" > nul
 if not "%errorlevel%"=="0" goto DiskPartError
 del "%cd%\DiskPart.txt"
-echo Disk %Disk% Partitioned and formated.
+echo Disk %Disk% partitioned and formated.
 goto Bit3
 
 :DiskPartExist
