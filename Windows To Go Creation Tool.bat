@@ -1,7 +1,7 @@
 @echo off
 setlocal
 title Windows To Go Creation Tool
-echo Windows To Go Creation Tool v2.1.1
+echo Windows To Go Creation Tool v2.2.0
 echo.
 echo Please run this batch file as an administrator.
 goto Start
@@ -332,8 +332,9 @@ echo Disk %Disk% partitioned and formated.
 goto Bit3
 
 :DiskPartExist
+set DiskPart=True
 echo.
-echo Please rename or move to another location "%cd%\DiskPart.txt" in order for this batch file to proceed. Press any key to continue when "%cd%\DiskPart.txt" is renamed or moved to another location.
+echo Please temporary rename or temporary move to another location "%cd%\DiskPart.txt" in order for this batch file to proceed. Press any key to continue when "%cd%\DiskPart.txt" is renamed or moved to another location.
 pause > nul
 goto DiskPart
 
@@ -432,9 +433,9 @@ echo Installing Windows.
 DISM/Apply-Image /ImageFile:"%DriveLetter%\x64\sources\install.wim" /Index:%Index% /ApplyDir:%NTFS%
 if not "%errorlevel%"=="0" goto Index
 echo Windows installed.
-goto Done
+goto Bootloader
 
-:Done
+:Bootloader
 echo.
 echo Creating bootloader.
 BCDBoot "%NTFS%\Windows" /s "%FAT32%" /f ALL > nul
@@ -444,6 +445,15 @@ echo exit >> "%cd%\DiskPart.txt"
 DiskPart /s "%cd%\DiskPart.txt" > nul
 del "%cd%\DiskPart.txt"
 echo Bootloader created.
+if "%DiskPart%"=="True" goto DiskPartDone
+goto Done
+
+:DiskPartDone
+echo.
+echo You can now rename or move back the file back to "%cd%\DiskPart.txt".
+goto Done
+
+:Done
 endlocal
 echo.
 echo Your Windows To Go is ready! It is Bootable with Legacy BIOS and UEFI. Press any key to close this batch file.
