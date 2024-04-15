@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 2.3.1
+echo Version: 2.3.2
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -302,13 +302,13 @@ echo Please attach an external SSD or a WTG certifed drive then press any key to
 pause > nul
 echo.
 set Disk=
-set /p Disk="What is the disk number of your drive you attached to this PC? "
+set /p Disk="What is the disk number of your drive you attached to this PC? (0-?) "
 goto SureDisk
 
 :SureDisk
 echo.
 set SureDisk=
-set /p SureDisk="All data on disk %Disk% will be deleted! Are you sure disk %Disk% is the correct disk number? "
+set /p SureDisk="All data on disk %Disk% will be deleted! Are you sure disk %Disk% is the correct disk number? (Yes/No) "
 if /i "%SureDisk%"=="Yes" goto DiskPart
 if /i "%SureDisk%"=="No" goto Disk
 echo Invalid Syntax!
