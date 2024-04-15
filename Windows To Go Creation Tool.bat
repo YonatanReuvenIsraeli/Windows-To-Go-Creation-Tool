@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 2.3.2
+echo Version: 2.3.3
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -23,7 +23,7 @@ goto Start
 echo.
 echo Download Windows 10 22H2 Disk Image from here. ^-^-^> https://www.microsoft.com/software-download/windows10
 echo Press any key to open the website.
-pause > nul
+pause > nul 2>&1
 start https://www.microsoft.com/software-download/windows10
 goto Mount
 
@@ -31,14 +31,14 @@ goto Mount
 echo.
 echo Download Windows 11 23H2 Disk Image from here. ^-^-^> https://www.microsoft.com/software-download/windows11
 echo Press any key to open the website.
-pause > nul
+pause > nul 2>&1
 start https://www.microsoft.com/software-download/windows11
 goto Mount
 
 :Mount
 echo.
 echo Please mount your Windows Disk Image then press any key to continue.
-pause > nul
+pause > nul 2>&1
 goto DriveLetter
 
 :DriveLetter
@@ -299,7 +299,7 @@ goto NTFS
 :Disk
 echo.
 echo Please attach an external SSD or a WTG certifed drive then press any key to continue.
-pause > nul
+pause > nul 2>&1
 echo.
 set Disk=
 set /p Disk="What is the disk number of your drive you attached to this PC? (0-?) "
@@ -329,7 +329,7 @@ echo create partition Primary >> "%cd%\DiskPart.txt"
 echo format fs=NTFS label="Windows" quick >> "%cd%\DiskPart.txt"
 echo assign letter=%NTFS% >> "%cd%\DiskPart.txt"
 echo exit >> "%cd%\DiskPart.txt"
-DiskPart /s "%cd%\DiskPart.txt" > nul
+DiskPart /s "%cd%\DiskPart.txt" > nul 2>&1
 if not "%errorlevel%"=="0" goto DiskPartError
 del "%cd%\DiskPart.txt"
 echo Disk %Disk% partitioned and formated.
@@ -339,7 +339,7 @@ goto Bit3
 set DiskPart=True
 echo.
 echo Please temporary rename or temporary move to another location "%cd%\DiskPart.txt" in order for this batch file to proceed. Press any key to continue when "%cd%\DiskPart.txt" is renamed or moved to another location.
-pause > nul
+pause > nul 2>&1
 goto DiskPart
 
 :DiskPartError
@@ -442,15 +442,21 @@ goto Bootloader
 :Bootloader
 echo.
 echo Creating bootloader.
-BCDBoot "%NTFS%\Windows" /s "%FAT32%" /f ALL > nul
+BCDBoot "%NTFS%\Windows" /s "%FAT32%" /f ALL > nul 2>&1
+if not "%errorlevel%"=="0" goto BootloaderError
 echo sel vol %FAT32% > "%cd%\DiskPart.txt"
 echo remove letter=%FAT32% >> "%cd%\DiskPart.txt"
 echo exit >> "%cd%\DiskPart.txt"
-DiskPart /s "%cd%\DiskPart.txt" > nul
+DiskPart /s "%cd%\DiskPart.txt" > nul 2>&1
 del "%cd%\DiskPart.txt"
 echo Bootloader created.
 if "%DiskPart%"=="True" goto DiskPartDone
 goto Done
+
+:BootloaderError
+echo.
+echo Error creating the bootloader! You can try again.
+goto DriveLetter
 
 :DiskPartDone
 echo.
@@ -461,5 +467,5 @@ goto Done
 endlocal
 echo.
 echo Your Windows To Go is ready! It is Bootable with Legacy BIOS and UEFI. Press any key to close this batch file.
-pause > nul
+pause > nul 2>&1
 exit
