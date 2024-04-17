@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 2.3.3
+echo Version: 2.4.0
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -25,6 +25,9 @@ echo Download Windows 10 22H2 Disk Image from here. ^-^-^> https://www.microsoft
 echo Press any key to open the website.
 pause > nul 2>&1
 start https://www.microsoft.com/software-download/windows10
+echo.
+echo Press any key to continue once you have downloaded the Windows 10 Disk Image.
+pause > nul 2>&1
 goto Mount
 
 :11
@@ -33,6 +36,9 @@ echo Download Windows 11 23H2 Disk Image from here. ^-^-^> https://www.microsoft
 echo Press any key to open the website.
 pause > nul 2>&1
 start https://www.microsoft.com/software-download/windows11
+echo.
+echo Press any key to continue once you have downloaded the Windows 11 Disk Image.
+pause > nul 2>&1
 goto Mount
 
 :Mount
