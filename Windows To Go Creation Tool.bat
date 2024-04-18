@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 2.4.0
+echo Version: 2.4.1
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -217,9 +217,27 @@ goto Index
 echo.
 set IndexNumber=
 set /p IndexNumber="Are you sure you want Index %Index%? (Yes/No) "
-if /i "%IndexNumber%"=="Yes" goto FAT32
+if /i "%IndexNumber%"=="Yes" goto Disk
 if /i "%IndexNumber%"=="No" goto Index
 goto SureIndex
+
+:Disk
+echo.
+echo Please attach an external SSD or a WTG certifed drive then press any key to continue.
+pause > nul 2>&1
+echo.
+set Disk=
+set /p Disk="What is the disk number of your drive you attached to this PC? (0-?) "
+goto SureDisk
+
+:SureDisk
+echo.
+set SureDisk=
+set /p SureDisk="All data on disk %Disk% will be deleted! Are you sure disk %Disk% is the correct disk number? (Yes/No) "
+if /i "%SureDisk%"=="Yes" goto FAT32
+if /i "%SureDisk%"=="No" goto Disk
+echo Invalid Syntax!
+goto SureDisk
 
 :FAT32
 echo.
@@ -265,32 +283,32 @@ set NTFS=
 set /p NTFS="Please enter another unused drive letter. (A:-Z:) "
 if /i "%NTFS%" EQU "%FAT32%" goto SameDriveLetterNTFS
 if exist "%NTFS%" goto ExistNTFS
-if /i "%NTFS%"=="A:" goto Disk
-if /i "%NTFS%"=="B:" goto Disk
-if /i "%NTFS%"=="C:" goto Disk
-if /i "%NTFS%"=="D:" goto Disk
-if /i "%NTFS%"=="E:" goto Disk
-if /i "%NTFS%"=="F:" goto Disk
-if /i "%NTFS%"=="G:" goto Disk
-if /i "%NTFS%"=="H:" goto Disk
-if /i "%NTFS%"=="I:" goto Disk
-if /i "%NTFS%"=="J:" goto Disk
-if /i "%NTFS%"=="K:" goto Disk
-if /i "%NTFS%"=="L:" goto Disk
-if /i "%NTFS%"=="M:" goto Disk
-if /i "%NTFS%"=="N:" goto Disk
-if /i "%NTFS%"=="O:" goto Disk
-if /i "%NTFS%"=="P:" goto Disk
-if /i "%NTFS%"=="Q:" goto Disk
-if /i "%NTFS%"=="R:" goto Disk
-if /i "%NTFS%"=="S:" goto Disk
-if /i "%NTFS%"=="T:" goto Disk
-if /i "%NTFS%"=="U:" goto Disk
-if /i "%NTFS%"=="V:" goto Disk
-if /i "%NTFS%"=="W:" goto Disk
-if /i "%NTFS%"=="X:" goto Disk
-if /i "%NTFS%"=="Y:" goto Disk
-if /i "%NTFS%"=="Z:" goto Disk
+if /i "%NTFS%"=="A:" goto DiskPart
+if /i "%NTFS%"=="B:" goto DiskPart
+if /i "%NTFS%"=="C:" goto DiskPart
+if /i "%NTFS%"=="D:" goto DiskPart
+if /i "%NTFS%"=="E:" goto DiskPart
+if /i "%NTFS%"=="F:" goto DiskPart
+if /i "%NTFS%"=="G:" goto DiskPart
+if /i "%NTFS%"=="H:" goto DiskPart
+if /i "%NTFS%"=="I:" goto DiskPart
+if /i "%NTFS%"=="J:" goto DiskPart
+if /i "%NTFS%"=="K:" goto DiskPart
+if /i "%NTFS%"=="L:" goto DiskPart
+if /i "%NTFS%"=="M:" goto DiskPart
+if /i "%NTFS%"=="N:" goto DiskPart
+if /i "%NTFS%"=="O:" goto DiskPart
+if /i "%NTFS%"=="P:" goto DiskPart
+if /i "%NTFS%"=="Q:" goto DiskPart
+if /i "%NTFS%"=="R:" goto DiskPart
+if /i "%NTFS%"=="S:" goto DiskPart
+if /i "%NTFS%"=="T:" goto DiskPart
+if /i "%NTFS%"=="U:" goto DiskPart
+if /i "%NTFS%"=="V:" goto DiskPart
+if /i "%NTFS%"=="W:" goto DiskPart
+if /i "%NTFS%"=="X:" goto DiskPart
+if /i "%NTFS%"=="Y:" goto DiskPart
+if /i "%NTFS%"=="Z:" goto DiskPart
 echo Invalid Syntax!
 goto NTFS
 
@@ -301,24 +319,6 @@ goto NTFS
 :ExistNTFS
 echo "%NTFS%" exists! Please try again.
 goto NTFS
-
-:Disk
-echo.
-echo Please attach an external SSD or a WTG certifed drive then press any key to continue.
-pause > nul 2>&1
-echo.
-set Disk=
-set /p Disk="What is the disk number of your drive you attached to this PC? (0-?) "
-goto SureDisk
-
-:SureDisk
-echo.
-set SureDisk=
-set /p SureDisk="All data on disk %Disk% will be deleted! Are you sure disk %Disk% is the correct disk number? (Yes/No) "
-if /i "%SureDisk%"=="Yes" goto DiskPart
-if /i "%SureDisk%"=="No" goto Disk
-echo Invalid Syntax!
-goto SureDisk
 
 :DiskPart
 if exist "%cd%\DiskPart.txt" goto DiskPartExist
