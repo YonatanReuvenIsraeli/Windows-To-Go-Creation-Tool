@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 3.0.0
+echo Version: 3.0.1
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -391,7 +391,7 @@ if /i "%install%"=="install.wim" goto 64DISMWIM2
 echo.
 echo Installing Windows.
 DISM /Apply-Image /ImageFile:"%DriveLetter%\sources\install.esd" /Index:%Index% /ApplyDir:%NTFS%
-if not "%errorlevel%"=="0" goto Index
+if not "%errorlevel%"=="0" goto BitDetection
 echo Windows installed.
 goto Done
 
@@ -399,7 +399,7 @@ goto Done
 echo.
 echo Installing Windows.
 DISM /Apply-Image /ImageFile:"%DriveLetter%\sources\install.swm" /Index:%Index% /ApplyDir:%NTFS%
-if not "%errorlevel%"=="0" goto Index
+if not "%errorlevel%"=="0" goto BitDetection
 echo Windows installed.
 goto Done
 
@@ -407,7 +407,7 @@ goto Done
 echo.
 echo Installing Windows.
 DISM/Apply-Image /ImageFile:"%DriveLetter%\sources\install.wim" /Index:%Index% /ApplyDir:%NTFS%
-if not "%errorlevel%"=="0" goto Index
+if not "%errorlevel%"=="0" goto BitDetection
 echo Windows installed.
 goto Done
 
@@ -415,7 +415,7 @@ goto Done
 echo.
 echo Installing Windows.
 DISM /Apply-Image /ImageFile:"%DriveLetter%\x86\sources\install.esd" /Index:%Index% /ApplyDir:%NTFS%
-if not "%errorlevel%"=="0" goto Index
+if not "%errorlevel%"=="0" goto BitDetection
 echo Windows installed.
 goto Done
 
@@ -423,7 +423,7 @@ goto Done
 echo.
 echo Installing Windows.
 DISM /Apply-Image /ImageFile:"%DriveLetter%\x86\sources\install.swm" /Index:%Index% /ApplyDir:%NTFS%
-if not "%errorlevel%"=="0" goto Index
+if not "%errorlevel%"=="0" goto BitDetection
 echo Windows installed.
 goto Done
 
@@ -431,7 +431,7 @@ goto Done
 echo.
 echo Installing Windows.
 DISM/Apply-Image /ImageFile:"%DriveLetter%\x86\sources\install.wim" /Index:%Index% /ApplyDir:%NTFS%
-if not "%errorlevel%"=="0" goto Index
+if not "%errorlevel%"=="0" goto BitDetection
 echo Windows installed.
 goto Done
 
@@ -439,7 +439,7 @@ goto Done
 echo.
 echo Installing Windows.
 DISM /Apply-Image /ImageFile:"%DriveLetter%\x64\sources\install.esd" /Index:%Index% /ApplyDir:%NTFS%
-if not "%errorlevel%"=="0" goto Index
+if not "%errorlevel%"=="0" goto BitDetection
 echo Windows installed.
 goto Done
 
@@ -447,7 +447,7 @@ goto Done
 echo.
 echo Installing Windows.
 DISM /Apply-Image /ImageFile:"%DriveLetter%\x64\sources\install.swm" /Index:%Index% /ApplyDir:%NTFS%
-if not "%errorlevel%"=="0" goto Index
+if not "%errorlevel%"=="0" goto BitDetection
 echo Windows installed.
 goto Done
 
@@ -455,7 +455,7 @@ goto Done
 echo.
 echo Installing Windows.
 DISM/Apply-Image /ImageFile:"%DriveLetter%\x64\sources\install.wim" /Index:%Index% /ApplyDir:%NTFS%
-if not "%errorlevel%"=="0" goto Index
+if not "%errorlevel%"=="0" goto BitDetection
 echo Windows installed.
 goto Bootloader
 
