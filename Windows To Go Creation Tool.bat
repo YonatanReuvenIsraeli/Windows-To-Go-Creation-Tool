@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 3.0.2
+echo Version: 3.0.3
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -22,8 +22,8 @@ exit
 
 :Start
 echo.
-echo [1] Download Windows 10 22H2
-echo [2] Download Windows 10 23H2
+echo [1] Download Windows 10 22H2.
+echo [2] Download Windows 10 23H2.
 echo [3] Already have downloaded Windows 10 22H2 or Windows 11 23H2 Windows Disk Image.
 set Windows=
 set /p Windows="What do you want to do? (1-3) "
