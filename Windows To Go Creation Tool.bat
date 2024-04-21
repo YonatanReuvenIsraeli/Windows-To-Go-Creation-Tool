@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 3.1.4
+echo Version: 3.1.5
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -245,7 +245,8 @@ goto AttachDisk
 if exist "%cd%\DiskPart.txt" goto DiskPartExist
 echo list disk %Disk% > "%cd%\DiskPart.txt"
 echo exit >> "%cd%\DiskPart.txt"
-DiskPart /s "%cd%\DiskPart.txt"
+DiskPart /s "%cd%\DiskPart.txt" 2>&1
+if not "%errorlevel%"=="0" goto DiskError
 del "%cd%\DiskPart.txt"
 echo.
 set Disk=
@@ -258,6 +259,11 @@ echo.
 echo Please temporary rename or temporary move to another location "%cd%\DiskPart.txt" in order for this batch file to proceed. Press any key to continue when "%cd%\DiskPart.txt" is renamed or moved to another location.
 pause > nul 2>&1
 goto Disk
+
+:DiskError
+echo.
+echo There has been an error! You can try again.
+goto AttachDisk
 
 :SureDisk
 echo.
