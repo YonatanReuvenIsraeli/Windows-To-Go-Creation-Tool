@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 3.1.5
+echo Version: 3.1.6
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -256,7 +256,7 @@ goto SureDisk
 :DiskPartExist
 set DiskPart=True
 echo.
-echo Please temporary rename or temporary move to another location "%cd%\DiskPart.txt" in order for this batch file to proceed. Press any key to continue when "%cd%\DiskPart.txt" is renamed or moved to another location.
+echo Please temporary rename to something else or temporary move to another location "%cd%\DiskPart.txt" in order for this batch file to proceed. Press any key to continue when "%cd%\DiskPart.txt" is renamed to something else or moved to another location. This batch file will let you know when you can rename it back to its original name or move it back to its original location.
 pause > nul 2>&1
 goto Disk
 
