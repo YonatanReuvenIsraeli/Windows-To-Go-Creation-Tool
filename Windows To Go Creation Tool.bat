@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 3.1.1
+echo Version: 3.1.2
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -231,14 +231,17 @@ goto Index
 echo.
 set IndexNumber=
 set /p IndexNumber="Are you sure you want Index %Index%? (Yes/No) "
-if /i "%IndexNumber%"=="Yes" goto Disk
+if /i "%IndexNumber%"=="Yes" goto AttachDisk
 if /i "%IndexNumber%"=="No" goto Index
 goto SureIndex
 
-:Disk
+:AttachDisk
 echo.
 echo Please attach an external SSD or a WTG certifed drive then press any key to continue.
 pause > nul 2>&1
+goto Disk
+
+:Disk
 if exist "%cd%\DiskPart.txt" goto DiskPartExist
 echo list disk %Disk% > "%cd%\DiskPart.txt"
 echo exit >> "%cd%\DiskPart.txt"
