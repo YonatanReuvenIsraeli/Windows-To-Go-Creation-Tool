@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 3.0.3
+echo Version: 3.1.0
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -239,10 +239,22 @@ goto SureIndex
 echo.
 echo Please attach an external SSD or a WTG certifed drive then press any key to continue.
 pause > nul 2>&1
+if exist "%cd%\DiskPart.txt" goto DiskPartExist
+echo list disk %Disk% > "%cd%\DiskPart.txt"
+echo exit >> "%cd%\DiskPart.txt"
+DiskPart /s "%cd%\DiskPart.txt"
+del "%cd%\DiskPart.txt"
 echo.
 set Disk=
-set /p Disk="What is the disk number of your drive you attached to this PC? (0-?) "
+set /p Disk="What is the disk number of the drive you attached to this PC? (0-?) "
 goto SureDisk
+
+:DiskPartExist
+set DiskPart=True
+echo.
+echo Please temporary rename or temporary move to another location "%cd%\DiskPart.txt" in order for this batch file to proceed. Press any key to continue when "%cd%\DiskPart.txt" is renamed or moved to another location.
+pause > nul 2>&1
+goto DiskPart
 
 :SureDisk
 echo.
@@ -335,7 +347,6 @@ echo "%NTFS%" exists! Please try again.
 goto NTFS
 
 :DiskPart
-if exist "%cd%\DiskPart.txt" goto DiskPartExist
 echo.
 echo Partitioning and formating disk %Disk%.
 echo sel disk %Disk% > "%cd%\DiskPart.txt"
@@ -354,13 +365,6 @@ if not "%errorlevel%"=="0" goto DiskPartError
 del "%cd%\DiskPart.txt"
 echo Disk %Disk% partitioned and formated.
 goto Bit3
-
-:DiskPartExist
-set DiskPart=True
-echo.
-echo Please temporary rename or temporary move to another location "%cd%\DiskPart.txt" in order for this batch file to proceed. Press any key to continue when "%cd%\DiskPart.txt" is renamed or moved to another location.
-pause > nul 2>&1
-goto DiskPart
 
 :DiskPartError
 echo.
