@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 3.1.7
+echo Version: 3.1.8
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -407,7 +407,7 @@ echo Installing Windows.
 DISM /Apply-Image /ImageFile:"%DriveLetter%\sources\install.esd" /Index:%Index% /ApplyDir:%NTFS%
 if not "%errorlevel%"=="0" goto BitDetection
 echo Windows installed.
-goto Done
+goto Bootloader
 
 :DISMSWM2
 echo.
@@ -415,7 +415,7 @@ echo Installing Windows.
 DISM /Apply-Image /ImageFile:"%DriveLetter%\sources\install.swm" /Index:%Index% /ApplyDir:%NTFS%
 if not "%errorlevel%"=="0" goto BitDetection
 echo Windows installed.
-goto Done
+goto Bootloader
 
 :DISMWIM2
 echo.
@@ -423,7 +423,7 @@ echo Installing Windows.
 DISM/Apply-Image /ImageFile:"%DriveLetter%\sources\install.wim" /Index:%Index% /ApplyDir:%NTFS%
 if not "%errorlevel%"=="0" goto BitDetection
 echo Windows installed.
-goto Done
+goto Bootloader
 
 :32DISMESD2
 echo.
@@ -431,7 +431,7 @@ echo Installing Windows.
 DISM /Apply-Image /ImageFile:"%DriveLetter%\x86\sources\install.esd" /Index:%Index% /ApplyDir:%NTFS%
 if not "%errorlevel%"=="0" goto BitDetection
 echo Windows installed.
-goto Done
+goto Bootloader
 
 :32DISMSWM2
 echo.
@@ -439,7 +439,7 @@ echo Installing Windows.
 DISM /Apply-Image /ImageFile:"%DriveLetter%\x86\sources\install.swm" /Index:%Index% /ApplyDir:%NTFS%
 if not "%errorlevel%"=="0" goto BitDetection
 echo Windows installed.
-goto Done
+goto Bootloader
 
 :32DISMWIM2
 echo.
@@ -447,7 +447,7 @@ echo Installing Windows.
 DISM/Apply-Image /ImageFile:"%DriveLetter%\x86\sources\install.wim" /Index:%Index% /ApplyDir:%NTFS%
 if not "%errorlevel%"=="0" goto BitDetection
 echo Windows installed.
-goto Done
+goto Bootloader
 
 :64DISMESD2
 echo.
@@ -455,7 +455,7 @@ echo Installing Windows.
 DISM /Apply-Image /ImageFile:"%DriveLetter%\x64\sources\install.esd" /Index:%Index% /ApplyDir:%NTFS%
 if not "%errorlevel%"=="0" goto BitDetection
 echo Windows installed.
-goto Done
+goto Bootloader
 
 :64DISMSWM2
 echo.
@@ -463,7 +463,7 @@ echo Installing Windows.
 DISM /Apply-Image /ImageFile:"%DriveLetter%\x64\sources\install.swm" /Index:%Index% /ApplyDir:%NTFS%
 if not "%errorlevel%"=="0" goto BitDetection
 echo Windows installed.
-goto Done
+goto Bootloader
 
 :64DISMWIM2
 echo.
