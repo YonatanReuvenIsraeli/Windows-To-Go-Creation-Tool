@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 3.1.11
+echo Version: 3.1.12
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -30,7 +30,7 @@ set /p Windows="What do you want to do? (1-3) "
 if /i "%Windows%"=="1" goto 10
 if /i "%Windows%"=="2" goto 11
 if /i "%Windows%"=="3" goto Mount
-echo Invalid Syntax
+echo Invalid syntax!
 goto Start
 
 :10
@@ -91,7 +91,7 @@ if /i "%DriveLetter%"=="W:" goto SureDriveLetter
 if /i "%DriveLetter%"=="X:" goto SureDriveLetter
 if /i "%DriveLetter%"=="Y:" goto SureDriveLetter
 if /i "%DriveLetter%"=="Z:" goto SureDriveLetter
-echo Invalid Syntax!
+echo Invalid syntax!
 goto DriveLetter
 
 :SureDriveLetter
@@ -100,7 +100,7 @@ set SureDriveLetter=
 set /p SureDriveLetter="Are you sure "%DriveLetter%" is the drive letter of your Windows Disk Image? (Yes/No) "
 if /i "%SureDriveLetter%"=="Yes" goto CheckExistDriveLetter
 if /i "%SureDriveLetter%"=="No" goto DriveLetter
-echo Invalid Syntax!
+echo Invalid syntax!
 goto SureDriveLetter
 
 :CheckExistDriveLetter
@@ -124,7 +124,7 @@ set Bit=
 set /p Bit="Do you want 32-bit or 64-bit version of Windows? (32/64) "
 if /i "%Bit%"=="32" goto SureBit
 if /i "%Bit%"=="64" goto SureBit
-echo Invalid Syntax!
+echo Invalid syntax!
 goto Bit1
 
 :SureBit
@@ -133,7 +133,7 @@ set SureBit=
 set /p SureBit="Are you sure you want a %Bit%-bit version of Windows? (Yes/No) "
 if /i "%SureBit%"=="Yes" goto Bit2
 if /i "%SureBit%"=="No" goto Bit1
-echo Invalid Syntax!
+echo Invalid syntax!
 goto SureBit
 
 :Bit2
@@ -224,7 +224,7 @@ if /i "%Index%"=="8" goto SureIndex
 if /i "%Index%"=="9" goto SureIndex
 if /i "%Index%"=="10" goto SureIndex
 if /i "%Index%"=="11" goto SureIndex
-echo Invalid Syntax!
+echo Invalid syntax!
 goto Index
 
 :SureIndex
@@ -272,7 +272,7 @@ set SureDisk=
 set /p SureDisk="All data on disk %Disk% will be deleted! Are you sure disk %Disk% is the correct disk number? (Yes/No) "
 if /i "%SureDisk%"=="Yes" goto FAT32
 if /i "%SureDisk%"=="No" goto Disk
-echo Invalid Syntax!
+echo Invalid syntax!
 goto SureDisk
 
 :FAT32
@@ -306,7 +306,7 @@ if /i "%FAT32%"=="W:" goto NTFS
 if /i "%FAT32%"=="X:" goto NTFS
 if /i "%FAT32%"=="Y:" goto NTFS
 if /i "%FAT32%"=="Z:" goto NTFS
-echo Invalid Syntax!
+echo Invalid syntax!
 goto FAT32
 
 :ExistFAT32
@@ -345,7 +345,7 @@ if /i "%NTFS%"=="W:" goto DiskPart
 if /i "%NTFS%"=="X:" goto DiskPart
 if /i "%NTFS%"=="Y:" goto DiskPart
 if /i "%NTFS%"=="Z:" goto DiskPart
-echo Invalid Syntax!
+echo Invalid syntax!
 goto NTFS
 
 :SameDriveLetterNTFS
