@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 3.1.12
+echo Version: 3.1.13
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -500,6 +500,6 @@ goto Done
 :Done
 endlocal
 echo.
-echo Your Windows To Go is ready! It is Bootable with Legacy BIOS and UEFI. Press any key to close this batch file.
+echo Your Windows To Go is ready! It is bootable with Legacy BIOS and UEFI. Press any key to close this batch file.
 pause > nul 2>&1
 exit
