@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 3.1.13
+echo Version: 3.1.14
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -420,7 +420,7 @@ goto Bootloader
 :DISMWIM2
 echo.
 echo Installing Windows.
-DISM/Apply-Image /ImageFile:"%DriveLetter%\sources\install.wim" /Index:%Index% /ApplyDir:%NTFS%
+DISM /Apply-Image /ImageFile:"%DriveLetter%\sources\install.wim" /Index:%Index% /ApplyDir:%NTFS%
 if not "%errorlevel%"=="0" goto BitDetection
 echo Windows installed.
 goto Bootloader
@@ -444,7 +444,7 @@ goto Bootloader
 :32DISMWIM2
 echo.
 echo Installing Windows.
-DISM/Apply-Image /ImageFile:"%DriveLetter%\x86\sources\install.wim" /Index:%Index% /ApplyDir:%NTFS%
+DISM /Apply-Image /ImageFile:"%DriveLetter%\x86\sources\install.wim" /Index:%Index% /ApplyDir:%NTFS%
 if not "%errorlevel%"=="0" goto BitDetection
 echo Windows installed.
 goto Bootloader
@@ -468,7 +468,7 @@ goto Bootloader
 :64DISMWIM2
 echo.
 echo Installing Windows.
-DISM/Apply-Image /ImageFile:"%DriveLetter%\x64\sources\install.wim" /Index:%Index% /ApplyDir:%NTFS%
+DISM /Apply-Image /ImageFile:"%DriveLetter%\x64\sources\install.wim" /Index:%Index% /ApplyDir:%NTFS%
 if not "%errorlevel%"=="0" goto BitDetection
 echo Windows installed.
 goto Bootloader
