@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 3.1.14
+echo Version: 3.1.15
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -115,7 +115,7 @@ goto DriveLetter
 if exist "%DriveLetter%\sources" goto ESDSWMWIM1
 if exist "%DriveLetter%\x86\sources" goto Bit1
 if exist "%DriveLetter%\x64\sources" goto Bit1
-echo Invalid Drive Letter!
+echo Invalid drive letter!
 goto DriveLetter
 
 :Bit1
