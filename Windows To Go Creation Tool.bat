@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 3.1.15
+echo Version: 3.1.16
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -279,6 +279,7 @@ goto SureDisk
 echo.
 set FAT32=
 set /p FAT32="Please enter an unused drive letter. (A:-Z:) "
+if /i "%FAT32%"=="%DriveLetter%" goto SameDriveLetterFAT32DriveLetter
 if exist "%FAT32%" goto ExistFAT32
 if /i "%FAT32%"=="A:" goto NTFS
 if /i "%FAT32%"=="B:" goto NTFS
@@ -309,6 +310,10 @@ if /i "%FAT32%"=="Z:" goto NTFS
 echo Invalid syntax!
 goto FAT32
 
+:SameDriveLetterFAT32DriveLetter
+echo Unused drive letter ("%FAT32%") is the same as Windows Disk Image drive letter ("%DriveLetter%")! Please try again.
+goto FAT32
+
 :ExistFAT32
 echo "%FAT32%" exists! Please try again.
 goto FAT32
@@ -317,7 +322,8 @@ goto FAT32
 echo.
 set NTFS=
 set /p NTFS="Please enter another unused drive letter. (A:-Z:) "
-if /i "%NTFS%" EQU "%FAT32%" goto SameDriveLetterNTFS
+if /i "%NTFS%"=="%DriveLetter%" goto SameDriveLetterNTFSDriveLetter
+if /i "%NTFS%"=="%FAT32%" goto SameDriveLetterNTFSFAT32
 if exist "%NTFS%" goto ExistNTFS
 if /i "%NTFS%"=="A:" goto DiskPart
 if /i "%NTFS%"=="B:" goto DiskPart
@@ -348,7 +354,11 @@ if /i "%NTFS%"=="Z:" goto DiskPart
 echo Invalid syntax!
 goto NTFS
 
-:SameDriveLetterNTFS
+:SameDriveLetterNTFSDriveLetter
+echo Second unused drive letter ("%NTFS%") is the same as Windows Disk Image drive letter ("%DriveLetter%")! Please try again.
+goto NTFS
+
+:SameDriveLetterNTFSFAT32
 echo First unused drive letter ("%NTFS%") same as second unused drive letter ("%DriveLetter%"). Please try again.
 goto NTFS
 
