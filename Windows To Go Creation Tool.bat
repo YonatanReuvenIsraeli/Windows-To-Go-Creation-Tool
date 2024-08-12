@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 3.1.16
+echo Version: 3.1.17
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -499,8 +499,10 @@ goto Done
 
 :BootloaderError
 echo.
-echo Error creating the bootloader! You can try again.
-goto DriveLetter
+echo Error creating the bootloader! Press any key to try again.
+pause > nul 2>&1
+del "%cd%\DiskPart.txt"
+goto Bootloader
 
 :DiskPartDone
 echo.
