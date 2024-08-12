@@ -263,7 +263,9 @@ goto Disk
 
 :DiskError
 echo.
-echo There has been an error! You can try again.
+echo There has been an error! Press any key to try again.
+pause > nul 2>&1
+del "%cd%\DiskPart.txt"
 goto AttachDisk
 
 :SureDisk
@@ -388,7 +390,9 @@ goto Bit3
 
 :DiskPartError
 echo.
-echo %Disk% does not exist!
+echo Error formating and partitioning disk %Disk%. %Disk% may not exist! Press any key to try again.
+pause > nul 2>&1
+del "%cd%\DiskPart.txt"
 goto Disk
 
 :Bit3
