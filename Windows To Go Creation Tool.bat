@@ -369,6 +369,7 @@ echo "%NTFS%" exists! Please try again.
 goto NTFS
 
 :DiskPart
+if exist "%cd%\DiskPart.txt" goto DiskPartExist
 echo.
 echo Partitioning and formating disk %Disk%.
 echo sel disk %Disk% > "%cd%\DiskPart.txt"
@@ -488,6 +489,7 @@ echo Windows installed.
 goto Bootloader
 
 :Bootloader
+if exist "%cd%\DiskPart.txt" goto DiskPartExist
 echo.
 echo Creating bootloader.
 BCDBoot "%NTFS%\Windows" /s "%FAT32%" /f ALL > nul 2>&1
