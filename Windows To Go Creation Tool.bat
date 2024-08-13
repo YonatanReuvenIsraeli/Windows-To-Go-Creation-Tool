@@ -239,10 +239,13 @@ goto SureIndex
 echo.
 echo Please attach an external SSD or a WTG certifed drive then press any key to continue.
 pause > nul 2>&1
+goto DiskSet
+
+:DiskSet
+set DiskPart=
 goto Disk
 
 :Disk
-set DiskPart=
 if exist "%cd%\DiskPart.txt" goto DiskPartExist
 echo list disk > "%cd%\DiskPart.txt"
 echo exit >> "%cd%\DiskPart.txt"
