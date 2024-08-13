@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 3.2.5
+echo Version: 3.2.6
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -254,6 +254,7 @@ echo exit >> "%cd%\DiskPart.txt"
 DiskPart /s "%cd%\DiskPart.txt" 2>&1
 if not "%errorlevel%"=="0" goto DiskError
 del "%cd%\DiskPart.txt" /f /q
+echo Disks attached to this PC found.
 echo.
 set Disk=
 set /p Disk="What is the disk number of the drive you attached to this PC? (0-?) "
