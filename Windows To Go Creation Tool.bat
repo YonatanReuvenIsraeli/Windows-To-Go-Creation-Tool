@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 3.2.3
+echo Version: 3.2.4
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -239,9 +239,9 @@ goto SureIndex
 echo.
 echo Please attach an external SSD or a WTG certifed drive then press any key to continue.
 pause > nul 2>&1
-goto DiskSet
+goto DiskPartSet
 
-:DiskSet
+:DiskPartSet
 set DiskPart=
 goto Disk
 
