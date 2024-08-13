@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 3.2.2
+echo Version: 3.2.3
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -247,6 +247,8 @@ goto Disk
 
 :Disk
 if exist "%cd%\DiskPart.txt" goto DiskPartExistDisk
+echo.
+echo Finding disks attached to this PC.
 echo list disk > "%cd%\DiskPart.txt"
 echo exit >> "%cd%\DiskPart.txt"
 DiskPart /s "%cd%\DiskPart.txt" 2>&1
