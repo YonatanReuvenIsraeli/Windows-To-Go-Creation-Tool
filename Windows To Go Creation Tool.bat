@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 3.2.0
+echo Version: 3.2.1
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -251,7 +251,7 @@ echo list disk > "%cd%\DiskPart.txt"
 echo exit >> "%cd%\DiskPart.txt"
 DiskPart /s "%cd%\DiskPart.txt" 2>&1
 if not "%errorlevel%"=="0" goto DiskError
-del "%cd%\DiskPart.txt"
+del "%cd%\DiskPart.txt" /f /q
 echo.
 set Disk=
 set /p Disk="What is the disk number of the drive you attached to this PC? (0-?) "
@@ -388,7 +388,7 @@ echo assign letter=%NTFS% >> "%cd%\DiskPart.txt"
 echo exit >> "%cd%\DiskPart.txt"
 DiskPart /s "%cd%\DiskPart.txt" > nul 2>&1
 if not "%errorlevel%"=="0" goto DiskPartError
-del "%cd%\DiskPart.txt"
+del "%cd%\DiskPart.txt" /f /q
 echo Disk %Disk% partitioned and formated.
 goto Bit3
 
@@ -524,7 +524,7 @@ goto Bootloader
 echo.
 echo Error creating the bootloader! Press any key to try again.
 pause > nul 2>&1
-del "%cd%\DiskPart.txt"
+del "%cd%\DiskPart.txt" /f /q
 goto Bootloader
 
 :DiskPartDone
