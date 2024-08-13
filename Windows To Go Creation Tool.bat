@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 3.1.17
+echo Version: 3.2.0
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -246,7 +246,7 @@ set DiskPart=
 goto Disk
 
 :Disk
-if exist "%cd%\DiskPart.txt" goto DiskPartExist
+if exist "%cd%\DiskPart.txt" goto DiskPartExistDisk
 echo list disk > "%cd%\DiskPart.txt"
 echo exit >> "%cd%\DiskPart.txt"
 DiskPart /s "%cd%\DiskPart.txt" 2>&1
@@ -257,7 +257,7 @@ set Disk=
 set /p Disk="What is the disk number of the drive you attached to this PC? (0-?) "
 goto SureDisk
 
-:DiskPartExist
+:DiskPartExistDisk
 set DiskPart=True
 echo.
 echo Please temporary rename to something else or temporary move to another location "%cd%\DiskPart.txt" in order for this batch file to proceed. Press any key to continue when "%cd%\DiskPart.txt" is renamed to something else or moved to another location. This batch file will let you know when you can rename it back to its original name or move it back to its original location.
@@ -372,7 +372,7 @@ echo "%NTFS%" exists! Please try again.
 goto NTFS
 
 :DiskPart
-if exist "%cd%\DiskPart.txt" goto DiskPartExist
+if exist "%cd%\DiskPart.txt" goto DiskPartExistDiskPart
 echo.
 echo Partitioning and formating disk %Disk%.
 echo sel disk %Disk% > "%cd%\DiskPart.txt"
@@ -391,6 +391,13 @@ if not "%errorlevel%"=="0" goto DiskPartError
 del "%cd%\DiskPart.txt"
 echo Disk %Disk% partitioned and formated.
 goto Bit3
+
+DiskPartExistDiskDiskPart
+set DiskPart=True
+echo.
+echo Please temporary rename to something else or temporary move to another location "%cd%\DiskPart.txt" in order for this batch file to proceed. Press any key to continue when "%cd%\DiskPart.txt" is renamed to something else or moved to another location. This batch file will let you know when you can rename it back to its original name or move it back to its original location.
+pause > nul 2>&1
+goto DiskPart
 
 :DiskPartError
 echo.
@@ -492,7 +499,7 @@ echo Windows installed.
 goto Bootloader
 
 :Bootloader
-if exist "%cd%\DiskPart.txt" goto DiskPartExist
+if exist "%cd%\DiskPart.txt" goto DiskPartExistBootloader
 echo.
 echo Creating bootloader.
 BCDBoot "%NTFS%\Windows" /s "%FAT32%" /f ALL > nul 2>&1
@@ -505,6 +512,13 @@ del "%cd%\DiskPart.txt"
 echo Bootloader created.
 if "%DiskPart%"=="True" goto DiskPartDone
 goto Done
+
+DiskPartExisBootloader
+set DiskPart=True
+echo.
+echo Please temporary rename to something else or temporary move to another location "%cd%\DiskPart.txt" in order for this batch file to proceed. Press any key to continue when "%cd%\DiskPart.txt" is renamed to something else or moved to another location. This batch file will let you know when you can rename it back to its original name or move it back to its original location.
+pause > nul 2>&1
+goto Bootloader
 
 :BootloaderError
 echo.
