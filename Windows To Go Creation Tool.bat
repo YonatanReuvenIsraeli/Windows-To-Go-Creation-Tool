@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 3.2.6
+echo Version: 3.2.7
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -382,7 +382,7 @@ echo sel disk %Disk% > "%cd%\DiskPart.txt"
 echo clean >> "%cd%\DiskPart.txt"
 echo convert mbr >> "%cd%\DiskPart.txt"
 echo create partition Primary size=350 >> "%cd%\DiskPart.txt"
-echo format fs=FAT32 label="SYSTEM" quick >> "%cd%\DiskPart.txt"
+echo format fs=FAT32 label="System" quick >> "%cd%\DiskPart.txt"
 echo assign letter=%FAT32% >> "%cd%\DiskPart.txt"
 echo active >> "%cd%\DiskPart.txt"
 echo create partition Primary >> "%cd%\DiskPart.txt"
