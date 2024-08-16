@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 3.2.8
+echo Version: 3.2.9
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -269,7 +269,6 @@ goto "Disk"
 
 :"DiskError"
 del "%cd%\DiskPart.txt" /f /q
-echo.
 echo There has been an error! Press any key to try again.
 pause > nul 2>&1
 goto "AttachDisk"
@@ -404,7 +403,6 @@ goto "DiskPart"
 
 :"DiskPartError"
 del "%cd%\DiskPart.txt" /f /q
-echo.
 echo Error formating and partitioning disk %Disk%. %Disk% may not exist! Press any key to try again.
 pause > nul 2>&1
 goto "Disk"
@@ -525,7 +523,6 @@ goto "Bootloader"
 
 :"BootloaderError"
 del "%cd%\DiskPart.txt" /f /q
-echo.
 echo Error creating the bootloader! Press any key to try again.
 pause > nul 2>&1
 goto "Bootloader"
