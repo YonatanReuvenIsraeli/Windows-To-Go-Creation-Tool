@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 3.2.9
+echo Version: 3.2.10
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -447,7 +447,7 @@ goto "Bootloader"
 echo.
 echo Installing Windows.
 DISM /Apply-Image /ImageFile:"%DriveLetter%\sources\install.wim" /Index:%Index% /ApplyDir:%NTFS%
-if not "%errorlevel%"=="0" goto "BitDetection:
+if not "%errorlevel%"=="0" goto "BitDetection"
 echo Windows installed.
 goto "Bootloader"
 
