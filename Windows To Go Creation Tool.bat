@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 3.2.13
+echo Version: 3.2.14
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -252,9 +252,9 @@ echo.
 echo Finding disks attached to this PC.
 echo list disk > "%cd%\DiskPart.txt"
 echo exit >> "%cd%\DiskPart.txt"
-DiskPart /s "%cd%\DiskPart.txt" 2>&1
+DiskPart /s "%cd%\DiskPart.txt" > nul 2>&1
 if not "%errorlevel%"=="0" goto "DiskError"
-del "%cd%\DiskPart.txt" /f /q
+del "%cd%\DiskPart.txt" /f /q > nul 2>&1
 echo Disks attached to this PC found.
 echo.
 set Disk=
@@ -269,7 +269,7 @@ pause > nul 2>&1
 goto "Disk"
 
 :"DiskError"
-del "%cd%\DiskPart.txt" /f /q
+del "%cd%\DiskPart.txt" /f /q > nul 2>&1
 echo There has been an error! Press any key to try again.
 pause > nul 2>&1
 goto "AttachDisk"
@@ -391,7 +391,7 @@ echo assign letter=%NTFS% >> "%cd%\DiskPart.txt"
 echo exit >> "%cd%\DiskPart.txt"
 DiskPart /s "%cd%\DiskPart.txt" > nul 2>&1
 if not "%errorlevel%"=="0" goto "DiskPartError"
-del "%cd%\DiskPart.txt" /f /q
+del "%cd%\DiskPart.txt" /f /q > nul 2>&1
 echo Disk %Disk% partitioned and formated.
 goto "Bit3"
 
@@ -403,7 +403,7 @@ pause > nul 2>&1
 goto "DiskPart"
 
 :"DiskPartError"
-del "%cd%\DiskPart.txt" /f /q
+del "%cd%\DiskPart.txt" /f /q > nul 2>&1
 echo Error formating and partitioning disk %Disk%. %Disk% may not exist! Press any key to try again.
 pause > nul 2>&1
 goto "Disk"
@@ -510,7 +510,7 @@ echo sel vol %FAT32% > "%cd%\DiskPart.txt"
 echo remove letter=%FAT32% >> "%cd%\DiskPart.txt"
 echo exit >> "%cd%\DiskPart.txt"
 DiskPart /s "%cd%\DiskPart.txt" > nul 2>&1
-del "%cd%\DiskPart.txt" /f /q
+del "%cd%\DiskPart.txt" /f /q > nul 2>&1
 echo Bootloader created.
 if "%DiskPart%"=="True" goto "DiskPartDone"
 goto "Done"
@@ -523,7 +523,7 @@ pause > nul 2>&1
 goto "Bootloader"
 
 :"BootloaderError"
-del "%cd%\DiskPart.txt" /f /q
+del "%cd%\DiskPart.txt" /f /q > nul 2>&1
 echo Error creating the bootloader! Press any key to try again.
 pause > nul 2>&1
 goto "Bootloader"
