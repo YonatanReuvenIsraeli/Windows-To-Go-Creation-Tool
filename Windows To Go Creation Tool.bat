@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 3.2.15
+echo Version: 3.3.0
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -113,7 +113,7 @@ echo "%DriveLetter%" does not exist. Please try again.
 goto "DriveLetter"
 
 :"BitDetection"
-if exist "%DriveLetter%\sources" goto "ESDSWMWIM1"
+if exist "%DriveLetter%\sources" goto "ESDSWMWIM"
 if exist "%DriveLetter%\x86\sources" goto "Bit1"
 if exist "%DriveLetter%\x64\sources" goto "Bit1"
 echo Invalid drive letter!
@@ -138,76 +138,49 @@ echo Invalid syntax!
 goto "SureBit"
 
 :"Bit2"
-if /i "%Bit%"=="32" goto "32ESDSWMWIM1"
-if /i "%Bit%"=="64" goto "64ESDSWMWIM1"
+if /i "%Bit%"=="32" goto "32ESDSWMWIM"
+if /i "%Bit%"=="64" goto "64ESDSWMWIM"
 
-:"ESDSWMWIM1"
-if exist "%DriveLetter%\sources\install.esd" goto "DISMESD1"
-if exist "%DriveLetter%\sources\install.swm" goto "DISMSWM1"
-if exist "%DriveLetter%\sources\install.wim" goto "DISMWIM1"
+:"ESDSWMWIM"
+if exist "%DriveLetter%\sources\install.esd" set Install=install.esd
+if exist "%DriveLetter%\sources\install.swm" set Install=install.swm
+if exist "%DriveLetter%\sources\install.wim" set Install=install.wim
+goto "DISM1"
 
-:"32ESDSWMWIM1"
-if exist "%DriveLetter%\x86\sources\install.esd" goto "32DISMESD1"
-if exist "%DriveLetter%\x86\sources\install.swm" goto "32DISMSWM1"
-if exist "%DriveLetter%\x86\sources\install.wim" goto "32DISMWIM1"
+:"32ESDSWMWIM"
+if exist "%DriveLetter%\x86\sources\install.esd" set Install=install.esd
+if exist "%DriveLetter%\x86\sources\install.swm" set Install=install.swm
+if exist "%DriveLetter%\x86\sources\install.wim" set Install=install.wim
+goto "32DISM1"
 
-:"64ESDSWMWIM1"
-if exist "%DriveLetter%\x64\sources\install.esd" goto "64DISMESD1"
-if exist "%DriveLetter%\x64\sources\install.swm" goto "64DISMSWM1"
-if exist "%DriveLetter%\x64\sources\install.wim" goto "64DISMWIM1"
+:"64ESDSWMWIM"
+if exist "%DriveLetter%\x64\sources\install.esd" set Install=install.esd
+if exist "%DriveLetter%\x64\sources\install.swm" set Install=install.swm
+if exist "%DriveLetter%\x64\sources\install.wim" set Install=install.wim
+goto "64DISM1"
 
-:"DISMESD1"
-set install=install.esd
-DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\install.esd"
+:"DISM1"
+echo.
+echo Getting index details for Windows Disk Image "%DriveLetter%."
+DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetter"
+echo Got index details for Windows Disk Image "%DriveLetter%."
 goto "Index"
 
-:"DISMSWM1"
-set install=install.swm
-DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\install.swm"
+:"32DISM1"
+echo.
+echo Getting index details for Windows Disk Image "%DriveLetter%."
+DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetter"
+echo Got index details for Windows Disk Image "%DriveLetter%."
 goto "Index"
 
-:"DISMWIM1"
-set install=install.wim
-DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\install.wim"
+:"64DISM1"
+echo.
+echo Getting index details for Windows Disk Image "%DriveLetter%."
+DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetter"
-goto "Index"
-
-:"32DISMESD1"
-set install=install.esd
-DISM /Get-WimInfo /WimFile:"%DriveLetter%\x86\sources\install.esd"
-if not "%errorlevel%"=="0" goto "DriveLetter"
-goto "Index"
-
-:"32DISMSWM1"
-set install=install.swm
-DISM /Get-WimInfo /WimFile:"%DriveLetter%\x86\sources\install.swm"
-if not "%errorlevel%"=="0" goto "DriveLetter"
-goto "Index"
-
-:"32DISMWIM1"
-set install=install.wim
-DISM /Get-WimInfo /WimFile:"%DriveLetter%\x86\sources\install.wim"
-if not "%errorlevel%"=="0" goto "DriveLetter"
-goto "Index"
-
-:"64DISMESD1"
-set install=install.esd
-DISM /Get-WimInfo /WimFile:"%DriveLetter%\x64\sources\install.esd"
-if not "%errorlevel%"=="0" goto "DriveLetter"
-goto "Index"
-
-:"64DISMSWM1"
-set install=install.swm
-DISM /Get-WimInfo /WimFile:"%DriveLetter%\x64\sources\install.swm"
-if not "%errorlevel%"=="0" goto "DriveLetter"
-goto "Index"
-
-:"64DISMWIM1"
-set install=install.wim
-DISM /Get-WimInfo /WimFile:"%DriveLetter%\x64\sources\install.wim"
-if not "%errorlevel%"=="0" goto "DriveLetter"
+echo Got index details for Windows Disk Image "%DriveLetter%."
 goto "Index"
 
 :"Index"
@@ -409,93 +382,30 @@ pause > nul 2>&1
 goto "Disk"
 
 :"Bit3"
-if /i "%Bit%"=="32" goto "32ESDSWMWIM2"
-if /i "%Bit%"=="64" goto "64ESDSWMWIM2"
-goto "ESDSWMWIM2"
+if /i "%Bit%"=="32" goto "32DISM2"
+if /i "%Bit%"=="64" goto "64DISM2"
+goto "DISM2"
 
-:"ESDSWMWIM2"
-if /i "%install%"=="install.esd" goto "DISMESD2"
-if /i "%install%"=="install.swm" goto "DISMSWM2"
-if /i "%install%"=="install.wim" goto "DISMWIM2"
-
-:"32ESDSWMWIM2"
-if /i "%install%"=="install.esd" goto "32DISMESD2"
-if /i "%install%"=="install.swm" goto "32DISMSWM2"
-if /i "%install%"=="install.wim" goto "32DISMWIM2"
-
-:"64ESDSWMWIM2"
-if /i "%install%"=="install.esd" goto "64DISMESD2"
-if /i "%install%"=="install.swm" goto "64DISMSWM2"
-if /i "%install%"=="install.wim" goto "64DISMWIM2"
-
-:"DISMESD2"
+:"DISM2"
 echo.
 echo Installing Windows.
-DISM /Apply-Image /ImageFile:"%DriveLetter%\sources\install.esd" /Index:%Index% /ApplyDir:%NTFS%
+DISM /Apply-Image /ImageFile:"%DriveLetter%\sources\%Install%" /Index:%Index% /ApplyDir:%NTFS%
 if not "%errorlevel%"=="0" goto "BitDetection"
 echo Windows installed.
 goto "Bootloader"
 
-:"DISMSWM2"
+:"32DISM2"
 echo.
 echo Installing Windows.
-DISM /Apply-Image /ImageFile:"%DriveLetter%\sources\install.swm" /Index:%Index% /ApplyDir:%NTFS%
+DISM /Apply-Image /ImageFile:"%DriveLetter%\x86\sources\%Install%" /Index:%Index% /ApplyDir:%NTFS%
 if not "%errorlevel%"=="0" goto "BitDetection"
 echo Windows installed.
 goto "Bootloader"
 
-:"DISMWIM2"
+:"64DISM2"
 echo.
 echo Installing Windows.
-DISM /Apply-Image /ImageFile:"%DriveLetter%\sources\install.wim" /Index:%Index% /ApplyDir:%NTFS%
-if not "%errorlevel%"=="0" goto "BitDetection"
-echo Windows installed.
-goto "Bootloader"
-
-:"32DISMESD2"
-echo.
-echo Installing Windows.
-DISM /Apply-Image /ImageFile:"%DriveLetter%\x86\sources\install.esd" /Index:%Index% /ApplyDir:%NTFS%
-if not "%errorlevel%"=="0" goto "BitDetection"
-echo Windows installed.
-goto "Bootloader"
-
-:"32DISMSWM2"
-echo.
-echo Installing Windows.
-DISM /Apply-Image /ImageFile:"%DriveLetter%\x86\sources\install.swm" /Index:%Index% /ApplyDir:%NTFS%
-if not "%errorlevel%"=="0" goto "BitDetection"
-echo Windows installed.
-goto "Bootloader"
-
-:"32DISMWIM2"
-echo.
-echo Installing Windows.
-DISM /Apply-Image /ImageFile:"%DriveLetter%\x86\sources\install.wim" /Index:%Index% /ApplyDir:%NTFS%
-if not "%errorlevel%"=="0" goto "BitDetection"
-echo Windows installed.
-goto "Bootloader"
-
-:"64DISMESD2"
-echo.
-echo Installing Windows.
-DISM /Apply-Image /ImageFile:"%DriveLetter%\x64\sources\install.esd" /Index:%Index% /ApplyDir:%NTFS%
-if not "%errorlevel%"=="0" goto "BitDetection"
-echo Windows installed.
-goto "Bootloader"
-
-:"64DISMSWM2"
-echo.
-echo Installing Windows.
-DISM /Apply-Image /ImageFile:"%DriveLetter%\x64\sources\install.swm" /Index:%Index% /ApplyDir:%NTFS%
-if not "%errorlevel%"=="0" goto "BitDetection"
-echo Windows installed.
-goto "Bootloader"
-
-:"64DISMWIM2"
-echo.
-echo Installing Windows.
-DISM /Apply-Image /ImageFile:"%DriveLetter%\x64\sources\install.wim" /Index:%Index% /ApplyDir:%NTFS%
+DISM /Apply-Image /ImageFile:"%DriveLetter%\x64\sources\%Install%" /Index:%Index% /ApplyDir:%NTFS%
 if not "%errorlevel%"=="0" goto "BitDetection"
 echo Windows installed.
 goto "Bootloader"
