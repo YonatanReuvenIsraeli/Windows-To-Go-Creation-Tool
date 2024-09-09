@@ -2,7 +2,7 @@
 Install Windows onto an external drive.
 
 ## Supported Drives
-- Supports all USB drives, but a external SSD or WTG certified drive strongly recommended.
+- Supports all USB drives, but a external SSD or WTG certified drive is strongly recommended.
 
 ## Compatibility
 - **Windows 10** Home, Home N, Home Single Language, Education, Education N, Pro and Pro N editions.
