@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 3.3.2
+echo Version: 3.3.3
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -377,7 +377,7 @@ goto "DiskPart"
 
 :"DiskPartError"
 del "%cd%\DiskPart.txt" /f /q > nul 2>&1
-echo Error formating and partitioning disk %Disk%. %Disk% may not exist! Press any key to try again.
+echo Error formating and partitioning disk %Disk%. DIsk %Disk% may not exist! Press any key to try again.
 pause > nul 2>&1
 goto "Disk"
 
