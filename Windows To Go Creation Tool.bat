@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 3.3.4
+echo Version: 3.3.5
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -374,10 +374,10 @@ echo.
 echo Please temporary rename to something else or temporary move to another location "%cd%\DiskPart.txt" in order for this batch file to proceed. "%cd%\DiskPart.txt" is not a system file. Press any key to continue when "%cd%\DiskPart.txt" is renamed to something else or moved to another location. This batch file will let you know when you can rename it back to its original name or move it back to its original location.
 pause > nul 2>&1
 goto "DiskPart"
-
+/gngngngngngngn
 :"DiskPartError"
 del "%cd%\DiskPart.txt" /f /q > nul 2>&1
-echo Error formating and partitioning disk %Disk%. DIsk %Disk% may not exist! Press any key to try again.
+echo Error formating and partitioning disk %Disk%. Disk %Disk% may not exist! Press any key to try again.
 pause > nul 2>&1
 goto "Disk"
 
