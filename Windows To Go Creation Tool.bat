@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 3.3.7
+echo Version: 3.3.8
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -23,7 +23,7 @@ exit
 :"Start"
 echo.
 echo [1] Download Windows 10 22H2 Windows Disk Image.
-echo [2] Download Windows 11 23H2 Windows Disk Image.
+echo [2] Download Windows 11 24H2 Windows Disk Image.
 echo [3] Already have downloaded Windows 10 22H2 Windows Disk Image or Windows 11 23H2 Windows Disk Image.
 echo.
 set Windows=
@@ -47,7 +47,7 @@ goto "Mount"
 
 :"11"
 echo.
-echo Download Windows 11 23H2 Disk Image from here. ^-^-^> https://www.microsoft.com/software-download/windows11
+echo Download Windows 11 24H2 Disk Image from here. ^-^-^> https://www.microsoft.com/software-download/windows11
 echo Press any key to open the website.
 pause > nul 2>&1
 start https://www.microsoft.com/software-download/windows11
