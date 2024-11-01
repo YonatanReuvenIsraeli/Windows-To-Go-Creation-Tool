@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 3.3.8
+echo Version: 3.3.9
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -223,8 +223,8 @@ goto "Disk"
 if exist "%cd%\DiskPart.txt" goto "DiskPartExistDisk"
 echo.
 echo Finding disks attached to this PC.
-echo list disk > "%cd%\DiskPart.txt"
-echo exit >> "%cd%\DiskPart.txt"
+(echo list disk) > "%cd%\DiskPart.txt"
+(echo exit) >> "%cd%\DiskPart.txt"
 DiskPart /s "%cd%\DiskPart.txt" 2>&1
 if not "%errorlevel%"=="0" goto "DiskError"
 del "%cd%\DiskPart.txt" /f /q > nul 2>&1
@@ -351,17 +351,17 @@ goto "NTFS"
 if exist "%cd%\DiskPart.txt" goto "DiskPartExistDiskPart"
 echo.
 echo Partitioning and formating disk %Disk%.
-echo sel disk %Disk% > "%cd%\DiskPart.txt"
-echo clean >> "%cd%\DiskPart.txt"
-echo convert mbr >> "%cd%\DiskPart.txt"
-echo create partition Primary size=350 >> "%cd%\DiskPart.txt"
-echo format fs=FAT32 label="System" quick >> "%cd%\DiskPart.txt"
-echo assign letter=%FAT32% >> "%cd%\DiskPart.txt"
-echo active >> "%cd%\DiskPart.txt"
-echo create partition Primary >> "%cd%\DiskPart.txt"
-echo format fs=NTFS label="Windows" quick >> "%cd%\DiskPart.txt"
-echo assign letter=%NTFS% >> "%cd%\DiskPart.txt"
-echo exit >> "%cd%\DiskPart.txt"
+(echo sel disk %Disk%) > "%cd%\DiskPart.txt"
+(echo clean) >> "%cd%\DiskPart.txt"
+(echo convert mbr) >> "%cd%\DiskPart.txt"
+(echo create partition Primary size=350) >> "%cd%\DiskPart.txt"
+(echo format fs=FAT32 label="System" quick) >> "%cd%\DiskPart.txt"
+(echo assign letter=%FAT32%) >> "%cd%\DiskPart.txt"
+(echo active) >> "%cd%\DiskPart.txt"
+(echo create partition Primary) >> "%cd%\DiskPart.txt"
+(echo format fs=NTFS label="Windows" quick) >> "%cd%\DiskPart.txt"
+(echo assign letter=%NTFS%) >> "%cd%\DiskPart.txt"
+(echo exit) >> "%cd%\DiskPart.txt"
 DiskPart /s "%cd%\DiskPart.txt" > nul 2>&1
 if not "%errorlevel%"=="0" goto "DiskPartError"
 del "%cd%\DiskPart.txt" /f /q > nul 2>&1
@@ -416,9 +416,9 @@ echo.
 echo Creating bootloader.
 BCDBoot "%NTFS%\Windows" /s "%FAT32%" /f ALL > nul 2>&1
 if not "%errorlevel%"=="0" goto "BootloaderError"
-echo sel vol %FAT32% > "%cd%\DiskPart.txt"
-echo remove letter=%FAT32% >> "%cd%\DiskPart.txt"
-echo exit >> "%cd%\DiskPart.txt"
+(echo sel vol %FAT32%) > "%cd%\DiskPart.txt"
+(echo remove letter=%FAT32%) >> "%cd%\DiskPart.txt"
+(echo exit) >> "%cd%\DiskPart.txt"
 DiskPart /s "%cd%\DiskPart.txt" > nul 2>&1
 del "%cd%\DiskPart.txt" /f /q > nul 2>&1
 echo Bootloader created.
