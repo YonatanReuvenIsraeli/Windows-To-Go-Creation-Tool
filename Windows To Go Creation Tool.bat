@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 3.4.9
+echo Version: 3.4.10
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -370,11 +370,13 @@ echo.
 echo Partitioning and formating disk %Disk%.
 (echo sel disk %Disk%) > "%cd%\DiskPart.txt"
 (echo clean) >> "%cd%\DiskPart.txt"
-(echo convert mbr) >> "%cd%\DiskPart.txt"
-(echo create partition Primary size=350) >> "%cd%\DiskPart.txt"
+if exist "%DriveLetter%\bootmgr" (echo convert mbr) >> "%cd%\DiskPart.txt"
+if not exist "%DriveLetter%\bootmgr" (echo convert gpt) >> "%cd%\DiskPart.txt"
+if exist "%DriveLetter%\bootmgr" (echo create partition Primary size=350) >> "%cd%\DiskPart.txt"
+if not exist "%DriveLetter%\bootmgr" (echo create partition EFI size=350) >> "%cd%\DiskPart.txt"
 (echo format fs=FAT32 label="System" quick) >> "%cd%\DiskPart.txt"
 (echo assign letter=%FAT32%) >> "%cd%\DiskPart.txt"
-(echo active) >> "%cd%\DiskPart.txt"
+if exist "%DriveLetter%\bootmgr" (echo active) >> "%cd%\DiskPart.txt"
 (echo create partition Primary) >> "%cd%\DiskPart.txt"
 (echo format fs=NTFS label="Windows" quick) >> "%cd%\DiskPart.txt"
 (echo assign letter=%NTFS%) >> "%cd%\DiskPart.txt"
@@ -394,7 +396,7 @@ goto "DiskPart"
 
 :"DiskPartError"
 del "%cd%\DiskPart.txt" /f /q > nul 2>&1
-echo Error formating and partitioning disk %Disk%. Disk %Disk% may not exist! Press any key to try again.
+echo Error formating and partitioning disk %Disk%. Disk %Disk% may not exist! Disk %Disk% may be smaller than 64 GB! Press any key to try again.
 pause > nul 2>&1
 goto "Disk"
 
@@ -454,7 +456,7 @@ goto "Bootloaderx86/x64"
 
 :"BootloaderErrorx86/x64"
 del "%cd%\DiskPart.txt" /f /q > nul 2>&1
-echo Error creating the bootloader! Press any key to try again.
+echo Error creating the bootloader! Disk %Disk% may be smaller than 64 GB! Press any key to try again.
 pause > nul 2>&1
 goto "Bootloaderx86/x64"
 
@@ -494,7 +496,7 @@ goto "BootloaderArm64"
 
 :"BootloaderErrorArm64"
 del "%cd%\DiskPart.txt" /f /q > nul 2>&1
-echo Error creating the bootloader! Press any key to try again.
+echo Error creating the bootloader! Disk %Disk% may be smaller than 64 GB! Press any key to try again.
 pause > nul 2>&1
 goto "BootloaderArm64"
 
