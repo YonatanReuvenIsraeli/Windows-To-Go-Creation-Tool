@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 3.4.2
+echo Version: 3.4.3
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -200,7 +200,7 @@ goto "Index"
 :"Index"
 echo.
 set Index=
-set /p Index="Which index do you want? (1-7/11) "
+set /p Index="Which index do you want? (1-3/7/11) "
 if /i "%Index%"=="1" goto "SureIndex"
 if /i "%Index%"=="2" goto "SureIndex"
 if /i "%Index%"=="3" goto "SureIndex"
