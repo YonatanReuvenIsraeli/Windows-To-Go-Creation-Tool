@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 3.4.3
+echo Version: 3.4.4
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -406,6 +406,7 @@ echo Installing Windows.
 DISM /Apply-Image /ImageFile:"%DriveLetter%\sources\%Install%" /Index:%Index% /ApplyDir:%NTFS%
 if not "%errorlevel%"=="0" goto "BitDetection"
 echo Windows installed.
+if not exist "%DriveLetter%\bootmgr" goto "BootloaderArm64"
 goto "Bootloader"
 
 :"32DISM2"
@@ -414,6 +415,7 @@ echo Installing Windows.
 DISM /Apply-Image /ImageFile:"%DriveLetter%\x86\sources\%Install%" /Index:%Index% /ApplyDir:%NTFS%
 if not "%errorlevel%"=="0" goto "BitDetection"
 echo Windows installed.
+if not exist "%DriveLetter%\bootmgr" goto "BootloaderArm64"
 goto "Bootloader"
 
 :"64DISM2"
@@ -422,9 +424,10 @@ echo Installing Windows.
 DISM /Apply-Image /ImageFile:"%DriveLetter%\x64\sources\%Install%" /Index:%Index% /ApplyDir:%NTFS%
 if not "%errorlevel%"=="0" goto "BitDetection"
 echo Windows installed.
+if not exist "%DriveLetter%\bootmgr" goto "BootloaderArm64"
 goto "Bootloader"
 
-:"Bootloader"
+:"Bootloaderx86/x64"
 if exist "%cd%\DiskPart.txt" goto "DiskPartExistBootloader"
 echo.
 echo Creating bootloader.
@@ -437,29 +440,69 @@ DiskPart /s "%cd%\DiskPart.txt" > nul 2>&1
 del "%cd%\DiskPart.txt" /f /q > nul 2>&1
 echo Bootloader created.
 if "%DiskPart%"=="True" goto "DiskPartDone"
-goto "Done"
+goto "Donex86/x64"
 
-:"DiskPartExistBootloader"
+:"DiskPartExistBootloaderx86/x64"
 set DiskPart=True
 echo.
 echo Please temporary rename to something else or temporary move to another location "%cd%\DiskPart.txt" in order for this batch file to proceed. "%cd%\DiskPart.txt" is not a system file. Press any key to continue when "%cd%\DiskPart.txt" is renamed to something else or moved to another location. This batch file will let you know when you can rename it back to its original name or move it back to its original location.
 pause > nul 2>&1
-goto "Bootloader"
+goto "Bootloaderx86/x64"
 
-:"BootloaderError"
+:"BootloaderErrorx86/x64"
 del "%cd%\DiskPart.txt" /f /q > nul 2>&1
 echo Error creating the bootloader! Press any key to try again.
 pause > nul 2>&1
-goto "Bootloader"
+goto "Bootloaderx86/x64"
 
-:"DiskPartDone"
+:"DiskPartDonex86/x64"
 echo.
 echo You can now rename or move back the file back to "%cd%\DiskPart.txt".
-goto "Done"
+goto "Donex86/x64"
 
-:"Done"
+:"Donex86/x64"
 endlocal
 echo.
 echo Your Windows To Go is ready! It is bootable with Legacy BIOS and UEFI. Press any key to close this batch file.
+pause > nul 2>&1
+exit
+
+:"BootloaderArm64"
+if exist "%cd%\DiskPart.txt" goto "DiskPartExistBootloader"
+echo.
+echo Creating bootloader.
+BCDBoot "%NTFS%\Windows" /s "%FAT32%" /f UEFI > nul 2>&1
+if not "%errorlevel%"=="0" goto "BootloaderError"
+(echo sel vol %FAT32%) > "%cd%\DiskPart.txt"
+(echo remove letter=%FAT32%) >> "%cd%\DiskPart.txt"
+(echo exit) >> "%cd%\DiskPart.txt"
+DiskPart /s "%cd%\DiskPart.txt" > nul 2>&1
+del "%cd%\DiskPart.txt" /f /q > nul 2>&1
+echo Bootloader created.
+if "%DiskPart%"=="True" goto "DiskPartDone"
+goto "DoneArm64"
+
+:"DiskPartExistBootloaderArm64"
+set DiskPart=True
+echo.
+echo Please temporary rename to something else or temporary move to another location "%cd%\DiskPart.txt" in order for this batch file to proceed. "%cd%\DiskPart.txt" is not a system file. Press any key to continue when "%cd%\DiskPart.txt" is renamed to something else or moved to another location. This batch file will let you know when you can rename it back to its original name or move it back to its original location.
+pause > nul 2>&1
+goto "BootloaderArm64"
+
+:"BootloaderErrorArm64"
+del "%cd%\DiskPart.txt" /f /q > nul 2>&1
+echo Error creating the bootloader! Press any key to try again.
+pause > nul 2>&1
+goto "BootloaderArm64"
+
+:"DiskPartDoneArm64"
+echo.
+echo You can now rename or move back the file back to "%cd%\DiskPart.txt".
+goto "DoneArm64"
+
+:"DoneArm64"
+endlocal
+echo.
+echo Your Windows To Go is ready! It is bootable with UEFI only. Press any key to close this batch file.
 pause > nul 2>&1
 exit
