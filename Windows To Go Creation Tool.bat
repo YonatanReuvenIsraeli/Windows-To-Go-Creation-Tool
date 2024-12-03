@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 3.4.11
+echo Version: 3.4.12
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -242,6 +242,7 @@ set IndexNumber=
 set /p IndexNumber="Are you sure you want Index %Index%? (Yes/No) "
 if /i "%IndexNumber%"=="Yes" goto "AttachDisk"
 if /i "%IndexNumber%"=="No" goto "Index3"
+echo Invalid syntax!
 goto "SureIndex3"
 
 :"Index7"
@@ -264,6 +265,7 @@ set IndexNumber=
 set /p IndexNumber="Are you sure you want Index %Index%? (Yes/No) "
 if /i "%IndexNumber%"=="Yes" goto "AttachDisk"
 if /i "%IndexNumber%"=="No" goto "Index7"
+echo Invalid syntax!
 goto "SureIndex7"
 
 :"Index11"
@@ -290,6 +292,7 @@ set IndexNumber=
 set /p IndexNumber="Are you sure you want Index %Index%? (Yes/No) "
 if /i "%IndexNumber%"=="Yes" goto "AttachDisk"
 if /i "%IndexNumber%"=="No" goto "Index11"
+echo Invalid syntax!
 goto "SureIndex11"
 
 :"AttachDisk"
