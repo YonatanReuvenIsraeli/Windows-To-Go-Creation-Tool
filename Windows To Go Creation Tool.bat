@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 3.4.5
+echo Version: 3.4.6
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -407,7 +407,7 @@ DISM /Apply-Image /ImageFile:"%DriveLetter%\sources\%Install%" /Index:%Index% /A
 if not "%errorlevel%"=="0" goto "BitDetection"
 echo Windows installed.
 if not exist "%DriveLetter%\bootmgr" goto "BootloaderArm64"
-goto "Bootloader"
+goto "Bootloaderx86/64"
 
 :"32DISM2"
 echo.
@@ -416,7 +416,7 @@ DISM /Apply-Image /ImageFile:"%DriveLetter%\x86\sources\%Install%" /Index:%Index
 if not "%errorlevel%"=="0" goto "BitDetection"
 echo Windows installed.
 if not exist "%DriveLetter%\bootmgr" goto "BootloaderArm64"
-goto "Bootloader"
+goto "Bootloaderx86/64"
 
 :"64DISM2"
 echo.
@@ -425,7 +425,7 @@ DISM /Apply-Image /ImageFile:"%DriveLetter%\x64\sources\%Install%" /Index:%Index
 if not "%errorlevel%"=="0" goto "BitDetection"
 echo Windows installed.
 if not exist "%DriveLetter%\bootmgr" goto "BootloaderArm64"
-goto "Bootloader"
+goto "Bootloaderx86/64"
 
 :"Bootloaderx86/x64"
 if exist "%cd%\DiskPart.txt" goto "DiskPartExistBootloaderx86/x64"
