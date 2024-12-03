@@ -1,4 +1,4 @@
-# Windows To Go Creation Tool v3.4.3
+# Windows To Go Creation Tool v3.4.4
 Install Windows onto an external drive.
 
 ## Supported Drives
@@ -10,4 +10,4 @@ Install Windows onto an external drive.
 - **Windows 11 Arm64** Home, Home Single Language and Pro.
 
 ## BIOS Type
-- **Dual BIOS Compatible** All our Windows installations support both legacy BIOS and UEFI.
+- **Dual BIOS Compatible** x86/x64 Windows installations support both legacy BIOS and UEFI. Arm64 Windows installations support UEFI only.
