@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 3.4.6
+echo Version: 3.4.7
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -174,6 +174,7 @@ if exist "%DriveLetter%\x64\sources\install.wim" set Install=install.wim
 goto "64DISM1"
 
 :"DISM1"
+if not exist "%DriveLetter%\bootmgr" set bootmgr=Arm64
 echo.
 echo Getting index details for Windows Disk Image "%DriveLetter%."
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\%Install%"
@@ -182,6 +183,7 @@ echo Got index details for Windows Disk Image "%DriveLetter%."
 goto "Index"
 
 :"32DISM1"
+if not exist "%DriveLetter%\bootmgr" set bootmgr=Arm64
 echo.
 echo Getting index details for Windows Disk Image "%DriveLetter%."
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\x86\sources\%Install%"
@@ -190,6 +192,7 @@ echo Got index details for Windows Disk Image "%DriveLetter%."
 goto "Index"
 
 :"64DISM1"
+if not exist "%DriveLetter%\bootmgr" set bootmgr=Arm64
 echo.
 echo Getting index details for Windows Disk Image "%DriveLetter%."
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\x64\sources\%Install%"
@@ -406,7 +409,7 @@ echo Installing Windows.
 DISM /Apply-Image /ImageFile:"%DriveLetter%\sources\%Install%" /Index:%Index% /ApplyDir:%NTFS%
 if not "%errorlevel%"=="0" goto "BitDetection"
 echo Windows installed.
-if not exist "%DriveLetter%\bootmgr" goto "BootloaderArm64"
+if /i "%bootmgr%"=="Arm64" goto "BootloaderArm64"
 goto "Bootloaderx86/64"
 
 :"32DISM2"
@@ -415,7 +418,7 @@ echo Installing Windows.
 DISM /Apply-Image /ImageFile:"%DriveLetter%\x86\sources\%Install%" /Index:%Index% /ApplyDir:%NTFS%
 if not "%errorlevel%"=="0" goto "BitDetection"
 echo Windows installed.
-if not exist "%DriveLetter%\bootmgr" goto "BootloaderArm64"
+if /i "%bootmgr%"=="Arm64" goto "BootloaderArm64"
 goto "Bootloaderx86/64"
 
 :"64DISM2"
@@ -424,7 +427,7 @@ echo Installing Windows.
 DISM /Apply-Image /ImageFile:"%DriveLetter%\x64\sources\%Install%" /Index:%Index% /ApplyDir:%NTFS%
 if not "%errorlevel%"=="0" goto "BitDetection"
 echo Windows installed.
-if not exist "%DriveLetter%\bootmgr" goto "BootloaderArm64"
+if /i "%bootmgr%"=="Arm64" goto "BootloaderArm64"
 goto "Bootloaderx86/64"
 
 :"Bootloaderx86/x64"
