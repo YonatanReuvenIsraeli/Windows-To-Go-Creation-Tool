@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 3.4.8
+echo Version: 3.4.9
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -410,7 +410,7 @@ DISM /Apply-Image /ImageFile:"%DriveLetter%\sources\%Install%" /Index:%Index% /A
 if not "%errorlevel%"=="0" goto "BitDetection"
 echo Windows installed.
 if /i "%bootmgr%"=="Arm64" goto "BootloaderArm64"
-goto "Bootloaderx86/64"
+goto "Bootloaderx86/x64"
 
 :"32DISM2"
 echo.
@@ -419,7 +419,7 @@ DISM /Apply-Image /ImageFile:"%DriveLetter%\x86\sources\%Install%" /Index:%Index
 if not "%errorlevel%"=="0" goto "BitDetection"
 echo Windows installed.
 if /i "%bootmgr%"=="Arm64" goto "BootloaderArm64"
-goto "Bootloaderx86/64"
+goto "Bootloaderx86/x64"
 
 :"64DISM2"
 echo.
@@ -428,14 +428,14 @@ DISM /Apply-Image /ImageFile:"%DriveLetter%\x64\sources\%Install%" /Index:%Index
 if not "%errorlevel%"=="0" goto "BitDetection"
 echo Windows installed.
 if /i "%bootmgr%"=="Arm64" goto "BootloaderArm64"
-goto "Bootloaderx86/64"
+goto "Bootloaderx86/x64"
 
 :"Bootloaderx86/x64"
 if exist "%cd%\DiskPart.txt" goto "DiskPartExistBootloaderx86/x64"
 echo.
 echo Creating bootloader.
 BCDBoot "%NTFS%\Windows" /s "%FAT32%" /f ALL > nul 2>&1
-if not "%errorlevel%"=="0" goto "BootloaderErrorx86/64"
+if not "%errorlevel%"=="0" goto "BootloaderErrorx86/x64"
 (echo sel vol %FAT32%) > "%cd%\DiskPart.txt"
 (echo remove letter=%FAT32%) >> "%cd%\DiskPart.txt"
 (echo exit) >> "%cd%\DiskPart.txt"
