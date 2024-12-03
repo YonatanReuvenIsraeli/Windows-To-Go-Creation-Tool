@@ -9,6 +9,6 @@ Install Windows onto an external drive.
 - **Windows 11 x64** Home, Home N, Home Single Language, Education, Education N, Pro, Pro N, Pro Education, Pro Education N, Pro for Workstations and Pro for Workstations N editions.  
 - **Windows 11 Arm64** Home, Home Single Language and Pro.
 
-## BIOS Type
+## BIOS Compatibility
 - x86/x64 Windows To Go installations support both legacy BIOS and UEFI.
 - Arm64 Windows To Go installations support UEFI only.
