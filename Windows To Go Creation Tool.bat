@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 3.4.10
+echo Version: 3.4.11
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -174,57 +174,123 @@ if exist "%DriveLetter%\x64\sources\install.wim" set Install=install.wim
 goto "64DISM1"
 
 :"DISM1"
+if exist "%cd%\Index.txt" goto "IndexExist"
+DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\%Install%" | find /c /i "Index" > "%cd%\Index.txt"
+set /p IndexNumber=< "%cd%\Index.txt"
+del "%cd%\Index.txt" /f /q > nul 2>&1
+set bootmgr=
 if not exist "%DriveLetter%\bootmgr" set bootmgr=Arm64
 echo.
 echo Getting index details for Windows Disk Image "%DriveLetter%".
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetter"
 echo Got index details for Windows Disk Image "%DriveLetter%."
-goto "Index"
+if "%Index%"=="True" goto "IndexDone"
+if "%IndexNumber%"=="3" goto "Index3"
+if "%IndexNumber%"=="7" goto "Index7"
+if "%IndexNumber%"=="11" goto "Index11"
+echo.
+echo Invalid Windows Disk Image!
+goto "Start"
+
+:"IndexExist"
+set Index=True
+echo.
+echo Please temporary rename to something else or temporary move to another location "%cd%\Index.txt" in order for this batch file to proceed. "%cd%\Index.txt" is not a system file. Press any key to continue when "%cd%\Index.txt" is renamed to something else or moved to another location. This batch file will let you know when you can rename it back to its original name or move it back to its original location.
+pause > nul 2>&1
+goto "DISM1"
+
+:"IndexDone"
+echo.
+echo You can now rename or move back the file back to "%cd%\Index.txt".
+if "%IndexNumber%"=="3" goto "Index3"
+if "%IndexNumber%"=="7" goto "Index7"
+if "%IndexNumber%"=="11" goto "Index11"
+echo.
+echo Invalid Windows Disk Image!
+goto "Start"
 
 :"32DISM1"
-if not exist "%DriveLetter%\bootmgr" set bootmgr=Arm64
 echo.
 echo Getting index details for Windows Disk Image "%DriveLetter%".
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\x86\sources\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetter"
 echo Got index details for Windows Disk Image "%DriveLetter%."
-goto "Index"
+goto "Index7"
 
 :"64DISM1"
-if not exist "%DriveLetter%\bootmgr" set bootmgr=Arm64
 echo.
 echo Getting index details for Windows Disk Image "%DriveLetter%".
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\x64\sources\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetter"
 echo Got index details for Windows Disk Image "%DriveLetter%."
-goto "Index"
+goto "Index7"
 
-:"Index"
+:"Index3"
 echo.
 set Index=
-set /p Index="Which index do you want? (1-3/7/11) "
-if /i "%Index%"=="1" goto "SureIndex"
-if /i "%Index%"=="2" goto "SureIndex"
-if /i "%Index%"=="3" goto "SureIndex"
-if /i "%Index%"=="4" goto "SureIndex"
-if /i "%Index%"=="5" goto "SureIndex"
-if /i "%Index%"=="6" goto "SureIndex"
-if /i "%Index%"=="7" goto "SureIndex"
-if /i "%Index%"=="8" goto "SureIndex"
-if /i "%Index%"=="9" goto "SureIndex"
-if /i "%Index%"=="10" goto "SureIndex"
-if /i "%Index%"=="11" goto "SureIndex"
+set /p Index="Which index do you want? (1-3) "
+if /i "%Index%"=="1" goto "SureIndex3"
+if /i "%Index%"=="2" goto "SureIndex3"
+if /i "%Index%"=="3" goto "SureIndex3"
 echo Invalid syntax!
-goto "Index"
+goto "Index3"
 
-:"SureIndex"
+:"SureIndex3"
 echo.
 set IndexNumber=
 set /p IndexNumber="Are you sure you want Index %Index%? (Yes/No) "
 if /i "%IndexNumber%"=="Yes" goto "AttachDisk"
-if /i "%IndexNumber%"=="No" goto "Index"
-goto "SureIndex"
+if /i "%IndexNumber%"=="No" goto "Index3"
+goto "SureIndex3"
+
+:"Index7"
+echo.
+set Index=
+set /p Index="Which index do you want? (1-7) "
+if /i "%Index%"=="1" goto "SureIndex7"
+if /i "%Index%"=="2" goto "SureIndex7"
+if /i "%Index%"=="3" goto "SureIndex7"
+if /i "%Index%"=="4" goto "SureIndex7"
+if /i "%Index%"=="5" goto "SureIndex7"
+if /i "%Index%"=="6" goto "SureIndex7"
+if /i "%Index%"=="7" goto "SureIndex7"
+echo Invalid syntax!
+goto "Index7"
+
+:"SureIndex7"
+echo.
+set IndexNumber=
+set /p IndexNumber="Are you sure you want Index %Index%? (Yes/No) "
+if /i "%IndexNumber%"=="Yes" goto "AttachDisk"
+if /i "%IndexNumber%"=="No" goto "Index7"
+goto "SureIndex7"
+
+:"Index11"
+echo.
+set Index=
+set /p Index="Which index do you want? (1-11) "
+if /i "%Index%"=="1" goto "SureIndex11"
+if /i "%Index%"=="2" goto "SureIndex11"
+if /i "%Index%"=="3" goto "SureIndex11"
+if /i "%Index%"=="4" goto "SureIndex11"
+if /i "%Index%"=="5" goto "SureIndex11"
+if /i "%Index%"=="6" goto "SureIndex11"
+if /i "%Index%"=="7" goto "SureIndex11"
+if /i "%Index%"=="8" goto "SureIndex11"
+if /i "%Index%"=="9" goto "SureIndex11"
+if /i "%Index%"=="10" goto "SureIndex11"
+if /i "%Index%"=="11" goto "SureIndex11"
+echo Invalid syntax!
+goto "Index11"
+
+:"SureIndex11"
+echo.
+set IndexNumber=
+set /p IndexNumber="Are you sure you want Index %Index%? (Yes/No) "
+if /i "%IndexNumber%"=="Yes" goto "AttachDisk"
+if /i "%IndexNumber%"=="No" goto "Index11"
+goto "SureIndex11"
 
 :"AttachDisk"
 echo.
