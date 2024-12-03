@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 3.4.4
+echo Version: 3.4.5
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -428,11 +428,11 @@ if not exist "%DriveLetter%\bootmgr" goto "BootloaderArm64"
 goto "Bootloader"
 
 :"Bootloaderx86/x64"
-if exist "%cd%\DiskPart.txt" goto "DiskPartExistBootloader"
+if exist "%cd%\DiskPart.txt" goto "DiskPartExistBootloaderx86/x64"
 echo.
 echo Creating bootloader.
 BCDBoot "%NTFS%\Windows" /s "%FAT32%" /f ALL > nul 2>&1
-if not "%errorlevel%"=="0" goto "BootloaderError"
+if not "%errorlevel%"=="0" goto "BootloaderErrorx86/64"
 (echo sel vol %FAT32%) > "%cd%\DiskPart.txt"
 (echo remove letter=%FAT32%) >> "%cd%\DiskPart.txt"
 (echo exit) >> "%cd%\DiskPart.txt"
@@ -468,11 +468,11 @@ pause > nul 2>&1
 exit
 
 :"BootloaderArm64"
-if exist "%cd%\DiskPart.txt" goto "DiskPartExistBootloader"
+if exist "%cd%\DiskPart.txt" goto "DiskPartExistBootloaderArm64"
 echo.
 echo Creating bootloader.
 BCDBoot "%NTFS%\Windows" /s "%FAT32%" /f UEFI > nul 2>&1
-if not "%errorlevel%"=="0" goto "BootloaderError"
+if not "%errorlevel%"=="0" goto "BootloaderErrorArm64"
 (echo sel vol %FAT32%) > "%cd%\DiskPart.txt"
 (echo remove letter=%FAT32%) >> "%cd%\DiskPart.txt"
 (echo exit) >> "%cd%\DiskPart.txt"
