@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 3.4.12
+echo Version: 3.4.13
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -184,7 +184,7 @@ echo.
 echo Getting index details for Windows Disk Image "%DriveLetter%".
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetter"
-echo Got index details for Windows Disk Image "%DriveLetter%."
+echo Got index details for Windows Disk Image "%DriveLetter%".
 if "%Index%"=="True" goto "IndexDone"
 if "%IndexNumber%"=="3" goto "Index3"
 if "%IndexNumber%"=="7" goto "Index7"
@@ -215,7 +215,7 @@ echo.
 echo Getting index details for Windows Disk Image "%DriveLetter%".
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\x86\sources\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetter"
-echo Got index details for Windows Disk Image "%DriveLetter%."
+echo Got index details for Windows Disk Image "%DriveLetter%".
 goto "Index7"
 
 :"64DISM1"
@@ -223,7 +223,7 @@ echo.
 echo Getting index details for Windows Disk Image "%DriveLetter%".
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\x64\sources\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetter"
-echo Got index details for Windows Disk Image "%DriveLetter%."
+echo Got index details for Windows Disk Image "%DriveLetter%".
 goto "Index7"
 
 :"Index3"
