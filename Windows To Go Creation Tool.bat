@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 4.0.3
+echo Version: 4.0.4
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -532,7 +532,7 @@ if not "%errorlevel%"=="0" goto "BootloaderErrorx86/x64"
 DiskPart /s "%cd%\DiskPart.txt" > nul 2>&1
 del "%cd%\DiskPart.txt" /f /q > nul 2>&1
 echo Bootloader created.
-if "%DiskPart%"=="True" goto "DiskPartDone"
+if "%DiskPart%"=="True" goto "DiskPartDonex86/x64"
 goto "SANPolicy"
 
 :"DiskPartExistBootloaderx86/x64"
@@ -566,7 +566,7 @@ if not "%errorlevel%"=="0" goto "BootloaderErrorArm64"
 DiskPart /s "%cd%\DiskPart.txt" > nul 2>&1
 del "%cd%\DiskPart.txt" /f /q > nul 2>&1
 echo Bootloader created.
-if "%DiskPart%"=="True" goto "DiskPartDone"
+if "%DiskPart%"=="True" goto "DiskPartDoneArm64"
 goto "SANPolicy"
 
 :"DiskPartExistBootloaderArm64"
@@ -590,7 +590,7 @@ goto "SANPolicy"
 
 :"SANPolicy"
 echo.
-(echo Applying SAN policy.
+echo Applying SAN policy.
 (echo ^<?xml version="1.0" encoding="utf-8" standalone="yes"?^>) >> "%NTFS%\san_policy.xml"
 (echo ^<unattend xmlns="urn:schemas-microsoft-com:unattend"^>) >> "%NTFS%\san_policy.xml"
 (echo   ^<settings pass="offlineServicing"^>) >> "%NTFS%\san_policy.xml"
