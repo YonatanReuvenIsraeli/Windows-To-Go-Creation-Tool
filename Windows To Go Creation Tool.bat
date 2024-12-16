@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 4.0.2
+echo Version: 4.0.3
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -642,8 +642,25 @@ goto "SANPolicy"
 :"Unattended"
 echo.
 echo Creating unattended.xml file in Sysprep folder.
-(echo ^<?xml version="1.0" encoding="utf-8"?^>) > %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo ^<?xml version="1.0" encoding="utf-8"?^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
 (echo ^<unattend xmlns="urn:schemas-microsoft-com:unattend"^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo     ^<settings pass="oobeSystem"^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo         ^<component name="Microsoft-Windows-Shell-Setup" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" processorArchitecture="Arm64" xmlns:wcm="https://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo             ^<OOBE^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo                 ^<HideEULAPage^>true^</HideEULAPage^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo                 ^<ProtectYourPC^>1^</ProtectYourPC^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo                 ^<NetworkLocation^>Work^</NetworkLocation^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo             ^</OOBE^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo         ^</component^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo         ^<component name="Microsoft-Windows-International-Core" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" processorArchitecture="Arm64"^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo           ^<InputLocale^>en-US^</InputLocale^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo           ^<SystemLocale^>en-US^</SystemLocale^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo           ^<UILanguage^>en-US^</UILanguage^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo           ^<UserLocale^>en-US^</UserLocale^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo         ^</component^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo         ^<component name="Microsoft-Windows-WinRE-RecoveryAgent" processorArchitecture="arm64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="https://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo             ^<UninstallWindowsRE^>true^</UninstallWindowsRE^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo         ^</component^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
 (echo         ^<component name="Microsoft-Windows-Shell-Setup" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" processorArchitecture="AMD64" xmlns:wcm="https://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
 (echo             ^<OOBE^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
 (echo                 ^<HideEULAPage^>true^</HideEULAPage^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
@@ -654,6 +671,8 @@ echo Creating unattended.xml file in Sysprep folder.
 (echo         ^<component name="Microsoft-Windows-International-Core" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" processorArchitecture="AMD64"^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
 (echo           ^<InputLocale^>en-US^</InputLocale^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
 (echo           ^<SystemLocale^>en-US^</SystemLocale^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo           ^<UILanguage^>en-US^</UILanguage^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo           ^<UserLocale^>en-US^</UserLocale^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
 (echo         ^</component^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
 (echo         ^<component name="Microsoft-Windows-WinRE-RecoveryAgent" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="https://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
 (echo             ^<UninstallWindowsRE^>true^</UninstallWindowsRE^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
@@ -662,10 +681,14 @@ echo Creating unattended.xml file in Sysprep folder.
 (echo             ^<OOBE^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
 (echo                 ^<HideEULAPage^>true^</HideEULAPage^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
 (echo                 ^<ProtectYourPC^>1^</ProtectYourPC^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo                 ^<NetworkLocation^>Work^</NetworkLocation^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo             ^</OOBE^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo         ^</component^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
 (echo         ^<component name="Microsoft-Windows-International-Core" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" processorArchitecture="x86"^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo           ^<InputLocale^>en-US^</InputLocale^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo           ^<SystemLocale^>en-US^</SystemLocale^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
 (echo           ^<UILanguage^>en-US^</UILanguage^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
 (echo           ^<UserLocale^>en-US^</UserLocale^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
-(echo         ^</component^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
 (echo         ^<component name="Microsoft-Windows-WinRE-RecoveryAgent" processorArchitecture="x86" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="https://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
 (echo             ^<UninstallWindowsRE^>true^</UninstallWindowsRE^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
 (echo         ^</component^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
