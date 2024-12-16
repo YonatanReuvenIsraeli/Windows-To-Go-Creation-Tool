@@ -629,7 +629,7 @@ echo         ^>) >> "%NTFS%\san_policy.xml"
 echo       ^<SanPolicy^>4^</SanPolicy^>) >> "%NTFS%\san_policy.xml"
 echo     ^</component^>) >> "%NTFS%\san_policy.xml"
 echo   ^</settings^>) >> "%NTFS%\san_policy.xml"
-echo ^</unattend^) >> "%NTFS%\san_policy.xml"
+echo ^</unattend^>) >> "%NTFS%\san_policy.xml"
 DISM /Image:%NTFS% /Apply-Unattend:%NTFS%\san_policy.xml
 if not "%errorlevel%"=="0" goto "SANError"
 echo SAN policy applied.
