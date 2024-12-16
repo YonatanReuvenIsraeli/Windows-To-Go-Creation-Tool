@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 4.0.4
+echo Version: 4.0.5
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -172,6 +172,7 @@ goto "SureBit"
 :"Bit2"
 if /i "%Bit%"=="32" goto "32ESDSWMWIM"
 if /i "%Bit%"=="64" goto "64ESDSWMWIM"
+goto "ESDSWMWIM"
 
 :"ESDSWMWIM"
 if exist "%DriveLetter%\sources\install.esd" set Install=install.esd
@@ -252,7 +253,7 @@ if /i "%Index%"=="1" goto "SureIndex3"
 if /i "%Index%"=="2" goto "SureIndex3"
 if /i "%Index%"=="3" goto "SureIndex3"
 echo Invalid syntax!
-goto "Index3"
+goto "Bit2"
 
 :"SureIndex3"
 echo.
@@ -275,7 +276,7 @@ if /i "%Index%"=="5" goto "SureIndex7"
 if /i "%Index%"=="6" goto "SureIndex7"
 if /i "%Index%"=="7" goto "SureIndex7"
 echo Invalid syntax!
-goto "Index7"
+goto "Bit2"
 
 :"SureIndex7"
 echo.
@@ -302,7 +303,7 @@ if /i "%Index%"=="9" goto "SureIndex11"
 if /i "%Index%"=="10" goto "SureIndex11"
 if /i "%Index%"=="11" goto "SureIndex11"
 echo Invalid syntax!
-goto "Index11"
+goto "Bit2"
 
 :"SureIndex11"
 echo.
