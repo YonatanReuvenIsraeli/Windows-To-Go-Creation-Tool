@@ -1,4 +1,4 @@
-# Windows To Go Creation Tool v4.0.1
+# Windows To Go Creation Tool v4.0.4
 Install Windows onto an external drive.
 
 ## Supported Drives
