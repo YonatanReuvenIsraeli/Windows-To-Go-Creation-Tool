@@ -1,8 +1,9 @@
+
 @echo off
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 3.4.16
+echo Version: 4.0.0
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -27,14 +28,32 @@ echo [2] Download Windows 11 24H2 x64 Windows Disk Image.
 echo [3] Download Windows 11 24H2 Arm64 Windows Disk Image.
 echo [4] Already have downloaded Windows 10 22H2 x86/x64 Windows Disk Image or Windows 11 24H2 x64/Arm64 Windows Disk Image.
 echo.
-set Windows=
-set /p Windows="What do you want to do? (1-4) "
-if /i "%Windows%"=="1" goto "10"
-if /i "%Windows%"=="2" goto "11x64"
-if /i "%Windows%"=="3" goto "11Arm64"
-if /i "%Windows%"=="4" goto "Mount"
+set Download=
+set /p Download="What do you want to do? (1-4) "
+if /i "%Download%"=="1" goto "SureDownload"
+if /i "%Download%"=="2" goto "SureDownload"
+if /i "%Download%"=="3" goto "SureDownload"
+if /i "%Download%"=="4" goto "SureDownload"
 echo Invalid syntax!
 goto "Start"
+
+:"SureDownload"
+echo.
+set SureDownload=
+if /i "%Download%"=="1" set /p SureDownload="Are you sure you want to download Windows 10 22H2 x86/x64 Windows Disk Image? (Yes/No) "
+if /i "%Download%"=="2" set /p SureDownload="Are you sure you want to download Windows 11 24H2 x64 Windows Disk Image? (Yes/No) "
+if /i "%Download%"=="3" set /p SureDownload="Are you sure you want to download Windows 11 24H2 Arm64 Windows Disk Image? (Yes/No) "
+if /i "%Download%"=="4" set /p SureDownload="Are you sure you have downloaded Windows 10 22H2 x86/x64 Windows Disk Image or Windows 11 24H2 x64/Arm64 Windows Disk Image? (Yes/No) "
+if /i "%SureDownload%"=="Yes" goto "DownloadGo"
+if /i "%SureDownload%"=="No" goto "Start"
+echo Invalid syntax!
+goto "SureDownload"
+
+:"DownloadGo"
+if /i "%Download%"=="1" goto "10"
+if /i "%Download%"=="2" goto "11x64"
+if /i "%Download%"=="3" goto "11Arm64"
+if /i "%Download%"=="4" goto "Mount"
 
 :"10"
 echo.
@@ -426,7 +445,7 @@ echo Second unused drive letter ("%NTFS%") is the same as Windows Disk Image dri
 goto "NTFS"
 
 :"SameDriveLetterNTFSFAT32"
-echo First unused drive letter ("%NTFS%") same as second unused drive letter ("%DriveLetter%"). Please try again.
+echo Second unused drive letter ("%NTFS%") same as First unused drive letter ("%FAT32%"). Please try again.
 goto "NTFS"
 
 :"ExistNTFS"
@@ -443,12 +462,13 @@ if exist "%DriveLetter%\bootmgr" (echo convert mbr) >> "%cd%\DiskPart.txt"
 if not exist "%DriveLetter%\bootmgr" (echo convert gpt) >> "%cd%\DiskPart.txt"
 if exist "%DriveLetter%\bootmgr" (echo create partition Primary size=350) >> "%cd%\DiskPart.txt"
 if not exist "%DriveLetter%\bootmgr" (echo create partition EFI size=350) >> "%cd%\DiskPart.txt"
-(echo format fs=FAT32 label="System" quick) >> "%cd%\DiskPart.txt"
+(echo format fs=FAT32 label="WTG-SYSTEM" quick) >> "%cd%\DiskPart.txt"
 (echo assign letter=%FAT32%) >> "%cd%\DiskPart.txt"
 if exist "%DriveLetter%\bootmgr" (echo active) >> "%cd%\DiskPart.txt"
 (echo create partition Primary) >> "%cd%\DiskPart.txt"
-(echo format fs=NTFS label="Windows" quick) >> "%cd%\DiskPart.txt"
+(echo format fs=NTFS label="WTG-WINDOWS" quick) >> "%cd%\DiskPart.txt"
 (echo assign letter=%NTFS%) >> "%cd%\DiskPart.txt"
+(echo attributes vol set nodefaultdriveletter) >> "%cd%\DiskPart.txt"
 (echo exit) >> "%cd%\DiskPart.txt"
 DiskPart /s "%cd%\DiskPart.txt" > nul 2>&1
 if not "%errorlevel%"=="0" goto "DiskPartError"
@@ -514,7 +534,7 @@ DiskPart /s "%cd%\DiskPart.txt" > nul 2>&1
 del "%cd%\DiskPart.txt" /f /q > nul 2>&1
 echo Bootloader created.
 if "%DiskPart%"=="True" goto "DiskPartDone"
-goto "Donex86/x64"
+goto "SANPolicy"
 
 :"DiskPartExistBootloaderx86/x64"
 set DiskPart=True
@@ -531,15 +551,9 @@ goto "Bootloaderx86/x64"
 
 :"DiskPartDonex86/x64"
 echo.
-echo You can now rename or move back the file back to "%cd%\DiskPart.txt".
-goto "Donex86/x64"
-
-:"Donex86/x64"
-endlocal
-echo.
-echo Your Windows To Go is ready! It is bootable with Legacy BIOS and UEFI. Press any key to close this batch file.
+echo You can now rename or move back the file back to "%cd%\DiskPart.txt". Press any key to continue.
 pause > nul 2>&1
-exit
+goto "SANPolicy"
 
 :"BootloaderArm64"
 if exist "%cd%\DiskPart.txt" goto "DiskPartExistBootloaderArm64"
@@ -554,7 +568,7 @@ DiskPart /s "%cd%\DiskPart.txt" > nul 2>&1
 del "%cd%\DiskPart.txt" /f /q > nul 2>&1
 echo Bootloader created.
 if "%DiskPart%"=="True" goto "DiskPartDone"
-goto "DoneArm64"
+goto "SANPolicy"
 
 :"DiskPartExistBootloaderArm64"
 set DiskPart=True
@@ -571,8 +585,103 @@ goto "BootloaderArm64"
 
 :"DiskPartDoneArm64"
 echo.
-echo You can now rename or move back the file back to "%cd%\DiskPart.txt".
-goto "DoneArm64"
+echo You can now rename or move back the file back to "%cd%\DiskPart.txt". Press any key to continue.
+pause > nul 2>&1
+goto "SANPolicy"
+
+:"SANPolicy"
+echo.
+echo Applying SAN policy.
+echo ^<?xml version="1.0" encoding="utf-8" standalone="yes"?^>) >> "%NTFS%\san_policy.xml"
+echo ^<unattend xmlns="urn:schemas-microsoft-com:unattend"^>) >> "%NTFS%\san_policy.xml"
+echo   ^<settings pass="offlineServicing"^>) >> "%NTFS%\san_policy.xml"
+echo     ^<component) >> "%NTFS%\san_policy.xml"
+echo         xmlns:wcm="https://schemas.microsoft.com/WMIConfig/2002/State") >> "%NTFS%\san_policy.xml"
+echo         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance") >> "%NTFS%\san_policy.xml"
+echo         language="neutral") >> "%NTFS%\san_policy.xml"
+echo         name="Microsoft-Windows-PartitionManager") >> "%NTFS%\san_policy.xml"
+echo         processorArchitecture="arm64") >> "%NTFS%\san_policy.xml"
+echo         publicKeyToken="31bf3856ad364e35") >> "%NTFS%\san_policy.xml"
+echo         versionScope="nonSxS") >> "%NTFS%\san_policy.xml"
+echo         ^>) >> "%NTFS%\san_policy.xml"
+echo       ^<SanPolicy^>4^</SanPolicy^>) >> "%NTFS%\san_policy.xml"
+echo     ^</component^>) >> "%NTFS%\san_policy.xml"
+echo     ^<component) >> "%NTFS%\san_policy.xml"
+echo         xmlns:wcm="https://schemas.microsoft.com/WMIConfig/2002/State") >> "%NTFS%\san_policy.xml"
+echo         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance") >> "%NTFS%\san_policy.xml"
+echo         language="neutral") >> "%NTFS%\san_policy.xml"
+echo         name="Microsoft-Windows-PartitionManager") >> "%NTFS%\san_policy.xml"
+echo         processorArchitecture="amd64") >> "%NTFS%\san_policy.xml"
+echo         publicKeyToken="31bf3856ad364e35") >> "%NTFS%\san_policy.xml"
+echo         versionScope="nonSxS") >> "%NTFS%\san_policy.xml"
+echo         ^>) >> "%NTFS%\san_policy.xml"
+echo       ^<SanPolicy^>4^</SanPolicy^>) >> "%NTFS%\san_policy.xml"
+echo     ^</component^>) >> "%NTFS%\san_policy.xml"
+echo     ^<component) >> "%NTFS%\san_policy.xml"
+echo         xmlns:wcm="https://schemas.microsoft.com/WMIConfig/2002/State") >> "%NTFS%\san_policy.xml"
+echo         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance") >> "%NTFS%\san_policy.xml"
+echo         language="neutral") >> "%NTFS%\san_policy.xml"
+echo         name="Microsoft-Windows-PartitionManager") >> "%NTFS%\san_policy.xml"
+echo         processorArchitecture="x86") >> "%NTFS%\san_policy.xml"
+echo         publicKeyToken="31bf3856ad364e35") >> "%NTFS%\san_policy.xml"
+echo         versionScope="nonSxS") >> "%NTFS%\san_policy.xml"
+echo         ^>) >> "%NTFS%\san_policy.xml"
+echo       ^<SanPolicy^>4^</SanPolicy^>) >> "%NTFS%\san_policy.xml"
+echo     ^</component^>) >> "%NTFS%\san_policy.xml"
+echo   ^</settings^>) >> "%NTFS%\san_policy.xml"
+echo ^</unattend^) >> "%NTFS%\san_policy.xml"
+DISM /Image:%NTFS% /Apply-Unattend:%NTFS%\san_policy.xml
+if not "%errorlevel%"=="0" goto "SANError"
+echo SAN policy applied.
+goto "Unattended"
+
+:"SANError"
+echo There has been an error! Press any key to try again.
+pause > nul 2>&1
+goto "SANPolicy"
+
+:"Unattended"
+echo.
+echo Creating unattended.xml file in Sysprep folder.
+(echo ^<?xml version="1.0" encoding="utf-8"?^>) > %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo ^<unattend xmlns="urn:schemas-microsoft-com:unattend"^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo         ^<component name="Microsoft-Windows-Shell-Setup" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" processorArchitecture="AMD64" xmlns:wcm="https://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo             ^<OOBE^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo                 ^<HideEULAPage^>true^</HideEULAPage^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo                 ^<ProtectYourPC^>1^</ProtectYourPC^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo                 ^<NetworkLocation^>Work^</NetworkLocation^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo             ^</OOBE^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo         ^</component^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo         ^<component name="Microsoft-Windows-International-Core" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" processorArchitecture="AMD64"^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo           ^<InputLocale^>en-US^</InputLocale^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo           ^<SystemLocale^>en-US^</SystemLocale^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo         ^</component^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo         ^<component name="Microsoft-Windows-WinRE-RecoveryAgent" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="https://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo             ^<UninstallWindowsRE^>true^</UninstallWindowsRE^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo         ^</component^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo         ^<component name="Microsoft-Windows-Shell-Setup" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" processorArchitecture="X86" xmlns:wcm="https://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo             ^<OOBE^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo                 ^<HideEULAPage^>true^</HideEULAPage^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo                 ^<ProtectYourPC^>1^</ProtectYourPC^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo         ^<component name="Microsoft-Windows-International-Core" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" processorArchitecture="x86"^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo           ^<UILanguage^>en-US^</UILanguage^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo           ^<UserLocale^>en-US^</UserLocale^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo         ^</component^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo         ^<component name="Microsoft-Windows-WinRE-RecoveryAgent" processorArchitecture="x86" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="https://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo             ^<UninstallWindowsRE^>true^</UninstallWindowsRE^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo         ^</component^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo     ^</settings^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+(echo ^</unattend^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
+echo unattended.xml file created in Sysprep folder.
+if /i "%bootmgr%"=="Arm64" goto "DoneArm64"
+goto "Donex86/x64"
+
+:"Donex86/x64"
+endlocal
+echo.
+echo Your Windows To Go is ready! It is bootable with Legacy BIOS and UEFI. Press any key to close this batch file.
+pause > nul 2>&1
+exit
 
 :"DoneArm64"
 endlocal
