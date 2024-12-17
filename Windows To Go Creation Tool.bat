@@ -2,7 +2,7 @@
 setlocal
 title Windows To Go Creation Tool
 echo Program Name: Windows To Go Creation Tool
-echo Version: 4.0.6
+echo Version: 4.0.7
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -86,7 +86,6 @@ echo.
 echo Press any key to continue once you have downloaded the Windows 11 24H2 Arm64 Disk Image.
 pause > nul 2>&1
 goto "Mount"
-
 
 :"Mount"
 echo.
