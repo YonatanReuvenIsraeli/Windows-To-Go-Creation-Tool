@@ -3,8 +3,7 @@ Install Windows onto an external drive.
 
 ## Windows Install Types
 - Standard Windows installation.
-- Windows To Go installation.  
-- 
+- Windows To Go installation.
 ## Supported Drives
 - Supports all USB drives, but a external SSD or WTG certified drive is strongly recommended.
 
