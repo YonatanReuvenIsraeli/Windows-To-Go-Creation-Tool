@@ -2,7 +2,7 @@
 setlocal
 title Windows Installation Tool
 echo Program Name: Windows Installation Tool
-echo Version: 5.0.0
+echo Version: 5.0.1
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -533,7 +533,7 @@ goto "RecoveryDriveLetter"
 
 :"BIOSAsk"
 if /i "%bootmgr%"=="Arm64" set BIOSAsk=2
-if /i "%bootmgr%"=="Arm64" goto "MSR"
+if /i "%bootmgr%"=="Arm64" goto "fsutil"
 echo.
 echo [1] Legacy BIOS
 echo [2] UEFI
@@ -553,70 +553,10 @@ set SureBIOSAsk=
 if /i "%BIOSAsk%"=="1" set /p SureBIOSAsk="Are you sure you are installing for Legacy BIOS? (Yes/No) "
 if /i "%BIOSAsk%"=="2" set /p SureBIOSAsk="Are you sure you are installing for UEFI? (Yes/No) "
 if /i "%BIOSAsk%"=="3" set /p SureBIOSAsk="Are you sure you are installing for both? (Yes/No) "
-if /i "%BIOSAsk%"=="1" if /i "%SureBIOSAsk%"=="Yes" goto "fsutil"
-if /i "%BIOSAsk%"=="2" if /i "%SureBIOSAsk%"=="Yes" goto "MSR"
-if /i "%BIOSAsk%"=="3" if /i "%SureBIOSAsk%"=="Yes" goto "fsutil"
+if /i "%SureBIOSAsk%"=="Yes" goto "fsutil"
 if /i "%SureBIOSAsk%"=="No" goto "BIOSAsk"
 echo Invalid syntax!
 goto "SureBIOSAsk"
-
-:"MSR"
-echo.
-set MSR=
-set /p MSR="Please enter a fourth unused drive letter. (A:-Z:) "
-if /i "%MSR%"=="%DriveLetter%" goto "SameDriveLetterMSR"
-if /i "%MSR%"=="%FAT32%" goto "SameDriveLetterMSRFAT32"
-if /i "%MSR%"=="%NTFS%" goto "SameDriveLetterMSRNTFS"
-if /i "%MSR%"=="%Recovery%" goto "SameDriveLetterMSRRecovery"
-if exist "%MSR%" goto "ExistMSR"
-if /i "%MSR%"=="A:" goto "fsutil"
-if /i "%MSR%"=="B:" goto "fsutil"
-if /i "%MSR%"=="C:" goto "fsutil"
-if /i "%MSR%"=="D:" goto "fsutil"
-if /i "%MSR%"=="E:" goto "fsutil"
-if /i "%MSR%"=="F:" goto "fsutil"
-if /i "%MSR%"=="G:" goto "fsutil"
-if /i "%MSR%"=="H:" goto "fsutil"
-if /i "%MSR%"=="I:" goto "fsutil"
-if /i "%MSR%"=="J:" goto "fsutil"
-if /i "%MSR%"=="K:" goto "fsutil"
-if /i "%MSR%"=="L:" goto "fsutil"
-if /i "%MSR%"=="M:" goto "fsutil"
-if /i "%MSR%"=="N:" goto "fsutil"
-if /i "%MSR%"=="O:" goto "fsutil"
-if /i "%MSR%"=="P:" goto "fsutil"
-if /i "%MSR%"=="Q:" goto "fsutil"
-if /i "%MSR%"=="R:" goto "fsutil"
-if /i "%MSR%"=="S:" goto "fsutil"
-if /i "%MSR%"=="T:" goto "fsutil"
-if /i "%MSR%"=="U:" goto "fsutil"
-if /i "%MSR%"=="V:" goto "fsutil"
-if /i "%MSR%"=="W:" goto "fsutil"
-if /i "%MSR%"=="X:" goto "fsutil"
-if /i "%MSR%"=="Y:" goto "fsutil"
-if /i "%MSR%"=="Z:" goto "fsutil"
-echo Invalid syntax!
-goto "MSR"
-
-:"SameDriveLetterMSR"
-echo Fourth unused drive letter ("%MSR%") is the same as Windows Disk Image drive letter ("%DriveLetter%")! Please try again.
-goto "MSR"
-
-:"SameDriveLetterMSRFAT32"
-echo Fourth unused drive letter ("%MSR%") same as first unused drive letter ("%FAT32%"). Please try again.
-goto "MSR"
-
-:"SameDriveLetterMSRNTFS"
-echo Fourth unused drive letter ("%MSR%") same as second unused drive letter ("%NTFS%"). Please try again.
-goto "MSR"
-
-:"SameDriveLetterMSRRecovery"
-echo Fourth unused drive letter ("%MSR%") same as third unused drive letter ("%Recovery"). Please try again.
-goto "MSR"
-
-:"ExistMSR"
-echo "%MSR%" exists! Please try again.
-goto "MSR"
 
 :"fsutil"
 if exist "%cd%\fsutil.txt" goto "fsutilExist"
