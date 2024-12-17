@@ -2,7 +2,7 @@
 setlocal
 title Windows Installation Tool
 echo Program Name: Windows Installation Tool
-echo Version: 5.0.1
+echo Version: 5.0.2
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -737,7 +737,7 @@ goto "BootloaderBIOS"
 
 :"BootloaderErrorBIOS"
 del "%cd%\DiskPart.txt" /f /q > nul 2>&1
-echo Error creating the bootloader! Disk %Disk% may be smaller than 64 GB! Press any key to try again.
+echo Error creating the bootloader! Press any key to try again.
 pause > nul 2>&1
 goto "BootloaderBIOS"
 
@@ -767,7 +767,7 @@ goto "BootloaderUEFI"
 
 :"BootloaderErrorUEFI"
 del "%cd%\DiskPart.txt" /f /q > nul 2>&1
-echo Error creating the bootloader! Disk %Disk% may be smaller than 64 GB! Press any key to try again.
+echo Error creating the bootloader! Press any key to try again.
 pause > nul 2>&1
 goto "BootloaderUEFI"
 
@@ -797,7 +797,7 @@ goto "BootloaderBoth"
 
 :"BootloaderErrorBoth"
 del "%cd%\DiskPart.txt" /f /q > nul 2>&1
-echo Error creating the bootloader! Disk %Disk% may be smaller than 64 GB! Press any key to try again.
+echo Error creating the bootloader! Press any key to try again.
 pause > nul 2>&1
 goto "BootloaderBoth"
 
@@ -914,7 +914,7 @@ goto "DoneBoth"
 
 :"Recovery"
 echo.
-echo Creating the recovery partition.
+echo Creating recovery partition.
 md "%Recovery%\Recovery\WindowsRE"
 copy "%NTFS%\Windows\System32\Recovery\winre.wim" "%Recovery%\Recovery\WindowsRE\winre.wim" /y /v > nul 2>&1
 reagentc /setreimage /path "%Recovery%\Recovery\WindowsRE" /target "%NTFS%\Windows" > nul 2>&1
@@ -932,7 +932,7 @@ if /i "%BIOSAsk%"=="2" goto "DoneUEFI"
 if /i "%BIOSAsk%"=="3" goto "DoneBoth"
 
 :"RecoveryError"
-echo There has been an error! Press any key to try again!
+echo There has been an error creating the recovery partition! Press any key to try again!
 pause > nul 2>&1
 goto "Recovery"
 
