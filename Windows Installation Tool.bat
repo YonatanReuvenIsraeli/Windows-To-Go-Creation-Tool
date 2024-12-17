@@ -1,8 +1,8 @@
 @echo off
 setlocal
-title Windows To Go Creation Tool
-echo Program Name: Windows To Go Creation Tool
-echo Version: 4.0.7
+title Windows Installation Tool
+echo Program Name: Windows Installation Tool
+echo Version: 5.0.0
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -22,6 +22,28 @@ exit
 
 :"Start"
 echo.
+echo [1] Install Windows.
+echo [2] Install Windows To Go.
+echo.
+set Windows=
+set /p Windows="What do you want to do? (1-2) "
+if /i "%Windows%"=="1" goto "SureWindows"
+if /i "%Windows%"=="2" goto "SureWindows"
+echo Invalid syntax!
+goto "Start"
+
+:"SureWindows"
+echo.
+set SureWindows=
+if /i "%Windows%"=="1" set /p SureWindows="Are you sure you want to install Windows? (Yes/No) "
+if /i "%Windows%"=="2" set /p SureWindows="Are you sure you want to install Windows To Go? (Yes/No) "
+if /i "%SureWindows%"=="Yes" goto "Download"
+if /i "%SureWindows%"=="No" goto "Start"
+echo Invalid syntax!
+goto "SureWindows"
+
+:"Download"
+echo.
 echo [1] Download Windows 10 22H2 x86/x64 Windows Disk Image.
 echo [2] Download Windows 11 24H2 x64 Windows Disk Image.
 echo [3] Download Windows 11 24H2 Arm64 Windows Disk Image.
@@ -34,7 +56,7 @@ if /i "%Download%"=="2" goto "SureDownload"
 if /i "%Download%"=="3" goto "SureDownload"
 if /i "%Download%"=="4" goto "SureDownload"
 echo Invalid syntax!
-goto "Start"
+goto "Download"
 
 :"SureDownload"
 echo.
@@ -315,7 +337,8 @@ goto "SureIndex11"
 
 :"AttachDisk"
 echo.
-echo Please attach an external SSD or a WTG certifed drive then press any key to continue.
+if /i "%Windows%"=="1" echo Please attach an SSD or a HDD then press any key to continue.
+if /i "%Windows%"=="2" echo Please attach an external SSD or a WTG certifed drive then press any key to continue.
 pause > nul 2>&1
 goto "DiskPartSet"
 
@@ -410,32 +433,32 @@ set /p NTFS="Please enter another unused drive letter. (A:-Z:) "
 if /i "%NTFS%"=="%DriveLetter%" goto "SameDriveLetterNTFSDriveLetter"
 if /i "%NTFS%"=="%FAT32%" goto "SameDriveLetterNTFSFAT32"
 if exist "%NTFS%" goto "ExistNTFS"
-if /i "%NTFS%"=="A:" goto "DiskPart"
-if /i "%NTFS%"=="B:" goto "DiskPart"
-if /i "%NTFS%"=="C:" goto "DiskPart"
-if /i "%NTFS%"=="D:" goto "DiskPart"
-if /i "%NTFS%"=="E:" goto "DiskPart"
-if /i "%NTFS%"=="F:" goto "DiskPart"
-if /i "%NTFS%"=="G:" goto "DiskPart"
-if /i "%NTFS%"=="H:" goto "DiskPart"
-if /i "%NTFS%"=="I:" goto "DiskPart"
-if /i "%NTFS%"=="J:" goto "DiskPart"
-if /i "%NTFS%"=="K:" goto "DiskPart"
-if /i "%NTFS%"=="L:" goto "DiskPart"
-if /i "%NTFS%"=="M:" goto "DiskPart"
-if /i "%NTFS%"=="N:" goto "DiskPart"
-if /i "%NTFS%"=="O:" goto "DiskPart"
-if /i "%NTFS%"=="P:" goto "DiskPart"
-if /i "%NTFS%"=="Q:" goto "DiskPart"
-if /i "%NTFS%"=="R:" goto "DiskPart"
-if /i "%NTFS%"=="S:" goto "DiskPart"
-if /i "%NTFS%"=="T:" goto "DiskPart"
-if /i "%NTFS%"=="U:" goto "DiskPart"
-if /i "%NTFS%"=="V:" goto "DiskPart"
-if /i "%NTFS%"=="W:" goto "DiskPart"
-if /i "%NTFS%"=="X:" goto "DiskPart"
-if /i "%NTFS%"=="Y:" goto "DiskPart"
-if /i "%NTFS%"=="Z:" goto "DiskPart"
+if /i "%NTFS%"=="A:" goto "WindowsCheck"
+if /i "%NTFS%"=="B:" goto "WindowsCheck"
+if /i "%NTFS%"=="C:" goto "WindowsCheck"
+if /i "%NTFS%"=="D:" goto "WindowsCheck"
+if /i "%NTFS%"=="E:" goto "WindowsCheck"
+if /i "%NTFS%"=="F:" goto "WindowsCheck"
+if /i "%NTFS%"=="G:" goto "WindowsCheck"
+if /i "%NTFS%"=="H:" goto "WindowsCheck"
+if /i "%NTFS%"=="I:" goto "WindowsCheck"
+if /i "%NTFS%"=="J:" goto "WindowsCheck"
+if /i "%NTFS%"=="K:" goto "WindowsCheck"
+if /i "%NTFS%"=="L:" goto "WindowsCheck"
+if /i "%NTFS%"=="M:" goto "WindowsCheck"
+if /i "%NTFS%"=="N:" goto "WindowsCheck"
+if /i "%NTFS%"=="O:" goto "WindowsCheck"
+if /i "%NTFS%"=="P:" goto "WindowsCheck"
+if /i "%NTFS%"=="Q:" goto "WindowsCheck"
+if /i "%NTFS%"=="R:" goto "WindowsCheck"
+if /i "%NTFS%"=="S:" goto "WindowsCheck"
+if /i "%NTFS%"=="T:" goto "WindowsCheck"
+if /i "%NTFS%"=="U:" goto "WindowsCheck"
+if /i "%NTFS%"=="V:" goto "WindowsCheck"
+if /i "%NTFS%"=="W:" goto "WindowsCheck"
+if /i "%NTFS%"=="X:" goto "WindowsCheck"
+if /i "%NTFS%"=="Y:" goto "WindowsCheck"
+if /i "%NTFS%"=="Z:" goto "WindowsCheck"
 echo Invalid syntax!
 goto "NTFS"
 
@@ -451,38 +474,257 @@ goto "NTFS"
 echo "%NTFS%" exists! Please try again.
 goto "NTFS"
 
-:"DiskPart"
-if exist "%cd%\DiskPart.txt" goto "DiskPartExistDiskPart"
+:"WindowsCheck"
+if /i "%Windows%"=="1" goto "RecoveryDriveLetter"
+if /i "%Windows%"=="2" goto "DiskPartToGo"
+
+:"RecoveryDriveLetter"
+echo.
+set Recovery=
+set /p Recovery="Please enter a third unused drive letter. (A:-Z:) "
+if /i "%Recovery%"=="%DriveLetter%" goto "SameDriveLetterRecovery"
+if /i "%Recovery%"=="%FAT32%" goto "SameDriveLetterRecoveryFAT32"
+if /i "%Recovery%"=="%NTFS%" goto "SameDriveLetterRecoveryNTFS"
+if exist "%Recovery%" goto "ExistRecoveryDriveLetter"
+if /i "%Recovery%"=="A:" goto "BIOSAsk"
+if /i "%Recovery%"=="B:" goto "BIOSAsk"
+if /i "%Recovery%"=="C:" goto "BIOSAsk"
+if /i "%Recovery%"=="D:" goto "BIOSAsk"
+if /i "%Recovery%"=="E:" goto "BIOSAsk"
+if /i "%Recovery%"=="F:" goto "BIOSAsk"
+if /i "%Recovery%"=="G:" goto "BIOSAsk"
+if /i "%Recovery%"=="H:" goto "BIOSAsk"
+if /i "%Recovery%"=="I:" goto "BIOSAsk"
+if /i "%Recovery%"=="J:" goto "BIOSAsk"
+if /i "%Recovery%"=="K:" goto "BIOSAsk"
+if /i "%Recovery%"=="L:" goto "BIOSAsk"
+if /i "%Recovery%"=="M:" goto "BIOSAsk"
+if /i "%Recovery%"=="N:" goto "BIOSAsk"
+if /i "%Recovery%"=="O:" goto "BIOSAsk"
+if /i "%Recovery%"=="P:" goto "BIOSAsk"
+if /i "%Recovery%"=="Q:" goto "BIOSAsk"
+if /i "%Recovery%"=="R:" goto "BIOSAsk"
+if /i "%Recovery%"=="S:" goto "BIOSAsk"
+if /i "%Recovery%"=="T:" goto "BIOSAsk"
+if /i "%Recovery%"=="U:" goto "BIOSAsk"
+if /i "%Recovery%"=="V:" goto "BIOSAsk"
+if /i "%Recovery%"=="W:" goto "BIOSAsk"
+if /i "%Recovery%"=="X:" goto "BIOSAsk"
+if /i "%Recovery%"=="Y:" goto "BIOSAsk"
+if /i "%Recovery%"=="Z:" goto "BIOSAsk"
+echo Invalid syntax!
+goto "RecoveryDriveLetter"
+
+:"SameDriveLetterRecovery"
+echo Third unused drive letter ("%Recovery%") is the same as Windows Disk Image drive letter ("%DriveLetter%")! Please try again.
+goto "RecoveryDriveLetter"
+
+:"SameDriveLetterRecoveryFAT32"
+echo Third unused drive letter ("%Recovery%") same as first unused drive letter ("%FAT32%"). Please try again.
+goto "RecoveryDriveLetter"
+
+:"SameDriveLetterRecoveryNTFS"
+echo Third unused drive letter ("%Recovery%") same as second unused drive letter ("%NTFS%"). Please try again.
+goto "RecoveryDriveLetter"
+
+:"ExistRecoveryDriveLetter"
+echo "%Recovery%" exists! Please try again.
+goto "RecoveryDriveLetter"
+
+:"BIOSAsk"
+if /i "%bootmgr%"=="Arm64" set BIOSAsk=2
+if /i "%bootmgr%"=="Arm64" goto "MSR"
+echo.
+echo [1] Legacy BIOS
+echo [2] UEFI
+echo [3] Both
+echo.
+set BIOSAsk=
+set /p BIOSAsk="Are you installing for Legacy BIOS, UEFI or both? (1-3) "
+if /i "%BIOSAsk%"=="1" goto "SureBIOSAsk"
+if /i "%BIOSAsk%"=="2" goto "SureBIOSAsk"
+if /i "%BIOSAsk%"=="3" goto "SureBIOSAsk"
+echo Invalid syntax!
+goto "BIOSAsk"
+
+:"SureBIOSAsk"
+echo.
+set SureBIOSAsk=
+if /i "%BIOSAsk%"=="1" set /p SureBIOSAsk="Are you sure you are installing for Legacy BIOS? (Yes/No) "
+if /i "%BIOSAsk%"=="2" set /p SureBIOSAsk="Are you sure you are installing for UEFI? (Yes/No) "
+if /i "%BIOSAsk%"=="3" set /p SureBIOSAsk="Are you sure you are installing for both? (Yes/No) "
+if /i "%BIOSAsk%"=="1" if /i "%SureBIOSAsk%"=="Yes" goto "fsutil"
+if /i "%BIOSAsk%"=="2" if /i "%SureBIOSAsk%"=="Yes" goto "MSR"
+if /i "%BIOSAsk%"=="3" if /i "%SureBIOSAsk%"=="Yes" goto "fsutil"
+if /i "%SureBIOSAsk%"=="No" goto "BIOSAsk"
+echo Invalid syntax!
+goto "SureBIOSAsk"
+
+:"MSR"
+echo.
+set MSR=
+set /p MSR="Please enter a fourth unused drive letter. (A:-Z:) "
+if /i "%MSR%"=="%DriveLetter%" goto "SameDriveLetterMSR"
+if /i "%MSR%"=="%FAT32%" goto "SameDriveLetterMSRFAT32"
+if /i "%MSR%"=="%NTFS%" goto "SameDriveLetterMSRNTFS"
+if /i "%MSR%"=="%Recovery%" goto "SameDriveLetterMSRRecovery"
+if exist "%MSR%" goto "ExistMSR"
+if /i "%MSR%"=="A:" goto "fsutil"
+if /i "%MSR%"=="B:" goto "fsutil"
+if /i "%MSR%"=="C:" goto "fsutil"
+if /i "%MSR%"=="D:" goto "fsutil"
+if /i "%MSR%"=="E:" goto "fsutil"
+if /i "%MSR%"=="F:" goto "fsutil"
+if /i "%MSR%"=="G:" goto "fsutil"
+if /i "%MSR%"=="H:" goto "fsutil"
+if /i "%MSR%"=="I:" goto "fsutil"
+if /i "%MSR%"=="J:" goto "fsutil"
+if /i "%MSR%"=="K:" goto "fsutil"
+if /i "%MSR%"=="L:" goto "fsutil"
+if /i "%MSR%"=="M:" goto "fsutil"
+if /i "%MSR%"=="N:" goto "fsutil"
+if /i "%MSR%"=="O:" goto "fsutil"
+if /i "%MSR%"=="P:" goto "fsutil"
+if /i "%MSR%"=="Q:" goto "fsutil"
+if /i "%MSR%"=="R:" goto "fsutil"
+if /i "%MSR%"=="S:" goto "fsutil"
+if /i "%MSR%"=="T:" goto "fsutil"
+if /i "%MSR%"=="U:" goto "fsutil"
+if /i "%MSR%"=="V:" goto "fsutil"
+if /i "%MSR%"=="W:" goto "fsutil"
+if /i "%MSR%"=="X:" goto "fsutil"
+if /i "%MSR%"=="Y:" goto "fsutil"
+if /i "%MSR%"=="Z:" goto "fsutil"
+echo Invalid syntax!
+goto "MSR"
+
+:"SameDriveLetterMSR"
+echo Fourth unused drive letter ("%MSR%") is the same as Windows Disk Image drive letter ("%DriveLetter%")! Please try again.
+goto "MSR"
+
+:"SameDriveLetterMSRFAT32"
+echo Fourth unused drive letter ("%MSR%") same as first unused drive letter ("%FAT32%"). Please try again.
+goto "MSR"
+
+:"SameDriveLetterMSRNTFS"
+echo Fourth unused drive letter ("%MSR%") same as second unused drive letter ("%NTFS%"). Please try again.
+goto "MSR"
+
+:"SameDriveLetterMSRRecovery"
+echo Fourth unused drive letter ("%MSR%") same as third unused drive letter ("%Recovery"). Please try again.
+goto "MSR"
+
+:"ExistMSR"
+echo "%MSR%" exists! Please try again.
+goto "MSR"
+
+:"fsutil"
+if exist "%cd%\fsutil.txt" goto "fsutilExist"
+echo.
+echo Getting disk %Disk% details.
+fsutil fsinfo sectorinfo \\.\PhysicalDrive%Disk% | find /i /c "PhysicalBytesPerSectorForAtomicity :                    4096" > %cd%\fsutil.txt
+set /p fsutil=< "%cd%\fsutil.txt"
+echo Got disk %Disk% details.
+del "%cd%\fsutil.txt" /f /q > nul 2>&1
+if /i "%fsutil%"=="True" goto "fsutilDone"
+goto "DiskPartWindows"
+
+:"fsutilExist"
+set fsutil=True
+echo.
+echo Please temporary rename to something else or temporary move to another location "%cd%\fsutil.txt" in order for this batch file to proceed. "%cd%\fsutil.txt" is not a system file. Press any key to continue when "%cd%\fsutil.txt" is renamed to something else or moved to another location. This batch file will let you know when you can rename it back to its original name or move it back to its original location.
+pause > nul 2>&1
+goto "fsutil"
+
+:"fsutilDone"
+echo.
+echo You can now rename or move back the file back to "%cd%\fsutil.txt". Press any key to continue.
+pause > nul 2>&1
+goto "DiskPartWindows"
+
+:"DiskPartWindows"
+if exist "%cd%\DiskPart.txt" goto "DiskPartExistDiskPartWindows"
 echo.
 echo Partitioning and formating disk %Disk%.
-(echo sel disk %Disk%) > "%cd%\DiskPart.txt"
-(echo clean) >> "%cd%\DiskPart.txt"
-if exist "%DriveLetter%\bootmgr" (echo convert mbr) >> "%cd%\DiskPart.txt"
-if not exist "%DriveLetter%\bootmgr" (echo convert gpt) >> "%cd%\DiskPart.txt"
-if exist "%DriveLetter%\bootmgr" (echo create partition Primary size=350) >> "%cd%\DiskPart.txt"
-if not exist "%DriveLetter%\bootmgr" (echo create partition EFI size=350) >> "%cd%\DiskPart.txt"
-(echo format fs=FAT32 label="WTG-SYSTEM" quick) >> "%cd%\DiskPart.txt"
-(echo assign letter=%FAT32%) >> "%cd%\DiskPart.txt"
-if exist "%DriveLetter%\bootmgr" (echo active) >> "%cd%\DiskPart.txt"
-(echo create partition Primary) >> "%cd%\DiskPart.txt"
-(echo format fs=NTFS label="WTG-WINDOWS" quick) >> "%cd%\DiskPart.txt"
-(echo assign letter=%NTFS%) >> "%cd%\DiskPart.txt"
-(echo attributes vol set nodefaultdriveletter) >> "%cd%\DiskPart.txt"
-(echo exit) >> "%cd%\DiskPart.txt"
+(echo select disk %Disk%) > %cd%\DiskPart.txt
+(echo clean) >> %cd%\DiskPart.txt
+if /i "%BIOSAsk%"=="1" (echo convert mbr) >> %cd%\DiskPart.txt
+if /i "%BIOSAsk%"=="2" (echo convert gpt) >> %cd%\DiskPart.txt
+if /i "%BIOSAsk%"=="3" (echo convert mbr) >> %cd%\DiskPart.txt
+if /i "%BIOSAsk%"=="1" if /i "%fsutil%"=="0" (echo create partition primary size=100) >> %cd%\DiskPart.txt
+if /i "%BIOSAsk%"=="1" if /i "%fsutil%"=="1" (echo create partition primary size=260) >> %cd%\DiskPart.txt
+if /i "%BIOSAsk%"=="2" if /i "%fsutil%"=="0" (echo create partition efi size=100) >> %cd%\DiskPart.txt
+if /i "%BIOSAsk%"=="2" if /i "%fsutil%"=="1" (echo create partition efi size=260) >> %cd%\DiskPart.txt
+if /i "%BIOSAsk%"=="3" if /i "%fsutil%"=="0" (echo create partition primary size=100) >> %cd%\DiskPart.txt
+if /i "%BIOSAsk%"=="3" if /i "%fsutil%"=="1" (echo create partition primary size=260) >> %cd%\DiskPart.txt
+(echo format quick fs=FAT32 label="System")  >> %cd%\DiskPart.txt
+(echo assign letter="%FAT32%") >> %cd%\DiskPart.txt
+if /i "%BIOSAsk%"=="1" (echo active) >> %cd%\DiskPart.txt
+if /i "%BIOSAsk%"=="3" (echo active) >> %cd%\DiskPart.txt
+if /i "%BIOSAsk%"=="2" (echo create partition msr size=16) >> %cd%\DiskPart.txt
+(echo create partition primary) >> %cd%\DiskPart.txt
+(echo shrink minimum=500) >> %cd%\DiskPart.txt
+(echo format quick fs=ntfs label="Windows") >> %cd%\DiskPart.txt
+(echo assign letter="%NTFS%") >> %cd%\DiskPart.txt
+(echo create partition primary) >> %cd%\DiskPart.txt
+(echo format quick fs=ntfs label="Recovery") >> %cd%\DiskPart.txt
+(echo assign letter="%Recovery%") >> %cd%\DiskPart.txt
+if /i "%BIOSAsk%"=="1" (echo set id=27) >> %cd%\DiskPart.txt
+if /i "%BIOSAsk%"=="2" (echo set id="de94bba4-06d1-4d40-a16a-bfd50179d6ac") >> %cd%\DiskPart.txt
+if /i "%BIOSAsk%"=="3" (echo set id=27) >> %cd%\DiskPart.txt
+if /i "%BIOSAsk%"=="2" (echo gpt attributes=0x8000000000000001) >> %cd%\DiskPart.txt
+(echo exit) >> %cd%\DiskPart.txt
 DiskPart /s "%cd%\DiskPart.txt" > nul 2>&1
-if not "%errorlevel%"=="0" goto "DiskPartError"
+if not "%errorlevel%"=="0" goto "DiskPartErrorDiskPartWindows"
 del "%cd%\DiskPart.txt" /f /q > nul 2>&1
 echo Disk %Disk% partitioned and formated.
 goto "Bit3"
 
-:"DiskPartExistDiskDiskPart"
+:"DiskPartExistDiskDiskPartWindows"
 set DiskPart=True
 echo.
 echo Please temporary rename to something else or temporary move to another location "%cd%\DiskPart.txt" in order for this batch file to proceed. "%cd%\DiskPart.txt" is not a system file. Press any key to continue when "%cd%\DiskPart.txt" is renamed to something else or moved to another location. This batch file will let you know when you can rename it back to its original name or move it back to its original location.
 pause > nul 2>&1
-goto "DiskPart"
+goto "DiskPartWindows"
 
-:"DiskPartError"
+:"DiskPartErrorDiskPartWindows"
+del "%cd%\DiskPart.txt" /f /q > nul 2>&1
+echo Error formating and partitioning disk %Disk%. Disk %Disk% may not exist! Disk %Disk% may be smaller than 64 GB! Press any key to try again.
+pause > nul 2>&1
+goto "Disk"
+
+:"DiskPartToGo"
+if exist "%cd%\DiskPart.txt" goto "DiskPartExistDiskPartToGo"
+echo.
+echo Partitioning and formating disk %Disk%.
+(echo sel disk %Disk%) > "%cd%\DiskPart.txt"
+(echo clean) >> "%cd%\DiskPart.txt"
+if /i not "%bootmgr%"=="Arm64" (echo convert mbr) >> "%cd%\DiskPart.txt"
+if /i "%bootmgr%"=="Arm64" "%DriveLetter%\bootmgr" (echo convert gpt) >> "%cd%\DiskPart.txt"
+if /i not "%bootmgr%"=="Arm64" (echo create partition Primary size=350) >> "%cd%\DiskPart.txt"
+if /i "%bootmgr%"=="Arm64" (echo create partition efi size=350) >> "%cd%\DiskPart.txt"
+(echo format fs=FAT32 label="WTG-System" quick) >> "%cd%\DiskPart.txt"
+(echo assign letter=%FAT32%) >> "%cd%\DiskPart.txt"
+if /i not "%bootmgr%"=="Arm64" (echo active) >> "%cd%\DiskPart.txt"
+(echo create partition Primary) >> "%cd%\DiskPart.txt"
+(echo format fs=NTFS label="WTG-Windows" quick) >> "%cd%\DiskPart.txt"
+(echo assign letter=%NTFS%) >> "%cd%\DiskPart.txt"
+(echo attributes vol set nodefaultdriveletter) >> "%cd%\DiskPart.txt"
+(echo exit) >> "%cd%\DiskPart.txt"
+DiskPart /s "%cd%\DiskPart.txt" > nul 2>&1
+if not "%errorlevel%"=="0" goto "DiskPartToGoError"
+del "%cd%\DiskPart.txt" /f /q > nul 2>&1
+echo Disk %Disk% partitioned and formated.
+goto "Bit3"
+
+:"DiskPartExistDiskPartToGo"
+set DiskPart=True
+echo.
+echo Please temporary rename to something else or temporary move to another location "%cd%\DiskPart.txt" in order for this batch file to proceed. "%cd%\DiskPart.txt" is not a system file. Press any key to continue when "%cd%\DiskPart.txt" is renamed to something else or moved to another location. This batch file will let you know when you can rename it back to its original name or move it back to its original location.
+pause > nul 2>&1
+goto "DiskPartToGo"
+
+:"DiskPartToGoError"
 del "%cd%\DiskPart.txt" /f /q > nul 2>&1
 echo Error formating and partitioning disk %Disk%. Disk %Disk% may not exist! Disk %Disk% may be smaller than 64 GB! Press any key to try again.
 pause > nul 2>&1
@@ -499,8 +741,11 @@ echo Installing Windows.
 DISM /Apply-Image /ImageFile:"%DriveLetter%\sources\%Install%" /Index:%Index% /ApplyDir:%NTFS%
 if not "%errorlevel%"=="0" goto "BitDetection"
 echo Windows installed.
-if /i "%bootmgr%"=="Arm64" goto "BootloaderArm64"
-goto "Bootloaderx86/x64"
+if /i "%bootmgr%"=="Arm64" goto "BootloaderUEFI"
+if /i "%Windows%"=="2" goto "BootloaderBoth"
+if /i "%BIOSAsk%"=="1" goto "BootloaderBIOS"
+if /i "%BIOSAsk%"=="2" goto "BootloaderUEFI"
+if /i "%BIOSAsk%"=="3" goto "BootloaderBoth"
 
 :"32DISM2"
 echo.
@@ -508,8 +753,11 @@ echo Installing Windows.
 DISM /Apply-Image /ImageFile:"%DriveLetter%\x86\sources\%Install%" /Index:%Index% /ApplyDir:%NTFS%
 if not "%errorlevel%"=="0" goto "BitDetection"
 echo Windows installed.
-if /i "%bootmgr%"=="Arm64" goto "BootloaderArm64"
-goto "Bootloaderx86/x64"
+if /i "%bootmgr%"=="Arm64" goto "BootloaderUEFI"
+if /i "%Windows%"=="2" goto "BootloaderBoth"
+if /i "%BIOSAsk%"=="1" goto "BootloaderBIOS"
+if /i "%BIOSAsk%"=="2" goto "BootloaderUEFI"
+if /i "%BIOSAsk%"=="3" goto "BootloaderBoth"
 
 :"64DISM2"
 echo.
@@ -517,76 +765,101 @@ echo Installing Windows.
 DISM /Apply-Image /ImageFile:"%DriveLetter%\x64\sources\%Install%" /Index:%Index% /ApplyDir:%NTFS%
 if not "%errorlevel%"=="0" goto "BitDetection"
 echo Windows installed.
-if /i "%bootmgr%"=="Arm64" goto "BootloaderArm64"
-goto "Bootloaderx86/x64"
+if /i "%bootmgr%"=="Arm64" goto "BootloaderUEFI"
+if /i "%Windows%"=="2" goto "BootloaderBoth"
+if /i "%BIOSAsk%"=="1" goto "BootloaderBIOS"
+if /i "%BIOSAsk%"=="2" goto "BootloaderUEFI"
+if /i "%BIOSAsk%"=="3" goto "BootloaderBoth"
 
-:"Bootloaderx86/x64"
-if exist "%cd%\DiskPart.txt" goto "DiskPartExistBootloaderx86/x64"
+:"BootloaderBIOS"
+if exist "%cd%\DiskPart.txt" goto "DiskPartExistBootloaderBIOS"
 echo.
 echo Creating bootloader.
 BCDBoot "%NTFS%\Windows" /s "%FAT32%" /f ALL > nul 2>&1
-if not "%errorlevel%"=="0" goto "BootloaderErrorx86/x64"
+if not "%errorlevel%"=="0" goto "BootloaderErrorBIOS"
 (echo sel vol %FAT32%) > "%cd%\DiskPart.txt"
 (echo remove letter=%FAT32%) >> "%cd%\DiskPart.txt"
 (echo exit) >> "%cd%\DiskPart.txt"
 DiskPart /s "%cd%\DiskPart.txt" > nul 2>&1
+if not "%errorlevel%"=="0" goto "BootloaderErrorBIOS"
 del "%cd%\DiskPart.txt" /f /q > nul 2>&1
 echo Bootloader created.
-if "%DiskPart%"=="True" goto "DiskPartDonex86/x64"
-goto "SANPolicy"
+if /i "%Windows%"=="2" if /i "%DiskPart%"=="True" goto "DiskPartDone"
+if /i "%Windows%"=="2" goto "SANPolicy"
+goto "Recovery"
 
-:"DiskPartExistBootloaderx86/x64"
+:"DiskPartExistBootloaderBIOS"
 set DiskPart=True
 echo.
 echo Please temporary rename to something else or temporary move to another location "%cd%\DiskPart.txt" in order for this batch file to proceed. "%cd%\DiskPart.txt" is not a system file. Press any key to continue when "%cd%\DiskPart.txt" is renamed to something else or moved to another location. This batch file will let you know when you can rename it back to its original name or move it back to its original location.
 pause > nul 2>&1
-goto "Bootloaderx86/x64"
+goto "BootloaderBIOS"
 
-:"BootloaderErrorx86/x64"
+:"BootloaderErrorBIOS"
 del "%cd%\DiskPart.txt" /f /q > nul 2>&1
 echo Error creating the bootloader! Disk %Disk% may be smaller than 64 GB! Press any key to try again.
 pause > nul 2>&1
-goto "Bootloaderx86/x64"
+goto "BootloaderBIOS"
 
-:"DiskPartDonex86/x64"
-echo.
-echo You can now rename or move back the file back to "%cd%\DiskPart.txt". Press any key to continue.
-pause > nul 2>&1
-goto "SANPolicy"
-
-:"BootloaderArm64"
-if exist "%cd%\DiskPart.txt" goto "DiskPartExistBootloaderArm64"
+:"BootloaderUEFI"
+if exist "%cd%\DiskPart.txt" goto "DiskPartExistBootloaderUEFI"
 echo.
 echo Creating bootloader.
 BCDBoot "%NTFS%\Windows" /s "%FAT32%" /f UEFI > nul 2>&1
-if not "%errorlevel%"=="0" goto "BootloaderErrorArm64"
+if not "%errorlevel%"=="0" goto "BootloaderErrorUEFI"
 (echo sel vol %FAT32%) > "%cd%\DiskPart.txt"
 (echo remove letter=%FAT32%) >> "%cd%\DiskPart.txt"
 (echo exit) >> "%cd%\DiskPart.txt"
 DiskPart /s "%cd%\DiskPart.txt" > nul 2>&1
+if not "%errorlevel%"=="0" goto "BootloaderErrorUEFI"
 del "%cd%\DiskPart.txt" /f /q > nul 2>&1
 echo Bootloader created.
-if "%DiskPart%"=="True" goto "DiskPartDoneArm64"
-goto "SANPolicy"
+if /i "%Windows%"=="2" if /i "%DiskPart%"=="True" goto "DiskPartDone"
+if /i "%Windows%"=="2" goto "SANPolicy"
+goto "Recovery"
 
-:"DiskPartExistBootloaderArm64"
+:"DiskPartExistBootloaderUEFI"
 set DiskPart=True
 echo.
 echo Please temporary rename to something else or temporary move to another location "%cd%\DiskPart.txt" in order for this batch file to proceed. "%cd%\DiskPart.txt" is not a system file. Press any key to continue when "%cd%\DiskPart.txt" is renamed to something else or moved to another location. This batch file will let you know when you can rename it back to its original name or move it back to its original location.
 pause > nul 2>&1
-goto "BootloaderArm64"
+goto "BootloaderUEFI"
 
-:"BootloaderErrorArm64"
+:"BootloaderErrorUEFI"
 del "%cd%\DiskPart.txt" /f /q > nul 2>&1
 echo Error creating the bootloader! Disk %Disk% may be smaller than 64 GB! Press any key to try again.
 pause > nul 2>&1
-goto "BootloaderArm64"
+goto "BootloaderUEFI"
 
-:"DiskPartDoneArm64"
+:"BootloaderBoth"
+if exist "%cd%\DiskPart.txt" goto "DiskPartExistBootloaderBoth"
 echo.
-echo You can now rename or move back the file back to "%cd%\DiskPart.txt". Press any key to continue.
+echo Creating bootloader.
+BCDBoot "%NTFS%\Windows" /s "%FAT32%" /f All > nul 2>&1
+if not "%errorlevel%"=="0" goto "BootloaderErrorBoth"
+(echo sel vol %FAT32%) > "%cd%\DiskPart.txt"
+(echo remove letter=%FAT32%) >> "%cd%\DiskPart.txt"
+(echo exit) >> "%cd%\DiskPart.txt"
+DiskPart /s "%cd%\DiskPart.txt" > nul 2>&1
+if not "%errorlevel%"=="0" goto "BootloaderErrorBoth"
+del "%cd%\DiskPart.txt" /f /q > nul 2>&1
+echo Bootloader created.
+if /i "%Windows%"=="2" if /i "%DiskPart%"=="True" goto "DiskPartDone"
+if /i "%Windows%"=="2" goto "SANPolicy"
+goto "Recovery"
+
+:"DiskPartExistBootloaderBoth"
+set DiskPart=True
+echo.
+echo Please temporary rename to something else or temporary move to another location "%cd%\DiskPart.txt" in order for this batch file to proceed. "%cd%\DiskPart.txt" is not a system file. Press any key to continue when "%cd%\DiskPart.txt" is renamed to something else or moved to another location. This batch file will let you know when you can rename it back to its original name or move it back to its original location.
 pause > nul 2>&1
-goto "SANPolicy"
+goto "BootloaderBoth"
+
+:"BootloaderErrorBoth"
+del "%cd%\DiskPart.txt" /f /q > nul 2>&1
+echo Error creating the bootloader! Disk %Disk% may be smaller than 64 GB! Press any key to try again.
+pause > nul 2>&1
+goto "BootloaderBoth"
 
 :"SANPolicy"
 echo.
@@ -696,19 +969,59 @@ echo Creating unattended.xml file in Sysprep folder.
 (echo     ^</settings^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
 (echo ^</unattend^>) >> %NTFS%\Windows\System32\Sysprep\unattend.xml
 echo unattended.xml file created in Sysprep folder.
-if /i "%bootmgr%"=="Arm64" goto "DoneArm64"
-goto "Donex86/x64"
+if /i "%bootmgr%"=="Arm64" goto "DoneUEFI"
+goto "DoneBoth"
 
-:"Donex86/x64"
+:"Recovery"
+echo.
+echo Creating the recovery partition.
+md "%Recovery%\Recovery\WindowsRE"
+copy "%NTFS%\Windows\System32\Recovery\winre.wim" "%Recovery%\Recovery\WindowsRE\winre.wim" /y /v > nul 2>&1
+reagentc /setreimage /path "%Recovery%\Recovery\WindowsRE" /target "%NTFS%\Windows" > nul 2>&1
+if not "%errorlevel%"=="0" goto "RecoveryError"
+(echo sel vol %Recovery%) > "%cd%\DiskPart.txt"
+(echo remove letter=%Recovery%) >> "%cd%\DiskPart.txt"
+(echo exit) >> "%cd%\DiskPart.txt"
+DiskPart /s "%cd%\DiskPart.txt" > nul 2>&1
+if not "%errorlevel%"=="0" goto "RecoveryError"
+del "%cd%\DiskPart.txt" /f /q > nul 2>&1
+echo Recovery partition created.
+if /i "%DiskPart%"=="True" goto "DiskPartDone"
+if /i "%BIOSAsk%"=="1" goto "DoneBIOS"
+if /i "%BIOSAsk%"=="2" goto "DoneUEFI"
+if /i "%BIOSAsk%"=="3" goto "DoneBoth"
+
+:"RecoveryError"
+echo There has been an error! Press any key to try again!
+pause > nul 2>&1
+goto "Recovery"
+
+:"DiskPartDone"
+echo.
+echo You can now rename or move back the file back to "%cd%\DiskPart.txt". Press any key to continue.
+pause > nul 2>&1
+if /i "%Windows%"=="2" goto "SANPolicy"
+if /i "%BIOSAsk%"=="1" goto "DoneBIOS"
+if /i "%BIOSAsk%"=="2" goto "DoneUEFI"
+if /i "%BIOSAsk%"=="3" goto "DoneBoth"
+
+:"DoneBIOS"
 endlocal
 echo.
-echo Your Windows To Go is ready! It is bootable with Legacy BIOS and UEFI. Press any key to close this batch file.
+echo Your Windows To Go is ready! It is bootable with Legacy BIOS only. Press any key to close this batch file.
 pause > nul 2>&1
 exit
 
-:"DoneArm64"
+:"DoneUEFI"
 endlocal
 echo.
 echo Your Windows To Go is ready! It is bootable with UEFI only. Press any key to close this batch file.
+pause > nul 2>&1
+exit
+
+:"DoneBoth"
+endlocal
+echo.
+echo Your Windows To Go is ready! It is bootable with Legacy BIOS and UEFI. Press any key to close this batch file.
 pause > nul 2>&1
 exit
