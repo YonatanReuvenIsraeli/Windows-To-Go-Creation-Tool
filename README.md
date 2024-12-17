@@ -1,4 +1,4 @@
-# Windows Installation Tool v5.0.1
+# Windows Installation Tool v5.0.2
 Install Windows onto an external drive.
 
 ## Windows Install Types
@@ -17,3 +17,7 @@ Install Windows onto an external drive.
 - Arm64 Windows installations support UEFI only.
 - x86/x64 Windows To Go installations support both legacy BIOS and UEFI.
 - Arm64 Windows To Go installations support UEFI only.
+
+## Notes:
+- 3 unused drive letters are needed for standard Windows installation.
+- 2 unused drive letters are needed for Windows To Go installation.
