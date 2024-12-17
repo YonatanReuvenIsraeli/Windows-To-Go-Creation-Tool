@@ -18,6 +18,6 @@ Install Windows onto an external drive.
 - x86/x64 Windows To Go installations support both legacy BIOS and UEFI.
 - Arm64 Windows To Go installations support UEFI only.
 
-## Notes:
+## Notes
 - 3 unused drive letters are needed for standard Windows installation.
 - 2 unused drive letters are needed for Windows To Go installation.
