@@ -13,5 +13,7 @@ Install Windows onto an external drive.
 - **Windows 11 Arm64** Home, Home Single Language and Pro.
 
 ## BIOS Compatibility
+- x86/x64 Windows installations have the option to support Legacy BIOS, UEFI or both.
+- Arm64 Windows installation support UEFI only.
 - x86/x64 Windows To Go installations support both legacy BIOS and UEFI.
 - Arm64 Windows To Go installations support UEFI only.
